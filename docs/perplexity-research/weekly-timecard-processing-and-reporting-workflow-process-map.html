@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Timecard Processing and Reporting Workflow - Process Documentation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #1f2937; background: #f9fafb; padding: 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 3rem; }
+    h1 { font-size: 2.5rem; font-weight: 700; color: #111827; margin-bottom: 0.5rem; }
+    .subtitle { font-size: 1.125rem; color: #6b7280; margin-bottom: 2rem; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; background: #e5e7eb; color: #374151; margin-bottom: 2rem; }
+    .section { margin: 2rem 0; }
+    h2 { font-size: 1.5rem; font-weight: 600; color: #111827; margin-bottom: 1rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; }
+    .step { border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; background: #f9fafb; }
+    .step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .step-badge { padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; }
+    .step-title { font-size: 1.125rem; font-weight: 600; color: #111827; }
+    .step-desc { color: #6b7280; margin: 0.5rem 0; }
+    .tech-details { background: white; border-radius: 6px; padding: 1rem; margin-top: 1rem; font-size: 0.875rem; }
+    .tech-detail-item { margin: 0.25rem 0; color: #4b5563; }
+    .tech-label { font-weight: 600; color: #374151; }
+    .requirements { display: grid; gap: 1rem; }
+    .requirement { border-left: 4px solid #3b82f6; padding: 1rem; background: #f9fafb; border-radius: 0 6px 6px 0; }
+    .req-high { border-left-color: #ef4444; }
+    .req-medium { border-left-color: #f59e0b; }
+    .req-low { border-left-color: #10b981; }
+    .req-category { font-weight: 600; text-transform: uppercase; font-size: 0.75rem; color: #6b7280; margin-bottom: 0.25rem; }
+    .flowchart { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 2rem; margin: 1rem 0; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
+    th { background: #f3f4f6; font-weight: 600; color: #374151; }
+    .type-source { background: #dbeafe; color: #1e40af; }
+    .type-transform { background: #e9d5ff; color: #6b21a8; }
+    .type-output { background: #fed7aa; color: #9a3412; }
+    .type-decision { background: #fef08a; color: #854d0e; }
+    .type-integration { background: #bbf7d0; color: #166534; }
+    @media print { body { padding: 0; } .container { box-shadow: none; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Weekly Timecard Processing and Reporting Workflow</h1>
+    <p class="subtitle">This workflow captures paper timecards received on Monday morning, digitizes them via scanning to PDF, uploads the digital files, correlates the scanned data with existing Excel records, and ultimately delivers a consolidated report to HR management.</p>
+    <span class="badge">Complexity: medium</span>
+
+    <div class="section">
+      <h2>📊 Process Overview</h2>
+      <table>
+        <tr><th>Total Steps</th><td>5</td></tr>
+        <tr><th>Connections</th><td>4</td></tr>
+        <tr><th>Estimated Complexity</th><td>medium</td></tr>
+        <tr><th>Generated</th><td>11/7/2025, 12:27:56 PM</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>🔄 Process Steps</h2>
+      
+        <div class="step">
+          <div class="step-header">
+            <span class="step-badge type-source">source</span>
+            <span class="step-badge">Physical Paper</span>
+          </div>
+          <h3 class="step-title">1. Receive Paper Timecards</h3>
+          <p class="step-desc">Collect paper timecards physically delivered on Monday morning from employees or supervisors.</p>
+          
+            <div class="tech-details">
+              <strong>Technical Details:</strong>
+              
+              <div class="tech-detail-item"><span class="tech-label">Format:</span> Paper</div>
+              
+              <div class="tech-detail-item"><span class="tech-label">SLA:</span> Must be done before scanning starts (by 10:00 AM Monday)</div>
+              <div class="tech-detail-item"><span class="tech-label">Fault Tolerance:</span> Manual check for missing or incomplete timecards</div>
+            </div>
+          
+        </div>
+      
+        <div class="step">
+          <div class="step-header">
+            <span class="step-badge type-transform">transform</span>
+            <span class="step-badge">Scanner / Document Capture Software</span>
+          </div>
+          <h3 class="step-title">2. Scan Timecards to PDF</h3>
+          <p class="step-desc">Digitize the paper timecards by scanning them into PDF format for easier processing and archival.</p>
+          
+            <div class="tech-details">
+              <strong>Technical Details:</strong>
+              
+              <div class="tech-detail-item"><span class="tech-label">Format:</span> PDF</div>
+              <div class="tech-detail-item"><span class="tech-label">Auth:</span> Device or user authentication for scanner access</div>
+              <div class="tech-detail-item"><span class="tech-label">SLA:</span> Complete scanning by 11:00 AM Monday</div>
+              <div class="tech-detail-item"><span class="tech-label">Fault Tolerance:</span> Re-scan option on poor image quality; Scan logs for errors</div>
+            </div>
+          
+        </div>
+      
+        <div class="step">
+          <div class="step-header">
+            <span class="step-badge type-integration">integration</span>
+            <span class="step-badge">Document Management System / Cloud Storage (e.g. SharePoint, Google Drive)</span>
+          </div>
+          <h3 class="step-title">3. Upload Scanned PDFs</h3>
+          <p class="step-desc">Upload scanned PDF timecards to a centralized document management or cloud storage system for access by downstream processes.</p>
+          
+            <div class="tech-details">
+              <strong>Technical Details:</strong>
+              <div class="tech-detail-item"><span class="tech-label">API:</span> /upload</div>
+              <div class="tech-detail-item"><span class="tech-label">Format:</span> PDF</div>
+              <div class="tech-detail-item"><span class="tech-label">Auth:</span> OAuth 2.0 or API Key</div>
+              <div class="tech-detail-item"><span class="tech-label">SLA:</span> Uploads complete within 30 minutes post scanning</div>
+              <div class="tech-detail-item"><span class="tech-label">Fault Tolerance:</span> Retries on upload failure; alert on repeated failure</div>
+            </div>
+          
+        </div>
+      
+        <div class="step">
+          <div class="step-header">
+            <span class="step-badge type-transform">transform</span>
+            <span class="step-badge">Local or cloud spreadsheet system (e.g. Microsoft Excel, Google Sheets)</span>
+          </div>
+          <h3 class="step-title">4. Correlate PDFs with Excel Data</h3>
+          <p class="step-desc">Match and validate the uploaded PDF timecard data with existing Excel spreadsheets containing employee work hours or payroll data.</p>
+          
+            <div class="tech-details">
+              <strong>Technical Details:</strong>
+              <div class="tech-detail-item"><span class="tech-label">API:</span> /spreadsheets/api/v1</div>
+              <div class="tech-detail-item"><span class="tech-label">Format:</span> Excel XLSX, CSV</div>
+              <div class="tech-detail-item"><span class="tech-label">Auth:</span> OAuth 2.0 or enterprise SSO</div>
+              <div class="tech-detail-item"><span class="tech-label">SLA:</span> Correlation completed within 2 hours of upload</div>
+              <div class="tech-detail-item"><span class="tech-label">Fault Tolerance:</span> Validation rules and error reports; human review for mismatches</div>
+            </div>
+          
+        </div>
+      
+        <div class="step">
+          <div class="step-header">
+            <span class="step-badge type-output">output</span>
+            <span class="step-badge">Email system (e.g. Outlook, Gmail) and/or HR Management System</span>
+          </div>
+          <h3 class="step-title">5. Deliver Report to HR Management</h3>
+          <p class="step-desc">Generate and send the final timecard report to HR management via email or upload to HR system for review and payroll processing.</p>
+          
+            <div class="tech-details">
+              <strong>Technical Details:</strong>
+              <div class="tech-detail-item"><span class="tech-label">API:</span> /sendEmail or HR system API</div>
+              <div class="tech-detail-item"><span class="tech-label">Format:</span> PDF, Excel, or HTML report</div>
+              <div class="tech-detail-item"><span class="tech-label">Auth:</span> SMTP auth / HR system OAuth</div>
+              <div class="tech-detail-item"><span class="tech-label">SLA:</span> Report delivered by 3:00 PM Monday</div>
+              <div class="tech-detail-item"><span class="tech-label">Fault Tolerance:</span> Email delivery retries; confirmation receipts; alternate contact fallback</div>
+            </div>
+          
+        </div>
+      
+    </div>
+
+    
+    <div class="section">
+      <h2>📋 Requirements</h2>
+      <div class="requirements">
+        
+          <div class="requirement req-high">
+            <div class="req-category">business - high Priority</div>
+            <div>Timecards must be received and scanned by early Monday to maintain payroll schedule</div>
+          </div>
+        
+          <div class="requirement req-high">
+            <div class="req-category">security - high Priority</div>
+            <div>PDF uploads and Excel access must use secure authentication protocols (OAuth, API keys)</div>
+          </div>
+        
+          <div class="requirement req-high">
+            <div class="req-category">security - high Priority</div>
+            <div>Data at rest must be encrypted in cloud/document storage and local drives</div>
+          </div>
+        
+          <div class="requirement req-medium">
+            <div class="req-category">performance - medium Priority</div>
+            <div>Scanning and uploading should complete within 1 hour after physical receipt</div>
+          </div>
+        
+          <div class="requirement req-medium">
+            <div class="req-category">faultTolerance - medium Priority</div>
+            <div>Retry mechanisms for scanning errors and upload failures</div>
+          </div>
+        
+          <div class="requirement req-high">
+            <div class="req-category">business - high Priority</div>
+            <div>Report must be delivered to HR management by mid-afternoon Monday</div>
+          </div>
+        
+          <div class="requirement req-medium">
+            <div class="req-category">performance - medium Priority</div>
+            <div>Correlation process must handle Excel files of up to 10,000 records without timeout</div>
+          </div>
+        
+      </div>
+    </div>
+    
+
+    <div class="section">
+      <h2>🔗 Data Flow Connections</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Data Flow</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>Receive Paper Timecards</td>
+              <td>Scan Timecards to PDF</td>
+              <td>Paper timecards</td>
+            </tr>
+          
+            <tr>
+              <td>Scan Timecards to PDF</td>
+              <td>Upload Scanned PDFs</td>
+              <td>PDF timecards</td>
+            </tr>
+          
+            <tr>
+              <td>Upload Scanned PDFs</td>
+              <td>Correlate PDFs with Excel Data</td>
+              <td>PDF timecards in cloud + Excel time data</td>
+            </tr>
+          
+            <tr>
+              <td>Correlate PDFs with Excel Data</td>
+              <td>Deliver Report to HR Management</td>
+              <td>Final correlated report data</td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+    <footer style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 0.875rem;">
+      <p>Generated by Velocity Process Mapper on 11/7/2025</p>
+    </footer>
+  </div>
+</body>
+</html>

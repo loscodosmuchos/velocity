@@ -1,0 +1,142 @@
+ (example on data displayed for review/action example)
+Call
+
+Action Required Next 30 Days
+5 critical items require action within the next 30 days.
+
+View Details
+Dashboard Critical Insights
+Workforce spend increased 12.3% this quarter. Review 5 critical alerts requiring immediate attention.
+
+View Critical Alerts
+
+User Role Perspective - Executive View
+Switch views to see role-based data
+
+Executive
+Total Contingent Labor YTD
+
+$14.35M
+168 Active Contractors
++12.30% vs LY
+PO Management
+27.60%
+Budget Remaining
+11 POs Need Attention
+Strategic Hiring Metrics
+94.2%
+Fill Rate
+3.2 Days Avg Time to Fill
+Risk Indicators
+11
+Critical Alerts
+>5 Critical
+Vendor Rebate Returns
+
+$127.4K
+Balance Staffing: $89K, Others: $38K
++$12.3K This Quarter
+Spending Trends
+Jan
+Feb
+Mar
+Apr
+May
+Jun
+$0M
+$0.6M
+$1.2M
+
+Geographic Distribution
+Balance Staffing: 450
+TechCorp Solutions: 320
+Global Staffing: 180
+Asia Pacific Consulting: 150
+Advanced Analytics & Insights
+
+Vendor Spend
+
+Cost Center
+
+SOW Delivery
+
+Strategic Intel
+Total Spend by Vendor - Time & Materials vs SOW
+Vendor
+Location
+T&M
+SOW
+Total
+%
+TechCorp Solutions
+Detroit HQ
+$1250K
+$180K
+$1430K
+31%
+Global Staffing Inc
+Austin Lab
+$890K
+$120K
+$1010K
+22%
+Asia Pacific Consulting
+Tokyo Mfg
+$650K
+$300K
+$950K
+21%
+European Partners
+Munich Eng
+$420K
+$250K
+$670K
+15%
+Bangalore Tech
+Bangalore
+$380K
+$180K
+$560K
+12%
+TOTAL
+All Locations
+$3590K
+$1030K
+$4620K
+100%
+Top Performing Vendor
+TechCorp Solutions - $1.43M total spend
+
+Detroit HQ • 87% T&M, 13% SOW
+
+Cost Optimization Opportunity
+Consolidate smaller vendors
+
+Potential 15% savings identified
+
+VELOCITY AI Intelligence Engine
+ACTIVE
+Advanced pattern recognition and predictive insights powered by machine learning algorithms
+
+CRITICAL
+Budget Threshold Alert
+Engineering spend approaching 95% of Q4 allocation. Projected overrun: $234K by month-end.
+
+Confidence: 94%
+Review Now
+OPTIMIZE
+Cost Optimization
+Vendor consolidation opportunity detected. Potential savings: $127K annually across 3 vendors.
+
+Confidence: 87%
+View Plan
+Intelligence Summary
+Updated 2 minutes ago
+147
+Patterns Analyzed
+$2.3M
+Savings Identified
+94%
+Prediction Accuracy
+23
+Active Alerts

@@ -1,0 +1,56 @@
+Let me search for incomplete items, TODOs, and referenced features across the codebase:
+
+
+Show 14 more
+
+Executed rg -i 'not yet|❌|🔴|missing|need to|should have|forgot|need|blocked' docs | head -n 60
+
+Decided on final review items
+Based on my comprehensive review of documentation, code comments, and project state, here's the consolidated list:
+
+🔴 DROPPED/MISSED/FORGOTTEN ITEMS
+CRITICAL (Demo Blockers)
+#	Item	Source	Status
+1	Voice-First Contract Intelligence - Email PDF → Claude → Phone callback	DEMO-PREPARATION-GAPS.md	❌ Not deployed (export package ready)
+2	End-to-end demo testing - Never actually clicked through 6-step flow	FINAL-GAPS.md	❌ Never tested with real clicks
+3	PDF upload verification - Never uploaded actual PDF to Multi-Lens Analyzer	FINAL-GAPS.md	❌ Untested
+4	Timecard exception handling - Overtime/missing detection	MVP-STATUS.md	❌ 0% complete
+5	Invoice payment integration	MVP-STATUS.md	❌ 0% complete
+HIGH (Expected Features Missing)
+#	Item	Source	Status
+6	Communication Hub templates - Pre-drafted 1-click messages	MVP-STATUS.md	❌ 0%
+7	Invoice 3-way matching logic - PO ↔ Invoice ↔ GR	MVP-STATUS.md	🔶 50%
+8	Timecard CSV import processing - Upload works, logic incomplete	MVP-STATUS.md	🔶 60%
+9	Vendor onboarding automation - Currently manual	PLATFORM-COMPLETENESS-AUDIT.md	⚠️ Manual only
+10	Market wage benchmarking - External data integration	PLATFORM-COMPLETENESS-AUDIT.md	❌ Missing
+11	Vendor SLA monitoring - Approval SLA exists, vendor SLA doesn't	PLATFORM-COMPLETENESS-AUDIT.md	⚠️ Partial
+12	Skills taxonomy - Free-text job descriptions only	PLATFORM-COMPLETENESS-AUDIT.md	❌ Missing
+MEDIUM (Code TODOs Found)
+#	Item	File	Status
+13	Timecard approvedBy hardcoded to 1	timecards/bulk-approve.tsx	🔶 TODO
+14	Approval currentApproverId hardcoded	approval-integration.ts	🔶 TODO
+15	User role hardcoded "Admin"	chatbots-display.tsx	🔶 TODO
+16	Playwright config - File referenced but missing	MENU-LINKING-STATUS.md	❌ Not created
+NICE-TO-HAVE (Designed but Not Built)
+#	Item	Source	Status
+17	Auto-save system - 30-sec saves with visual indicator	DEMO-PREPARATION-GAPS.md	❌ Designed, not built
+18	Gantt chart visualization	PLATFORM-COMPLETENESS-AUDIT.md	❌ Missing
+19	Task dependencies - Automated scheduling	PLATFORM-COMPLETENESS-AUDIT.md	❌ Missing
+20	Document version control	PLATFORM-COMPLETENESS-AUDIT.md	❌ Missing
+21	Portfolio management dashboard	PLATFORM-COMPLETENESS-AUDIT.md	❌ 12.5%
+22	GitHub sync - Still timing out (40K+ files)	GITHUB_SYNC_ARCHITECTURE.md	⚠️ Blocked
+DO NOT DEMO (Explicitly Called Out)
+#	Item	Reason
+23	ATS/Recruitment features	Only 15% complete - NOT competitive
+24	ERP pre-built connectors	REST API only - manage expectations
+SESSION-SPECIFIC ITEMS (Recent Context)
+#	Item	Status
+25	Project Management Central - Progress bars now fixed	✅ Just fixed
+26	VINessa color scheme - Changed to enterprise blue/cyan	✅ Done
+27	VINessa conversation history bug	✅ Fixed
+RECOMMENDED PRIORITY ORDER
+Test 6-step demo flow manually (20 min)
+Deploy Voice-First Contract Intelligence (4-5 hrs)
+Test PDF upload with real document (15 min)
+Fix hardcoded user IDs in approvals (30 min)
+Complete timecard exception handling (2 hrs)

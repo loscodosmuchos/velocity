@@ -1,0 +1,59 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e18]:
+    - generic [ref=e19]:
+      - img "Velocity" [ref=e22]
+      - heading "Velocity Intelligence Network" [level=1] [ref=e23]
+      - paragraph [ref=e24]: Enterprise Workforce Management
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - heading "Welcome Back" [level=2] [ref=e27]
+        - paragraph [ref=e28]: Sign in to access your dashboard
+      - generic [ref=e29]:
+        - paragraph [ref=e30]: Quick Access (Demo)
+        - generic [ref=e31]:
+          - button "Admin" [ref=e32]:
+            - img [ref=e33]
+            - generic [ref=e35]: Admin
+          - button "Manager" [ref=e36]:
+            - img [ref=e37]
+            - generic [ref=e42]: Manager
+          - button "Viewer" [ref=e43]:
+            - img [ref=e44]
+            - generic [ref=e47]: Viewer
+      - generic [ref=e50]: or enter credentials
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - generic [ref=e54]: Email Address
+          - textbox "Email Address" [ref=e55]:
+            - /placeholder: Enter your email
+            - text: demo@velocity.com
+        - generic [ref=e56]:
+          - generic [ref=e57]: Password
+          - textbox "Password" [ref=e58]:
+            - /placeholder: Enter your password
+            - text: demopassword123
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - checkbox "Remember me" [ref=e61]
+            - checkbox
+            - generic [ref=e62] [cursor=pointer]: Remember me
+          - link "Forgot password?" [ref=e63] [cursor=pointer]:
+            - /url: /forgot-password
+            - generic [ref=e64]: Forgot password?
+        - button "Sign In" [ref=e65]:
+          - generic [ref=e66]:
+            - img
+            - text: Sign In
+      - paragraph [ref=e68]:
+        - text: Need access?
+        - link "Request an account" [ref=e69] [cursor=pointer]:
+          - /url: /register
+    - generic [ref=e70]:
+      - img [ref=e71]
+      - generic [ref=e73]: Enterprise-grade security with JWT authentication
+    - paragraph [ref=e74]: Velocity v2.0 · Built with precision
+  - region "Notifications alt+T"
+```

@@ -1,0 +1,145 @@
+Based on the comprehensive specifications in your knowledge base, here are the detailed requirements and strategy for ensuring all necessary fields and datapoints for Velocity test data for client demos:
+
+## Core Data Requirements for Demo Success
+
+### Critical Entity Fields
+
+**Contractor/Candidate Records**
+- Personal identifiers: Name, email, phone, lifecycle state (prospect → candidate → active → terminated)
+- Resume data: Skills, experience years, parsed resume text with embeddings for semantic search
+- Compliance: I-9 verification dates, E-Verify status, background check status
+- Employment details: Hire date, hourly rate, client billable rate, escalation rules
+- Assignments: Vendor ID, PO ID, manager ID, location ID
+
+**Project Portfolio (165 projects for Hyundai demo)**
+- Project metadata: Name, owner, budget, timeline, status
+- Health scoring: RAG status (Red/Amber/Green) with trend indicators
+- Dependency mapping: Blocked-by and blocks relationships
+- Budget variance: Actual vs planned with percentage calculations
+- Resource allocation: Team member utilization percentages
+
+**Purchase Orders & Vendor Management**
+- PO details: Number, amount, status, created date
+- Vendor information: Name, spend amounts, performance scores, contract terms
+- Budget tracking: Variance percentages with color-coded alerts
+- Approval workflows: Progress bars showing 2 of 3 approvers signed off
+- Invoice matching: PO-to-invoice reconciliation data
+
+**Infrastructure Assets (19 remote sites)**
+- Asset inventory: Equipment type, location, installation date
+- EOL tracking: End-of-life dates for switches and hardware
+- Dependency networks: Which sites depend on which infrastructure
+- Replacement costs: Financial impact of asset failures
+
+## Demo-Specific Test Data Strategy
+
+### Why Realistic Data Matters
+1. **Executive credibility**: CPO and CFO audiences need recognizable scenarios
+2. **Workflow validation**: Demonstrates actual pain point resolution
+3. **Performance testing**: Ensures system handles realistic data volumes
+4. **Story coherence**: Data must support narrative flow across demo acts
+
+### Essential Demo Scenarios
+
+**Act 1: Portfolio Crisis (Active Directory)**
+- 165 total projects with realistic distribution (78 in-flight, 45 on-hold, 32 planning, 10 closed)
+- 5 critical projects highlighted as "At Risk"
+- Active Directory project blocking 6 dependent projects
+- $2.3M value blocked quantified
+- Dependencies visualized in network graph
+
+**Act 2: Vendor Cost Overrun**
+- E-Plus vendor: $450K/year actual spend
+- SHI vendor: $380K/year market benchmark
+- 18% cost overrun calculated
+- Contract clauses flagged (auto-renewal, unlimited liability)
+- AI-generated savings recommendation: $67K-90K annually
+
+**Act 3: Infrastructure Risk**
+- 19 remote sites mapped geographically
+- 2 switches past EOL (critical status)
+- 4 switches within 12 months of EOL (warning status)
+- $139K replacement cost calculated
+- Dependency chains showing impact
+
+**Act 4: Mobile Timecard Workflow**
+- 100 pending timecards ready for approval
+- Anomaly detection: Hours logged at closed Site 12
+- Compliance validation: Breaks, overtime, OSHA requirements
+- 10-minute approval time vs 2-hour desktop baseline
+
+## Data Generation Requirements
+
+### Volume Benchmarks
+- **Minimum viable**: 50 projects, 25 contractors, 10 vendors, 5 sites
+- **Demo optimal**: 165 projects, 150 contractors, 20 vendors, 19 sites
+- **Stress test**: 500 projects, 500 contractors, 50 vendors, 50 sites
+
+### Data Quality Criteria
+1. **Temporal consistency**: Dates must follow logical sequences (hire date < start date < current date)
+2. **Relational integrity**: All foreign keys must resolve (contractor → vendor → PO → project)
+3. **Financial accuracy**: Budget calculations must sum correctly across hierarchies
+4. **Status coherence**: Lifecycle states must follow valid transitions
+5. **Compliance flags**: I-9, E-Verify, background checks must have realistic statuses
+
+### Hybrid Search Enablement
+- **Text fields**: Resumes, job descriptions, project notes must be search-indexed
+- **Vector embeddings**: Generate semantic embeddings for 384-dimension pgvector
+- **BM25 keywords**: Tag fields for keyword search (skills, project names, vendor names)
+- **Test queries**: "Senior React developer", "projects over budget in Q4", "vendors with compliance gaps"
+
+## Technical Implementation
+
+### Database Population
+```sql
+-- Example test data structure
+INSERT INTO persons (company_id, firstname, lastname, email, lifecycle_state)
+VALUES 
+  ('tenant-uuid', 'John', 'Smith', 'jsmith@example.com', 'candidate'),
+  ('tenant-uuid', 'Sarah', 'Johnson', 'sjohnson@example.com', 'activecontractor');
+
+-- Budget variance calculations
+UPDATE projects 
+SET budget_variance = ((actual_spend - budgeted_amount) / budgeted_amount) * 100
+WHERE project_status = 'in-flight';
+```
+
+### Integration Data Requirements
+- **NetSuite ERP**: PO amounts, statuses, payment dates
+- **Jira**: Project names, dependencies, sprint data
+- **Salesforce**: Vendor logos, contact information
+- **ADP/Workday**: Employee roster, contractor assignments
+- **Checkr**: Background check statuses
+- **E-Verify**: I-9 compliance flags
+
+## Demo-Specific Success Metrics
+
+### Performance Targets
+- **Page load**: 2 seconds for 100 records
+- **Filter response**: 500ms
+- **Search results**: 1 second with typeahead after 3 characters
+- **Mobile responsiveness**: 80% feature parity on tablet/phone
+
+### User Acceptance Criteria
+- CPO can answer "What's our vendor spend?" in 10 seconds
+- PM can identify budget overruns in 3 clicks
+- Finance can export POs for audit in 30 seconds
+- Field Supervisor can approve timecards from phone in 10 minutes
+
+### Data Validation Checklist
+- [ ] All 165 projects have health scores
+- [ ] Active Directory dependency crisis visible in network graph
+- [ ] E-Plus vs SHI comparison shows 18% variance
+- [ ] 19 sites have EOL dates populated
+- [ ] 100 timecards ready for mobile approval
+- [ ] Budget variances calculate correctly across all entities
+- [ ] Search returns relevant results across all text fields
+- [ ] All foreign key relationships resolve without errors
+
+This comprehensive data strategy ensures your demo proves "This platform understands your world better than you do, and solves problems you didn't even know were solvable."
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/org_7da773a8-4f32-47c2-a8a0-ea1654aadbf2/6464a9d5-3926-4bbb-ab36-82436e61c0b3/VELOCITY_INTEGRATED_MVP_SPEC_v1-1.md)
+[2](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/org_7da773a8-4f32-47c2-a8a0-ea1654aadbf2/9659866b-167b-457e-9b69-b75ce6bb4b97/VELOCITY-PLATFORM_-MULTI-EXPERT-DISCOVERY-ENGINE_S.md)
+[3](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/org_7da773a8-4f32-47c2-a8a0-ea1654aadbf2/817b9ffd-9dab-4029-8b16-cf7f5d55879d/VELOCITY-PLATFORM_-MULTI-EXPERT-DISCOVERY-ENGINE_S.md)
+[4](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/org_7da773a8-4f32-47c2-a8a0-ea1654aadbf2/011ba74b-3ed6-4d62-8014-8a19e1c4a0c4/velocity_video_demo_script.md)
+[5](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_af853782-f9d9-43d1-a249-44d0486ae53c/33bdc975-287e-4aab-a069-d8d566f7ccc8/velocity_video_demo_script.md)

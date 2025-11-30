@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thread Parser Lab - AI-Powered Code Extraction</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <span class="logo">🧪</span>
+            <h1 class="app-title">Thread Parser Lab</h1>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" id="themeBtn" data-tooltip="Switch theme (Ctrl+T)">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <button class="icon-btn" id="helpBtn" data-tooltip="Show help and shortcuts (Ctrl+/)">
+                <span>❓</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <!-- Input Panel -->
+            <section class="panel">
+                <h3 class="panel-title">Input Thread</h3>
+                <div class="editor-container" data-tooltip="Paste your conversation thread here. Supports Markdown, code blocks, and mixed content. AI will automatically detect and classify all code segments.">
+                    <textarea id="inputEditor" class="code-editor" placeholder="Paste your conversation thread with code blocks here..."></textarea>
+                    <div class="editor-info">
+                        <span id="charCount">0 characters</span>
+                        <button class="text-btn" id="clearInputBtn" data-tooltip="Clear input (Ctrl+K)">Clear</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Configuration Panel -->
+            <section class="panel">
+                <h3 class="panel-title">Configuration</h3>
+                
+                <div class="form-group">
+                    <label class="form-label" data-tooltip="Select the type of project you're extracting code for. This helps the AI understand the expected structure.">Project Type</label>
+                    <select id="projectType" class="form-control">
+                        <option value="multi-agent">Multi-Agent System</option>
+                        <option value="web-app">Web Application</option>
+                        <option value="api-service">API Service</option>
+                        <option value="cli-tool">CLI Tool</option>
+                        <option value="data-pipeline">Data Pipeline</option>
+                        <option value="automation">Automation Script</option>
+                        <option value="chrome-ext">Chrome Extension</option>
+                        <option value="desktop-app">Desktop App</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-tooltip="Select target programming languages for intelligent classification. Multi-language detection enabled by default.">Programming Languages</label>
+                    <div class="multi-select" id="languageSelector">
+                        <div class="selected-tags" id="selectedLanguages"></div>
+                        <select id="languageDropdown" class="form-control">
+                            <option value="">+ Add language...</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="typescript">TypeScript</option>
+                            <option value="go">Go</option>
+                            <option value="rust">Rust</option>
+                            <option value="java">Java</option>
+                            <option value="ruby">Ruby</option>
+                            <option value="php">PHP</option>
+                            <option value="bash">Bash</option>
+                            <option value="yaml">YAML</option>
+                            <option value="json">JSON</option>
+                            <option value="dockerfile">Dockerfile</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-tooltip="Choose frameworks used in your project. This helps improve context awareness and dependency mapping.">Frameworks</label>
+                    <div class="multi-select" id="frameworkSelector">
+                        <div class="selected-tags" id="selectedFrameworks"></div>
+                        <select id="frameworkDropdown" class="form-control">
+                            <option value="">+ Add framework...</option>
+                            <option value="langchain">LangChain</option>
+                            <option value="crewai">CrewAI</option>
+                            <option value="autogen">AutoGen</option>
+                            <option value="react">React</option>
+                            <option value="nextjs">Next.js</option>
+                            <option value="fastapi">FastAPI</option>
+                            <option value="express">Express</option>
+                            <option value="django">Django</option>
+                            <option value="flask">Flask</option>
+                            <option value="n8n">n8n</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-tooltip="AI analyzes conversation flow to understand code relationships, dependencies, and project structure. Higher levels provide more detailed analysis but take longer.">Context Awareness: <span id="contextValue">High</span></label>
+                    <input type="range" id="contextAwareness" class="slider" min="1" max="4" value="3" step="1">
+                    <div class="slider-labels">
+                        <span>Low</span>
+                        <span>Medium</span>
+                        <span>High</span>
+                        <span>Max</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label checkbox-label">
+                        <input type="checkbox" id="batchProcessing" checked>
+                        <span data-tooltip="Enable parallel processing of multiple code blocks. Higher batch size = faster but more memory usage. Default: 32">Batch Processing</span>
+                    </label>
+                    <div id="batchSizeContainer" class="sub-group">
+                        <label class="form-label-small">Batch Size: <span id="batchSizeValue">32</span></label>
+                        <input type="range" id="batchSize" class="slider" min="8" max="128" value="32" step="8">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-tooltip="Balanced: Equal speed and accuracy. Speed: 2.5x faster but may miss edge cases. Accuracy: Thorough analysis, detects 15% more edge cases.">Performance Mode</label>
+                    <select id="performanceMode" class="form-control">
+                        <option value="balanced">⚖️ Balanced</option>
+                        <option value="speed">⚡ Speed</option>
+                        <option value="accuracy">🎯 Accuracy</option>
+                    </select>
+                </div>
+
+                <details class="advanced-settings">
+                    <summary>Advanced Settings</summary>
+                    <div class="advanced-content">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeComments" checked>
+                            <span data-tooltip="Keep code comments in extracted files">Include Comments</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="generateTests">
+                            <span data-tooltip="Generate basic test file templates">Generate Tests</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="addDocumentation" checked>
+                            <span data-tooltip="Create README.md with project overview">Add Documentation</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="createDocker">
+                            <span data-tooltip="Generate Docker and docker-compose files">Create Docker Configs</span>
+                        </label>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="action-buttons">
+                <button class="btn btn-primary" id="parseBtn" data-tooltip="Extract and classify all code from the thread (Ctrl+Enter)">
+                    <span class="btn-icon">🚀</span>
+                    Parse &amp; Extract
+                </button>
+                <button class="btn btn-secondary" id="exampleBtn" data-tooltip="Load a sample thread with multi-agent code">Load Example</button>
+                <button class="btn btn-outline" id="resetBtn" data-tooltip="Clear all inputs and results">Reset All</button>
+            </section>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <!-- Welcome Screen -->
+            <div id="welcomeScreen" class="welcome-screen">
+                <div class="welcome-content">
+                    <h2>🧪 Welcome to Thread Parser Lab</h2>
+                    <p class="welcome-subtitle">AI-Powered Code Extraction &amp; Classification</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <span class="feature-icon">🤖</span>
+                            <h4>Intelligent Classification</h4>
+                            <p>Automatically detects and classifies code by language, purpose, and context</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🔗</span>
+                            <h4>Context Awareness</h4>
+                            <p>Maps dependencies and relationships between code blocks</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">⚡</span>
+                            <h4>Batch Processing</h4>
+                            <p>Parallel processing of 50+ code blocks per second</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">📦</span>
+                            <h4>Production Ready</h4>
+                            <p>Generates complete project structure with configs</p>
+                        </div>
+                    </div>
+
+                    <div class="quick-start">
+                        <h3>Quick Start</h3>
+                        <ol>
+                            <li>Paste your conversation thread containing code blocks</li>
+                            <li>Configure project type and languages</li>
+                            <li>Click "Parse &amp; Extract" or press Ctrl+Enter</li>
+                            <li>Review extracted files and download as ZIP</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processing Screen -->
+            <div id="processingScreen" class="processing-screen hidden">
+                <div class="processing-content">
+                    <h2>🔄 Processing Thread...</h2>
+                    
+                    <div class="processing-step">
+                        <div class="step-header">
+                            <span class="step-number">1</span>
+                            <span class="step-title" id="step1Title">Analyzing thread structure...</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress1"></div>
+                        </div>
+                    </div>
+
+                    <div class="processing-step">
+                        <div class="step-header">
+                            <span class="step-number">2</span>
+                            <span class="step-title" id="step2Title">Detecting code blocks...</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress2"></div>
+                        </div>
+                    </div>
+
+                    <div class="processing-step">
+                        <div class="step-header">
+                            <span class="step-number">3</span>
+                            <span class="step-title" id="step3Title">Classifying by language...</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress3"></div>
+                        </div>
+                        <div class="language-badges" id="languageBadges"></div>
+                    </div>
+
+                    <div class="processing-step">
+                        <div class="step-header">
+                            <span class="step-number">4</span>
+                            <span class="step-title" id="step4Title">Understanding context...</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress4"></div>
+                        </div>
+                    </div>
+
+                    <div class="processing-step">
+                        <div class="step-header">
+                            <span class="step-number">5</span>
+                            <span class="step-title" id="step5Title">Organizing project structure...</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="resultsScreen" class="results-screen hidden">
+                <div class="results-header">
+                    <h2>✅ Extraction Complete</h2>
+                    <button class="btn btn-primary" id="downloadAllBtn" data-tooltip="Download all files as ZIP (Ctrl+D)">
+                        <span>📥</span> Download All
+                    </button>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" data-tab="files">📁 Extracted Files</button>
+                    <button class="tab" data-tab="analysis">📊 Classification Analysis</button>
+                    <button class="tab" data-tab="context">🧠 Context Awareness</button>
+                    <button class="tab" data-tab="performance">⚡ Performance Metrics</button>
+                </div>
+
+                <div class="tab-content">
+                    <!-- Tab 1: Extracted Files -->
+                    <div id="filesTab" class="tab-panel active">
+                        <div class="files-layout">
+                            <div class="file-tree">
+                                <h3>Project Structure</h3>
+                                <div id="fileTreeContent"></div>
+                            </div>
+                            <div class="file-preview">
+                                <div id="filePreviewContent">
+                                    <div class="preview-placeholder">
+                                        <span>👈</span>
+                                        <p>Select a file to preview</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Classification Analysis -->
+                    <div id="analysisTab" class="tab-panel">
+                        <div class="analysis-grid">
+                            <div class="analysis-card">
+                                <h3>Language Distribution</h3>
+                                <canvas id="languageChart"></canvas>
+                            </div>
+                            <div class="analysis-card">
+                                <h3>File Types</h3>
+                                <canvas id="fileTypeChart"></canvas>
+                            </div>
+                            <div class="analysis-card full-width">
+                                <h3>Confidence Metrics</h3>
+                                <div id="confidenceTable"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Context Awareness -->
+                    <div id="contextTab" class="tab-panel">
+                        <div class="context-insights">
+                            <div class="insight-card">
+                                <h3>🎯 Project Detection</h3>
+                                <div id="projectDetection"></div>
+                            </div>
+                            <div class="insight-card">
+                                <h3>🔗 Dependencies Mapped</h3>
+                                <div id="dependencyGraph"></div>
+                            </div>
+                            <div class="insight-card">
+                                <h3>♻️ Code Reuse Detected</h3>
+                                <div id="codeReuse"></div>
+                            </div>
+                            <div class="insight-card">
+                                <h3>⚠️ Missing Dependencies</h3>
+                                <div id="missingDeps"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Performance Metrics -->
+                    <div id="performanceTab" class="tab-panel">
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-icon">⏱️</div>
+                                <div class="metric-value" id="processingTime">--</div>
+                                <div class="metric-label">Processing Time</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">🎯</div>
+                                <div class="metric-value" id="tokenUsage">--</div>
+                                <div class="metric-label">Token Usage</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">💾</div>
+                                <div class="metric-value" id="memoryUsage">--</div>
+                                <div class="metric-label">Memory Usage</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">📊</div>
+                                <div class="metric-value" id="batchEfficiency">--</div>
+                                <div class="metric-label">Batch Efficiency</div>
+                            </div>
+                        </div>
+                        <div class="performance-tips">
+                            <h3>🚀 Performance Optimizations</h3>
+                            <ul id="performanceTipsList"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Status Bar -->
+    <footer class="status-bar">
+        <span id="statusMessage">Ready</span>
+        <span id="statusDetails"></span>
+    </footer>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📚 Help &amp; Shortcuts</h2>
+                <button class="modal-close" id="closeHelpModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <section>
+                    <h3>⌨️ Keyboard Shortcuts</h3>
+                    <table class="shortcuts-table">
+                        <tr><td><kbd>Ctrl</kbd> + <kbd>Enter</kbd></td><td>Parse thread</td></tr>
+                        <tr><td><kbd>Ctrl</kbd> + <kbd>K</kbd></td><td>Clear input</td></tr>
+                        <tr><td><kbd>Ctrl</kbd> + <kbd>D</kbd></td><td>Download all files</td></tr>
+                        <tr><td><kbd>Ctrl</kbd> + <kbd>T</kbd></td><td>Toggle theme</td></tr>
+                        <tr><td><kbd>Ctrl</kbd> + <kbd>/</kbd></td><td>Show help</td></tr>
+                        <tr><td><kbd>Esc</kbd></td><td>Close modals</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>🎯 Features</h3>
+                    <ul>
+                        <li><strong>Intelligent Classification:</strong> Automatically detects Python, JavaScript, YAML, JSON, Dockerfile, Bash, and more</li>
+                        <li><strong>Context Awareness:</strong> Maps dependencies and relationships between files</li>
+                        <li><strong>Batch Processing:</strong> Process 50+ code blocks per second with parallel execution</li>
+                        <li><strong>Purpose Detection:</strong> Classifies files as Agent Definitions, Configs, Setup Scripts, etc.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>💡 Tips</h3>
+                    <ul>
+                        <li>Use batch processing for threads with 20+ code blocks</li>
+                        <li>High context awareness recommended for complex projects</li>
+                        <li>Speed mode is 2.5x faster for straightforward code</li>
+                        <li>Accuracy mode detects 15% more edge cases</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Modal -->
+    <div id="downloadModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📥 Download Options</h2>
+                <button class="modal-close" id="closeDownloadModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-primary full-width" id="downloadZipBtn">
+                    <span>📦</span> Download as ZIP (all files)
+                </button>
+                <button class="btn btn-secondary full-width" id="copyAllBtn">
+                    <span>📋</span> Copy all code to clipboard
+                </button>
+                <div class="download-list">
+                    <h3>Individual Files</h3>
+                    <div id="individualFilesList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip Container -->
+    <div id="tooltip" class="tooltip hidden"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

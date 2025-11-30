@@ -1,0 +1,69 @@
+{
+  "timestamp": "2025-11-18T22:30:49.340Z",
+  "baseUrl": "http://localhost:5000",
+  "validations": [
+    {
+      "route": "/",
+      "name": "dashboard",
+      "status": "pass",
+      "hasSidebar": true,
+      "hasTopNav": true,
+      "hasDefaultError": false,
+      "screenshot": "/home/runner/workspace/screenshots/dashboard-1763505056085.png"
+    },
+    {
+      "route": "/contractors",
+      "name": "contractors-list",
+      "status": "pass",
+      "hasSidebar": true,
+      "hasTopNav": true,
+      "hasDefaultError": false,
+      "screenshot": "/home/runner/workspace/screenshots/contractors-list-1763505062781.png"
+    },
+    {
+      "route": "/purchase-orders",
+      "name": "purchase-orders-list",
+      "status": "pass",
+      "hasSidebar": true,
+      "hasTopNav": true,
+      "hasDefaultError": false,
+      "screenshot": "/home/runner/workspace/screenshots/purchase-orders-list-1763505069302.png"
+    },
+    {
+      "route": "/timecards",
+      "name": "timecards-list",
+      "status": "pass",
+      "hasSidebar": true,
+      "hasTopNav": true,
+      "hasDefaultError": false,
+      "screenshot": "/home/runner/workspace/screenshots/timecards-list-1763505075697.png"
+    },
+    {
+      "route": "/invoices",
+      "name": "invoices-list",
+      "status": "pass",
+      "hasSidebar": true,
+      "hasTopNav": true,
+      "hasDefaultError": false,
+      "screenshot": "/home/runner/workspace/screenshots/invoices-list-1763505081621.png"
+    },
+    {
+      "route": "/expenses",
+      "name": "expenses-list",
+      "status": "pass",
+      "hasSidebar": true,
+      "hasTopNav": true,
+      "hasDefaultError": false,
+      "screenshot": "/home/runner/workspace/screenshots/expenses-list-1763505087256.png"
+    },
+    {
+      "route": "/assets",
+      "name": "assets-list",
+      "status": "pass",
+      "hasSidebar": true,
+      "hasTopNav": true,
+      "hasDefaultError": false,
+      "screenshot": "/home/runner/workspace/screenshots/assets-list-1763505092778.png"
+    }
+  ]
+}

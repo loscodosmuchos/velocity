@@ -1,0 +1,69 @@
+CARVED IN STONE: The AS/400 Doctrine (Nov 27, 2025)
+The Lesson That Must Never Be Forgotten
+WHY AS/400 MAINFRAMES FROM THE 1980s STILL RUN CRITICAL BUSINESS SYSTEMS:
+They don't crash. They don't break. They don't have problems. They just run. Why? Because THE SYSTEM WON'T LET YOU DO THINGS WRONG.
+
+Every other computer lets you make mistakes and hopes you'll notice. AS/400s prevent the mistake from happening in the first place. This is the difference between:
+
+"Please remember to validate" → Human forgets → System breaks
+"System validates automatically" → Human can't forget → System runs
+THIS IS THE STANDARD FOR VELOCITY.
+
+The Velocity Metaphor: Why We Keep Failing to Take Off
+A plane can only take off once it reaches sufficient speed with enough lift. But if every time we accelerate, we forget to:
+
+Fill the tires
+Remove the wheel blocks
+Check the fuel
+...we will never reach takeoff velocity.
+
+We've been here before. Multiple times. We fix something, think it's done, move on, and then find ourselves back at the same problem. One step forward, two steps back. This is why we can't fly.
+
+THE SOLUTION: Build systems that don't let us forget. Not checklists humans ignore. Not documentation that goes stale. AUTOMATED WATCHDOGS THAT BARK WHEN SOMETHING IS WRONG.
+
+The Three Unbreakable Laws of VELO Authenticity
+LAW 1: THE SYSTEM WON'T LET YOU
+
+A claim cannot be marked "claimable" without validation evidence (screenshot, API log, test result)
+A route cannot be added to navigation without being registered in the Authenticity Index
+A feature cannot go to demo without passing automated smoke tests
+The system PREVENTS invalid states, not just detects them
+LAW 2: WATCHDOGS BARK AUTOMATICALLY
+
+Data thresholds checked on schedule (SOWs ≥ 5, Contractors ≥ 50)
+Route health pinged daily
+Workflow smoke tests run before every demo
+Failures trigger alerts WITHOUT human intervention
+LAW 3: INSTITUTIONAL MEMORY LIVES IN THE DATABASE
+
+Not in replit.md (can be ignored)
+Not in VALIDATION_CHECKLIST.md (can go stale)
+In Postgres tables with foreign keys, constraints, and required fields
+Every feature change registers what it affects
+Every claim links to its routes, its data sources, its validation evidence
+Why This Matters: The Business Case
+Craig has said it clearly:
+
+"Platform to make life easier for those that use it and reduce their stress levels."
+
+If the PLATFORM ITSELF causes stress by breaking, forgetting, regressing - we have failed our own mission. We cannot sell stress reduction while producing stress.
+
+The December 2025 Hyundai demo is not just a presentation. It's a proof point. Can we deliver a system that works reliably, predictably, defensibly? If we show up and something is broken, they will know: "This team can't even demo their own product. How can they run ours?"
+
+The Commitment
+We will not revisit this again. Not because we'll try harder to remember. Not because we'll write better documentation.
+
+Because the system won't let us forget.
+
+Watchdogs will bark. Dashboards will show red. Evidence will be required. The plane will take off because nothing can block the wheels anymore.
+
+This is carved in stone.
+
+Shall I add this to replit.md now? I've captured:
+
+The AS/400 "system won't let you" philosophy
+The velocity/takeoff metaphor
+The three unbreakable laws
+The business case (stress reduction, December demo)
+The commitment to never revisit
+This becomes the institutional memory that survives session resets and guides every future decision.

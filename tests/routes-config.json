@@ -1,0 +1,88 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "name": "Dashboard",
+      "priority": "critical",
+      "expectedElements": ["h1", "metric", "card"]
+    },
+    {
+      "path": "/contractors",
+      "name": "Contractors List",
+      "priority": "critical",
+      "expectedElements": ["table", "name", "action"]
+    },
+    {
+      "path": "/contractors/import",
+      "name": "Contractors Import",
+      "priority": "critical",
+      "expectedElements": ["form", "button"]
+    },
+    {
+      "path": "/purchase-orders",
+      "name": "Purchase Orders List",
+      "priority": "critical",
+      "expectedElements": ["table", "po-number", "action"]
+    },
+    {
+      "path": "/invoices",
+      "name": "Invoices List",
+      "priority": "critical",
+      "expectedElements": ["table", "invoice", "action"]
+    },
+    {
+      "path": "/assets",
+      "name": "Assets List",
+      "priority": "critical",
+      "expectedElements": ["table", "barcode", "action"]
+    },
+    {
+      "path": "/timecards",
+      "name": "Timecards List",
+      "priority": "critical",
+      "expectedElements": ["table", "id", "action"]
+    },
+    {
+      "path": "/expenses",
+      "name": "Expenses List",
+      "priority": "critical",
+      "expectedElements": ["table", "id", "action"]
+    },
+    {
+      "path": "/statement-of-works/create",
+      "name": "SOW Create",
+      "priority": "critical",
+      "expectedElements": ["form", "dropdown"]
+    },
+    {
+      "path": "/ai/insights",
+      "name": "AI Insights",
+      "priority": "critical",
+      "expectedElements": ["tab", "analysis", "contract"]
+    },
+    {
+      "path": "/statement-of-works",
+      "name": "Statements of Work List",
+      "priority": "high",
+      "expectedElements": ["table", "sow"]
+    },
+    {
+      "path": "/change-orders",
+      "name": "Change Orders List",
+      "priority": "high",
+      "expectedElements": ["table", "change-order"]
+    },
+    {
+      "path": "/employees",
+      "name": "Employees List",
+      "priority": "high",
+      "expectedElements": ["table", "employee"]
+    },
+    {
+      "path": "/approvals/requests",
+      "name": "Approvals List",
+      "priority": "high",
+      "expectedElements": ["table", "approval"]
+    }
+  ]
+}

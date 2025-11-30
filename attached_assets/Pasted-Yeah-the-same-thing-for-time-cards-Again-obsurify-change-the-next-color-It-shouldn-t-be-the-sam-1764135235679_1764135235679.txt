@@ -1,0 +1,16 @@
+Yeah, the same thing for time cards. Again, obsurify, change the next color. It shouldn't be the same color as the icons on the sidebar. So the contractor name, the P.O, the status, the amount. How about the total amount in their budget and a color indicator of where they're at, the date they came on, estimated length left of their contract. Let's add all of that and again follow the concise. All right, you need to go across the top nav bar. Check every single link for both Legendability AI design:
+1. Check it for functionality. Make sure it works.
+2. Make sure the buttons do what they say.
+3. Do your demo through the eyes of the actual user.
+4. Put yourself in their position and what they are trying to do.
+5. What would they think if they went to use that?
+6. Would they be excited about it and understand it immediately?
+7. Or would they scratch their head and look around for what they're supposed to do and get frustrated?
+That's the difference between exclaim and explain. We must do this for the entire top nav bar, the 6 links, and then look at how they're styled.
+1. Do they have icons?
+2. Are they contrasted?
+3. What about color?
+4. Is there excess of padding or scrolling?
+5. Do they have hover effects?
+6. Do they have tooltips where they're needed?
+Don't assume anybody understands anything. A tooltip, everything that could possibly need it or needs an explanation, or they would benefit from one, even if they don't need it. Maybe they just want a sanity check. To see and confirm that their hunch on how something is being displayed or calculated is accurate. Create a list of what I've asked you now for and present that. Then go down it and tell me where we're at so we can keep checking things off. Making progress. We don't want to drop anything. I would like to actually parse the last 30 prompts. Grab it for concepts and make sure that we address them. That would be helpful. Be helpful to generate some additional data all right using the process we just had. Generate some additional data that is guaranteed to result in AI-generated insights, okay? Approvals, alerts, notifications, and stuff. We can get insights and reports on. Again, sample data generated specifically to populate those categories based on their thresholds, okay? 

@@ -1,0 +1,73 @@
+════════════════════════════════════════════════════════════════════════════════
+                    UNREVIEWED CHANGES - QUICK REFERENCE
+════════════════════════════════════════════════════════════════════════════════
+
+7 MAJOR CHANGES NOT FORMALLY REVIEWED:
+
+1️⃣  APPROVAL ENDPOINTS (server/index.cjs:973-1025)
+    Status: NOT REVIEWED | Risk: MEDIUM
+    - POST /api/approvals/:id/approve
+    - POST /api/approvals/:id/reject
+    Issue: No transaction safety, no audit trail
+
+2️⃣  APPROVAL BUTTONS (src/pages/approvals/requests.tsx:88-139)
+    Status: NOT REVIEWED | Risk: HIGH
+    - handleApprove() function
+    - handleReject() function
+    Issue: Uses window.reload(), poor UX patterns
+
+3️⃣  JWT MIDDLEWARE (server/index.cjs:32-46)
+    Status: PARTIAL REVIEW | Risk: MEDIUM
+    - Token verification logic
+    Issue: No refresh token, logout doesn't invalidate
+
+4️⃣  SEED DATA SCRIPT (server/database/seed-fixed.sql)
+    Status: NOT REVIEWED | Risk: CRITICAL
+    - Status value mappings
+    - Schema column validation
+    Issue: Multiple FK violations fixed but still fragile
+
+5️⃣  DATABASE LOADING (Ad-hoc operations)
+    Status: NOT REVIEWED | Risk: MEDIUM
+    - PO/Invoice/Timecard/CO loading
+    Issue: No validation layer, multiple transaction rollbacks
+
+6️⃣  TOKEN VALIDATION (server/index.cjs:40)
+    Status: DIAGNOSED | Risk: CRITICAL
+    - JWT secret loading
+    Issue: Silent failure if JWT_SECRET missing
+
+7️⃣  WORKFLOW MODEL (Not defined anywhere)
+    Status: MISSING | Risk: HIGH
+    - No state machine defined
+    - No approval chain enforcement
+    - No SLA calculation
+
+════════════════════════════════════════════════════════════════════════════════
+HIGHEST PRIORITY FIXES:
+
+🔴 CRITICAL - Do first:
+   • Add transaction safety to approval endpoints
+   • Define approval workflow state machine
+   • Add audit trail logging
+
+🟠 HIGH - Do before demo:
+   • Replace window.reload() in buttons
+   • Add FK validation on data load
+   • Implement error handling
+
+🟡 MEDIUM - Do before production:
+   • Implement refresh token flow
+   • Add SLA tracking
+   • Create validation layer
+
+════════════════════════════════════════════════════════════════════════════════
+FILES TO REVIEW:
+
+✓ server/index.cjs (lines 32-46, 973-1025)
+✓ src/pages/approvals/requests.tsx (lines 88-139)
+✓ server/database/seed-fixed.sql (entire file)
+✓ .env (JWT_SECRET validation)
+
+════════════════════════════════════════════════════════════════════════════════
+See UNREVIEWED_CHANGES_AUDIT.md for full details with code snippets and fixes.

@@ -1,0 +1,12 @@
+To add to the list:
+- The same feedback for other pages that need gradients, contrast, icons, and text.
+- They need to be evaluated to ensure there's no light-on-light background text or dark text on dark background.
+- To get those variables standardized as quickly as possible, so one small change affects all.
+- The business logic needs to be validated against a list of which I think we already created, and you may have access to a list of all the functions that would typically be done within the platform.
+- Then, to literally go through each one and make sure we have business logic mapped out that can be tested.
+- Otherwise, it's not a real working platform. The logic must be there; it's a critical piece. There's an input, there's logic, and there's an output, and all three of them need to work for this to be a successful platform or to claim it's actually a thing that it does.
+- Remember, one error, one mistake, one assumption that's incorrect creates doubt, and doubt is what kills deals. Doubt says, "Hey, when I go to lean on you when I need you, are you going to be solid or are you going to crumble and leave me with no support?"
+- As I answer these questions from these people that could affect my livelihood and ability to feed myself, that's what they're saying. "Will you be there when I turn around for you to give me my hand to support me while I stand up and answer these questions? Can I be confident in what I'm doing every day? Am I going to be worried that the platform is not accurate and it's going to bite me in the butt?"
+- That's exactly what is going on in the back of their heads. So you must, must, must think about it through those eyes. Trust is everything, and it's hard to get back when you break it. For a system that's controlling the lifeblood of your business, your money, what you buy to get your stuff done, people don't mess around.
+- Also, check the cards and make sure that the spacing is consistent because I see some of the numbers are higher than others. Alerts some of them are going off the card side and some wrapping, so we need consistency.
+Thank you.

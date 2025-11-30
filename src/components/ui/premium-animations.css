@@ -1,0 +1,222 @@
+/* Premium Animated Progress Bar Animations */
+
+@keyframes flow-packets {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes arrows-flow {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 24px 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scaleX(1.02);
+  }
+}
+
+@keyframes holographic-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes plasma-flow {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  100% {
+    filter: hue-rotate(30deg) brightness(1.1);
+  }
+}
+
+@keyframes circuit-pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.9;
+  }
+}
+
+/* Border Animations */
+
+@keyframes neon-flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.8;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.9;
+  }
+  97% {
+    opacity: 1;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes holographic-border {
+  0% {
+    background-position: 0% 50%, 0% 50%;
+  }
+  100% {
+    background-position: 0% 50%, 200% 50%;
+  }
+}
+
+@keyframes border-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--glow-color, rgba(6, 182, 212, 0.5));
+  }
+  50% {
+    box-shadow: 0 0 20px var(--glow-color, rgba(6, 182, 212, 0.8)), 0 0 40px var(--glow-color, rgba(6, 182, 212, 0.4));
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    top: -4px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes energy-pulse {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Tailwind-compatible animation classes */
+
+.animate-flow-packets {
+  animation: flow-packets 1s linear infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-arrows-flow {
+  animation: arrows-flow 0.8s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-holographic {
+  animation: holographic-shift 3s ease-in-out infinite;
+}
+
+.animate-plasma {
+  animation: plasma-flow 2s ease-in-out infinite alternate;
+}
+
+.animate-circuit-pulse {
+  animation: circuit-pulse 1.5s ease-in-out infinite;
+}
+
+.animate-neon-flicker {
+  animation: neon-flicker 4s ease-in-out infinite;
+}
+
+.animate-border-pulse {
+  animation: border-pulse 2s ease-in-out infinite;
+}
+
+.animate-scan-line {
+  animation: scan-line 2s ease-in-out infinite;
+}
+
+.animate-energy-pulse {
+  animation: energy-pulse 1.5s ease-in-out infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-flow-packets,
+  .animate-shimmer,
+  .animate-arrows-flow,
+  .animate-pulse-glow,
+  .animate-holographic,
+  .animate-plasma,
+  .animate-circuit-pulse,
+  .animate-neon-flicker,
+  .animate-border-pulse,
+  .animate-scan-line,
+  .animate-energy-pulse {
+    animation: none;
+  }
+}

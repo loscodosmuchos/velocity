@@ -1,0 +1,124 @@
+{
+  "features": [
+    {
+      "id": "ai-powered-insights",
+      "category": "AI Intelligence",
+      "name": "AI-Generated Risk Insights",
+      "status": "ready",
+      "demoEmphasis": "critical",
+      "personas": ["CPO", "Finance Controller", "VMS Director"],
+      "location": "/",
+      "roiImpact": "$400K/year",
+      "demoNotes": "Show budget overrun prediction and invoice variance alerts on Executive Dashboard",
+      "clickPath": "Dashboard → AI Insights card → Review Critical/High alerts"
+    },
+    {
+      "id": "role-based-navigation",
+      "category": "User Experience",
+      "name": "Role-Based Menu System",
+      "status": "ready",
+      "demoEmphasis": "high",
+      "personas": ["All personas"],
+      "location": "Sidebar footer",
+      "roiImpact": "User satisfaction",
+      "demoNotes": "Toggle between Admin and Client views to show filtered navigation",
+      "clickPath": "Sidebar → Shield icon → Switch role → Observe menu changes"
+    },
+    {
+      "id": "purchase-order-enhancements",
+      "category": "Procurement",
+      "name": "PO List with Budget Health & Table Controls",
+      "status": "ready",
+      "demoEmphasis": "high",
+      "personas": ["CPO", "Finance Controller"],
+      "location": "/purchaseorders",
+      "roiImpact": "$150K/year in budget overrun prevention",
+      "demoNotes": "Show striped/compact toggles, budget health indicators, clickable elements",
+      "clickPath": "Purchase Orders → Toggle Striped → Toggle Compact → Click budget badge"
+    },
+    {
+      "id": "contractor-management",
+      "category": "Workforce",
+      "name": "Contractor Lifecycle Management",
+      "status": "ready",
+      "demoEmphasis": "medium",
+      "personas": ["VMS Director", "Field Supervisor"],
+      "location": "/contractors",
+      "roiImpact": "$200K/year in compliance cost avoidance",
+      "demoNotes": "Show contractor list, compliance status, quick actions",
+      "clickPath": "Contractors → Review status badges → Click contractor → Show detail page"
+    },
+    {
+      "id": "invoice-variance-detection",
+      "category": "Finance",
+      "name": "Invoice Variance Detection",
+      "status": "ready",
+      "demoEmphasis": "critical",
+      "personas": ["Finance Controller", "CPO"],
+      "location": "/invoices",
+      "roiImpact": "$300K/year in billing error prevention",
+      "demoNotes": "Show invoices with variance badges, anomaly detection",
+      "clickPath": "Invoices → Identify variance badges → Click invoice with variance"
+    },
+    {
+      "id": "luxury-theme-system",
+      "category": "Customization",
+      "name": "8 Corporate Theme Options",
+      "status": "partial",
+      "demoEmphasis": "low",
+      "personas": ["All personas"],
+      "location": "Sidebar footer",
+      "roiImpact": "Brand alignment",
+      "demoNotes": "Theme switcher created but needs component refactoring to work fully",
+      "clickPath": "Sidebar → Theme icon → Select theme (NOTE: partially functional)"
+    },
+    {
+      "id": "ai-qa-lab",
+      "category": "Quality Assurance",
+      "name": "AI QA Lab for Batch Testing",
+      "status": "needs-redesign",
+      "demoEmphasis": "medium",
+      "personas": ["CPO", "Legal Counsel", "VMS Director"],
+      "location": "/admin/ai-qa-lab",
+      "roiImpact": "$500K/year in manual QA time savings",
+      "demoNotes": "Needs professional styling and sample contracts for demo",
+      "clickPath": "AI Intelligence → (menu item) → AI QA Lab"
+    },
+    {
+      "id": "alert-notification-system",
+      "category": "Proactive Intelligence",
+      "name": "Alert & Notification Center",
+      "status": "in-progress",
+      "demoEmphasis": "high",
+      "personas": ["All personas"],
+      "location": "/notifications",
+      "roiImpact": "$250K/year in early issue detection",
+      "demoNotes": "Being built - simulate alerts, clear/dismiss, dynamic badge counts",
+      "clickPath": "TopNav → Alerts/Notifications → Simulate → Clear"
+    },
+    {
+      "id": "executive-dashboard",
+      "category": "Strategic Oversight",
+      "name": "Executive Dashboard with ROI Metrics",
+      "status": "ready",
+      "demoEmphasis": "critical",
+      "personas": ["CPO", "VP HR", "Finance Controller"],
+      "location": "/",
+      "roiImpact": "$1.3M-$1.4M total annual value",
+      "demoNotes": "Tightened whitespace for max screen efficiency, shows AI insights prominently",
+      "clickPath": "Dashboard → Review metrics → Scroll AI insights → Check KPI cards"
+    },
+    {
+      "id": "admin-dashboard",
+      "category": "Operations",
+      "name": "Admin Operational Dashboard",
+      "status": "ready",
+      "demoEmphasis": "low",
+      "personas": ["IT Director", "VMS Director"],
+      "location": "/admin/dashboard",
+      "roiImpact": "Operational reliability",
+      "demoNotes": "Focused on system health, exceptions, audit logs (not business ROI)",
+      "clickPath": "Admin → Dashboard"
+    }
+  ]
+}

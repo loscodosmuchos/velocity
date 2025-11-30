@@ -1,0 +1,43 @@
+Hyundai Workforce Management Requirements Debrief
+Meeting Purpose
+Debrief and align on key requirements for Hyundai's new workforce management system following client meeting.
+Key Takeaways
+•	Client prioritizes visibility into milestone-based professional services, managed services, and contractor tracking for compliance/audit
+•	Time card integration and automated invoicing are critical pain points to address
+•	SOW tracking needs improvement, especially for fixed-fee projects to justify change orders
+•	System should centralize and streamline PO/invoicing process, reducing manual work
+Topics
+Contractor Management Requirements
+•	Tracking needs: employee name, pay, PO funds remaining, location, job description, hiring manager
+•	Expanded contractor profile: work location, assigned manager, equipment inventory
+•	Critical for compliance/audit: knowing who's working on what projects
+•	Additional data points: associated PO, spend, department/division, hours left on PO
+•	Lower priority: equipment tracking, possible integration with asset management
+Time Card & Invoicing Process
+•	Current pain: Contractors log time in two systems (Hyundai's and Balance Staffing's)
+•	Goal: Single time entry system with API to capture approvals and import into Balance Staffing's system
+•	Ideal workflow: Contractor enters time in Hyundai system → Manager approves → Auto-import to Balance system → Auto-generate invoice → Upload to portal
+•	Challenge: Some managers aren't consistently approving/releasing funds (GR process)
+Purchase Order (PO) Process
+•	Current steps: Manager creates PR → Procurement creates PO → Balance signs TPSC → PO issued → Invoices submitted → Manager creates GR
+•	TPSC: Temporary Personnel Services Engagement
+•	Pain point: POs often not issued before work starts
+•	Inconsistent manager behavior in GR process causes extra manual work
+Statement of Work (SOW) Tracking
+•	Two types: Deliverables-based and Fixed-fee ("maintenance")
+•	Fixed-fee example: Asset management for 6,500 employees (hardware lifecycle)
+•	Need: Digitize agreed-upon terms, including total value
+•	Track payments against total SOW value
+•	Pain point: Change order process lacks visibility, leading to unexpected cost increases
+•	Goal: Centralized system for change order requests, justifications, and approvals
+System Goals
+•	Improve process control and visibility
+•	Enhance cost management for time & materials and milestone-based projects
+•	Streamline and partly automate PO/invoicing workflow
+•	Provide data-backed justification for SOW change orders
+Next Steps
+•	Design system architecture to address time card integration and automated invoicing
+•	Develop centralized SOW tracking system with change order management
+•	Create streamlined PO/invoicing process to reduce manual work
+•	Plan phased approach, potentially addressing deliverables-based SOWs in phase two
+•	Align on data sources and refine user interface requirements

@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity VMS/ATS - Master Strategy & Implementation Hub</title>
+    <style>
+        :root {
+            --primary: #3B82F6;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --bg: #F9FAFB;
+            --surface: #FFFFFF;
+            --text: #111827;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #2563EB);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text);
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #F3F4F6, #FFFFFF);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .metric-detail {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .pain-point {
+            background: #FEF2F2;
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+        }
+
+        .solution {
+            background: #F0FDF4;
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+        }
+
+        .mvp-item {
+            background: #EFF6FF;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: var(--bg);
+            border-radius: 4px;
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-critical { background: #FEE2E2; color: #991B1B; }
+        .status-high { background: #FEF3C7; color: #92400E; }
+        .status-complete { background: #D1FAE5; color: #065F46; }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background: var(--bg);
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .comparison-table tr:hover {
+            background: #F9FAFB;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), #1E40AF);
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--primary);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .insights-box {
+            background: #FEF3C7;
+            border: 2px solid var(--warning);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .insights-box h4 {
+            color: #92400E;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .roi-calculator {
+            background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .roi-input-group {
+            margin: 1rem 0;
+        }
+
+        .roi-input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .roi-input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .roi-result {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.75rem; }
+            .metric-grid { grid-template-columns: 1fr; }
+            .nav-tabs { flex-direction: column; }
+            .tab-btn { width: 100%; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Velocity VMS/ATS Platform</h1>
+            <p>From Chaos to Control: Your Complete Strategy & Implementation Roadmap</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Executive Overview</button>
+            <button class="tab-btn" onclick="showTab('insights')">Key Insights & Learnings</button>
+            <button class="tab-btn" onclick="showTab('mvp')">MVP Definition</button>
+            <button class="tab-btn" onclick="showTab('demo')">Demo Plan</button>
+            <button class="tab-btn" onclick="showTab('beyond')">Beyond MVP Roadmap</button>
+            <button class="tab-btn" onclick="showTab('roi')">ROI Calculator</button>
+            <button class="tab-btn" onclick="showTab('replit')">Replit Assessment Script</button>
+        </div>
+
+        <!-- EXECUTIVE OVERVIEW TAB -->
+        <div id="overview" class="tab-content active">
+            <div class="card">
+                <h2>🎯 Strategic Positioning</h2>
+                <p>Velocity is positioned as an <strong>Organizational Relationship Management (ORM)</strong> platform - a new category that goes beyond traditional ATS/VMS/HRIS systems to become the central nervous system for workforce operations.</p>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Market Opportunity</div>
+                        <div class="metric-value">$48.5M</div>
+                        <div class="metric-detail">Annual TAM in mid-market VMS (2,696 deals × $1,500/mo)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Target Revenue Model</div>
+                        <div class="metric-value">0.5-1.5%</div>
+                        <div class="metric-detail">Platform spend capture + backend partnerships + referrals</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Implementation Speed</div>
+                        <div class="metric-value">2 Weeks</div>
+                        <div class="metric-detail">MVP to production (vs 6-12 months traditional)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Cost Savings</div>
+                        <div class="metric-value">10-20%</div>
+                        <div class="metric-detail">Through predictive procurement & automation</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🏆 Competitive Advantages</h2>
+                <ul class="feature-list">
+                    <li><strong>Predictive Procurement Intelligence:</strong> Detect needs 3-6 months early through upstream signals</li>
+                    <li><strong>Agentic AI Orchestration:</strong> Multi-agent reasoning systems far beyond basic automation</li>
+                    <li><strong>Two-Thread Architecture:</strong> Universal ingestion (any format) + intelligent output (one-click actions)</li>
+                    <li><strong>Hybrid Search (pgvector + BM25):</strong> Instant cross-system data retrieval</li>
+                    <li><strong>iPaaS Foundation:</strong> Replace 9-11 fragmented tools with ONE platform</li>
+                    <li><strong>Connection Health Monitoring:</strong> Relationship resilience tracking for workforce stability</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>📊 HAEA Client Pain Points (Addressed)</h2>
+                <h3>Critical Priority (10 issues)</h3>
+                <div class="pain-point">
+                    <strong>Zero Portfolio Visibility:</strong> 165 projects managed on whiteboard with no prioritization framework
+                    <div class="solution">✓ Velocity Solution: Real-time project portfolio dashboard with automated prioritization</div>
+                </div>
+                <div class="pain-point">
+                    <strong>Reactive Procurement Hemorrhaging $500K:</strong> No planning means vendors exploit urgency
+                    <div class="solution">✓ Velocity Solution: Predictive procurement with 3-6 month lead time + spend threshold alerts</div>
+                </div>
+                <div class="pain-point">
+                    <strong>Infrastructure End-of-Life Crisis:</strong> All HQ switches EOL, buying on eBay during outage
+                    <div class="solution">✓ Velocity Solution: Asset lifecycle management with proactive replacement alerts</div>
+                </div>
+                <div class="pain-point">
+                    <strong>Contractor Visibility Gap:</strong> Can't track who's working where, compliance exposure
+                    <div class="solution">✓ Velocity Solution: Real-time contractor tracking with PO fund remaining, location, equipment</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KEY INSIGHTS TAB -->
+        <div id="insights" class="tab-content">
+            <div class="card">
+                <h2>💡 Transformative Insights from Family App Concepts</h2>
+                <p>The connection health monitoring and relationship resilience concepts from the family app have direct workplace applications:</p>
+                
+                <div class="insights-box">
+                    <h4>💬 Connection Health = Team Performance</h4>
+                    <p><strong>Core Principle:</strong> Organizations are networks of relationships. When connections are healthy, performance improves.</p>
+                    <ul>
+                        <li><strong>Check-in Frequency Tracking:</strong> Monitor 1-on-1 meeting cadence between managers and team members</li>
+                        <li><strong>Communication Quality Metrics:</strong> Analyze tone, responsiveness, and engagement in workplace communications</li>
+                        <li><strong>Relationship Strength Indicators:</strong> Track collaboration patterns, mutual support, knowledge sharing</li>
+                        <li><strong>Early Warning System:</strong> Detect degrading relationships before they impact retention/performance</li>
+                    </ul>
+                </div>
+
+                <div class="insights-box">
+                    <h4>🔧 Repair & Resilience Tools</h4>
+                    <ul>
+                        <li><strong>Structured Feedback Mechanisms:</strong> Guided templates for difficult conversations</li>
+                        <li><strong>Conflict Resolution Workflows:</strong> Step-by-step processes for addressing workplace tensions</li>
+                        <li><strong>Appreciation Systems:</strong> Formal mechanisms for recognizing contributions</li>
+                        <li><strong>Mentorship Matching:</strong> AI-powered pairing based on skills, goals, communication styles</li>
+                    </ul>
+                </div>
+
+                <div class="insights-box">
+                    <h4>🎯 Intention-Based Work Design</h4>
+                    <p><strong>Application:</strong> Help employees clarify their professional intentions and align work accordingly</p>
+                    <ul>
+                        <li><strong>Career Journey Mapping:</strong> Track progression from current state to desired future</li>
+                        <li><strong>Skills Gap Analysis:</strong> Identify training needs based on career goals</li>
+                        <li><strong>Project Alignment:</strong> Match assignments to development intentions</li>
+                        <li><strong>Purpose Connection:</strong> Link individual work to organizational mission</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🧠 Agentic AI Implementation Learnings</h2>
+                <h3>Three-Layer Architecture Pattern</h3>
+                <div class="mvp-item">
+                    <strong>INTAKE LAYER (Fixed/Stable):</strong>
+                    <ul>
+                        <li>Multi-format input normalization (voice, doc, chat, files, APIs)</li>
+                        <li>Standardized preprocessing and validation</li>
+                        <li>Routing logic to appropriate processors</li>
+                    </ul>
+                </div>
+                <div class="mvp-item">
+                    <strong>PROCESSOR LAYER (Flexible/MCP-Swarm):</strong>
+                    <ul>
+                        <li>N-number of specialized MCP microservices (1 to 100+)</li>
+                        <li>Orchestrator (n8n/Make) routes traffic intelligently</li>
+                        <li>Shared knowledge base + philosophy injections</li>
+                        <li>Real-time learning loop with feedback</li>
+                    </ul>
+                </div>
+                <div class="mvp-item">
+                    <strong>OUTPUT LAYER (Fixed/Stable):</strong>
+                    <ul>
+                        <li>Multi-format delivery (API, file, display, webhook)</li>
+                        <li>Standardized result packaging</li>
+                        <li>Complete audit trail + chain of custody</li>
+                    </ul>
+                </div>
+
+                <h3>Core Philosophical Principles</h3>
+                <ul class="feature-list">
+                    <li><strong>Touch Once Principle:</strong> Information captured once, processed systematically, never moved again</li>
+                    <li><strong>Chain of Custody:</strong> Every action timestamped, ID'd, hash-tracked for forensic analysis</li>
+                    <li><strong>Friction Reduction:</strong> Minimize clicks, automate repetitive tasks, anticipate needs</li>
+                    <li><strong>Context Preservation:</strong> Capture the "why" behind decisions, not just the "what"</li>
+                    <li><strong>Verbose Logging:</strong> All IN/OUT visible for transparency and debugging</li>
+                    <li><strong>Data Sovereignty:</strong> User owns data, controls access, can export anytime</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>📈 Market Intelligence</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Traditional VMS</th>
+                            <th>Velocity Platform</th>
+                            <th>Advantage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Implementation Time</td>
+                            <td>6-12 months</td>
+                            <td>2 weeks</td>
+                            <td>18-26x faster</td>
+                        </tr>
+                        <tr>
+                            <td>Manual Data Entry</td>
+                            <td>54% still manual</td>
+                            <td>Automated extraction</td>
+                            <td>2.5 hrs → 35 sec</td>
+                        </tr>
+                        <tr>
+                            <td>Application Count</td>
+                            <td>9-11 fragmented tools</td>
+                            <td>ONE unified platform</td>
+                            <td>90% consolidation</td>
+                        </tr>
+                        <tr>
+                            <td>AI Capabilities</td>
+                            <td>Basic automation</td>
+                            <td>Agentic multi-agent</td>
+                            <td>5x sophistication</td>
+                        </tr>
+                        <tr>
+                            <td>Revenue Model</td>
+                            <td>Fixed licensing</td>
+                            <td>Multi-stream (0.5-1.5% + partnerships)</td>
+                            <td>5-17x revenue multiplier</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MVP DEFINITION TAB -->
+        <div id="mvp" class="tab-content">
+            <div class="card">
+                <h2>✅ MVP Committed Features (Must-Have for Demo)</h2>
+                
+                <h3>1. Contractor Visibility & Compliance <span class="status-badge status-critical">CRITICAL</span></h3>
+                <div class="mvp-item">
+                    <strong>Problem:</strong> Cannot track who's working where, compliance audit exposure<br>
+                    <strong>Solution:</strong> Real-time contractor profiles with:
+                    <ul>
+                        <li>Employee name, pay rate, PO funds remaining</li>
+                        <li>Work location, job description, hiring manager</li>
+                        <li>Associated PO, department/division tracking</li>
+                        <li>Equipment inventory (laptop, monitor, phone)</li>
+                        <li>Compliance status indicators (I-9, E-Verify)</li>
+                    </ul>
+                </div>
+
+                <h3>2. PO Spend Tracking & Threshold Alerts <span class="status-badge status-critical">CRITICAL</span></h3>
+                <div class="mvp-item">
+                    <strong>Problem:</strong> POs not issued before work starts, $8.6M budget with no visibility<br>
+                    <strong>Solution:</strong>
+                    <ul>
+                        <li>Real-time PO utilization dashboard (25%, 50%, 90% alerts)</li>
+                        <li>Spend forecasting with burn rate analysis</li>
+                        <li>Automated notifications to stakeholders</li>
+                        <li>Change order request workflow</li>
+                        <li>Equipment budget tracker ($8.6M management)</li>
+                    </ul>
+                </div>
+
+                <h3>3. Time Card & Invoicing Automation <span class="status-badge status-critical">CRITICAL</span></h3>
+                <div class="mvp-item">
+                    <strong>Problem:</strong> Contractors log time in TWO systems (Hyundai + Balance Staffing)<br>
+                    <strong>Solution:</strong>
+                    <ul>
+                        <li>Single time entry interface (Hyundai-branded)</li>
+                        <li>Manager approval workflow with bulk actions</li>
+                        <li>Auto-calculation of totals and overtime</li>
+                        <li>Automated invoice generation (PDF)</li>
+                        <li>Integration with accounting systems</li>
+                    </ul>
+                </div>
+
+                <h3>4. SOW Tracking & Change Orders <span class="status-badge status-critical">CRITICAL</span></h3>
+                <div class="mvp-item">
+                    <strong>Problem:</strong> No visibility into SOW terms, change orders cause unexpected costs<br>
+                    <strong>Solution:</strong>
+                    <ul>
+                        <li>Centralized SOW repository with search/filter</li>
+                        <li>Visual milestone progress tracking</li>
+                        <li>Payment allocation against total SOW value</li>
+                        <li>Change order request workflow with approvals</li>
+                        <li>Impact analysis calculator (cost, timeline, resources)</li>
+                    </ul>
+                </div>
+
+                <h3>5. AI-Powered Contract Analysis <span class="status-badge status-high">HIGH PRIORITY</span></h3>
+                <div class="mvp-item">
+                    <strong>Problem:</strong> 70 minutes + 2-3 days to identify missing clauses<br>
+                    <strong>Solution:</strong>
+                    <ul>
+                        <li>Multi-lens contract review (Legal, Finance, IT, HR, Procurement)</li>
+                        <li>Automated gap identification vs org policy</li>
+                        <li>Risk scoring for each missing clause</li>
+                        <li>Draft language generation for missing clauses</li>
+                        <li>Auto-draft email to vendor with specifics</li>
+                        <li>One-click send workflow</li>
+                    </ul>
+                    <strong>Time Savings:</strong> 70 minutes → 2 minutes
+                </div>
+
+                <h3>6. One-Click Vendor Ingestion <span class="status-badge status-high">HIGH PRIORITY</span></h3>
+                <div class="mvp-item">
+                    <strong>Problem:</strong> 54% still use manual data entry (2.5 hours per batch)<br>
+                    <strong>Solution:</strong>
+                    <ul>
+                        <li>Paste vendor email/document text</li>
+                        <li>AI extracts vendor data (name, contact, services)</li>
+                        <li>Confidence scoring for each extraction</li>
+                        <li>One-click import to vendor database</li>
+                        <li>Duplicate detection and merge suggestions</li>
+                    </ul>
+                    <strong>Time Savings:</strong> 2.5 hours → 35 seconds
+                </div>
+
+                <h3>7. AI-Powered SOW Generation <span class="status-badge status-high">HIGH PRIORITY</span></h3>
+                <div class="mvp-item">
+                    <strong>Problem:</strong> 65 minutes to draft professional SOW manually<br>
+                    <strong>Solution:</strong>
+                    <ul>
+                        <li>Pull contractor history from database</li>
+                        <li>Find similar SOWs via vector search</li>
+                        <li>Generate professional document with legal language</li>
+                        <li>Include rate schedules, milestones, terms</li>
+                        <li>Review and send workflow</li>
+                    </ul>
+                    <strong>Time Savings:</strong> 65 minutes → 5 minutes
+                </div>
+
+                <h3>8. Project Portfolio Management <span class="status-badge status-complete">FRONTEND COMPLETE</span></h3>
+                <div class="mvp-item">
+                    <strong>Problem:</strong> 165 projects on whiteboard, no prioritization<br>
+                    <strong>Solution:</strong>
+                    <ul>
+                        <li>Unified dashboard with project health indicators</li>
+                        <li>Priority sorting and filtering</li>
+                        <li>Resource allocation visibility</li>
+                        <li>Dependency tracking</li>
+                        <li>Automated status reporting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEMO PLAN TAB -->
+        <div id="demo" class="tab-content">
+            <div class="card">
+                <h2>🎬 12-Minute Demo Flow</h2>
+                
+                <h3>Opening (2 minutes) - Set Context</h3>
+                <div class="mvp-item">
+                    <strong>Key Message:</strong> "Organizations everywhere are drowning. Not in work. In friction."
+                    <ul>
+                        <li>54% of HR teams still use manual data entry</li>
+                        <li>37% struggle to consolidate data across 9-11 applications</li>
+                        <li>Average procurement team: 75% time on admin, 25% on actual work</li>
+                        <li>Velocity doesn't replace people. It removes friction.</li>
+                    </ul>
+                </div>
+
+                <h3>Segment 1: One-Click Vendor Ingestion (3 minutes)</h3>
+                <div class="solution">
+                    <strong>Before:</strong> 2.5 hours of manual data entry<br>
+                    <strong>After:</strong> 35 seconds automated extraction<br>
+                    <strong>Demo Flow:</strong>
+                    <ol>
+                        <li>Paste vendor email with messy formatting</li>
+                        <li>System extracts 12 vendors automatically</li>
+                        <li>Shows confidence scores for each field</li>
+                        <li>One-click import to database</li>
+                        <li>Data appears in vendor table instantly</li>
+                    </ol>
+                    <strong>Impact:</strong> 99% time reduction on data entry
+                </div>
+
+                <h3>Segment 2: AI-Powered SOW Generation (3 minutes)</h3>
+                <div class="solution">
+                    <strong>Before:</strong> 65 minutes to draft professional SOW<br>
+                    <strong>After:</strong> 5 minutes with AI assistance<br>
+                    <strong>Demo Flow:</strong>
+                    <ol>
+                        <li>Click "Draft SOW" for selected contractor</li>
+                        <li>System pulls contractor history</li>
+                        <li>AI generates professional document</li>
+                        <li>Review legal language and terms</li>
+                        <li>One-click send to signature queue</li>
+                    </ol>
+                    <strong>Impact:</strong> 92% time reduction on contract drafting
+                </div>
+
+                <h3>Segment 3: Contract Gap Analysis (3 minutes)</h3>
+                <div class="solution">
+                    <strong>Before:</strong> 70 minutes + 2-3 days for vendor response<br>
+                    <strong>After:</strong> 2 minutes + automated follow-up<br>
+                    <strong>Demo Flow:</strong>
+                    <ol>
+                        <li>Upload vendor contract PDF</li>
+                        <li>System analyzes vs organizational policy</li>
+                        <li>Identifies 3 missing critical clauses</li>
+                        <li>Provides risk scores for each</li>
+                        <li>Auto-drafts email to vendor with specifics</li>
+                        <li>One-click approve and send</li>
+                    </ol>
+                    <strong>Impact:</strong> 97% time reduction + proactive compliance
+                </div>
+
+                <h3>Closing (1 minute) - The Real Impact</h3>
+                <div class="insights-box">
+                    <h4>This isn't about features or dashboards. It's about giving people their energy back.</h4>
+                    <p>When people have energy:</p>
+                    <ul>
+                        <li>They make better decisions</li>
+                        <li>They keep their jobs longer</li>
+                        <li>They're present with their families</li>
+                        <li>They can handle change</li>
+                    </ul>
+                    <p><strong>That's what we're building.</strong> Not just faster software. A way to help people through transition. A way to keep them valuable. A way to make their work manageable again.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>✅ Demo Success Checklist</h2>
+                <h3>Technical Requirements</h3>
+                <ul class="feature-list">
+                    <li>Platform loads without errors (test 30 min before)</li>
+                    <li>All 3 demo segments work flawlessly</li>
+                    <li>No timeout or loading issues</li>
+                    <li>Backup systems ready (video, PDF screenshots)</li>
+                    <li>Internet connection tested and stable</li>
+                    <li>Screen sharing tested and optimized</li>
+                </ul>
+
+                <h3>Demo Execution</h3>
+                <ul class="feature-list">
+                    <li>Prospect says "Oh my God" (not "That's interesting")</li>
+                    <li>Prospect asks "How do we get started?"</li>
+                    <li>Narrative flows naturally (memorized, not read)</li>
+                    <li>Total time: 12 minutes maximum</li>
+                    <li>Handles Q&A confidently</li>
+                </ul>
+
+                <h3>Business Success</h3>
+                <ul class="feature-list">
+                    <li>Prospect understands value (friction reduction)</li>
+                    <li>Prospect envisions impact on their specific role</li>
+                    <li>Next step scheduled (pilot or trial)</li>
+                    <li>Decision-maker engaged and excited</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- BEYOND MVP TAB -->
+        <div id="beyond" class="tab-content">
+            <div class="card">
+                <h2>🚀 Beyond MVP: Innovation Roadmap</h2>
+                
+                <h3>Phase 2: Relationship Intelligence (3-6 months post-MVP)</h3>
+                <div class="mvp-item">
+                    <strong>Connection Health Monitoring</strong>
+                    <ul>
+                        <li>Track 1-on-1 meeting frequency and quality</li>
+                        <li>Analyze communication patterns for early warning signs</li>
+                        <li>Relationship strength scoring (manager-employee, peer-peer)</li>
+                        <li>Proactive intervention suggestions when connections degrade</li>
+                        <li>Team dynamics visualization and optimization</li>
+                    </ul>
+                </div>
+
+                <div class="mvp-item">
+                    <strong>Career Journey Mapping</strong>
+                    <ul>
+                        <li>Skills gap analysis based on career intentions</li>
+                        <li>Training recommendations aligned with goals</li>
+                        <li>Project matching for development opportunities</li>
+                        <li>Mentorship pairing via AI</li>
+                        <li>Purpose connection to organizational mission</li>
+                    </ul>
+                </div>
+
+                <h3>Phase 3: Predictive Workforce Planning (6-12 months)</h3>
+                <div class="mvp-item">
+                    <strong>Demand Forecasting</strong>
+                    <ul>
+                        <li>Project pipeline analysis predicts hiring needs</li>
+                        <li>Skills inventory vs future requirements gap analysis</li>
+                        <li>Seasonal trend identification for contingent workforce</li>
+                        <li>Budget impact modeling for workforce scenarios</li>
+                        <li>Automated requisition generation 3-6 months early</li>
+                    </ul>
+                </div>
+
+                <div class="mvp-item">
+                    <strong>Retention Risk Modeling</strong>
+                    <ul>
+                        <li>Flight risk scoring based on behavioral patterns</li>
+                        <li>Proactive retention intervention recommendations</li>
+                        <li>Succession planning automation</li>
+                        <li>Knowledge transfer workflows before departures</li>
+                        <li>Exit interview insights aggregation</li>
+                    </ul>
+                </div>
+
+                <h3>Phase 4: Ecosystem Integration (12-18 months)</h3>
+                <div class="mvp-item">
+                    <strong>IT Asset Management Integration</strong>
+                    <ul>
+                        <li>Automated equipment provisioning for new hires</li>
+                        <li>Asset lifecycle tracking tied to contractor status</li>
+                        <li>Redeployment capture and optimization</li>
+                        <li>Predictive replacement alerts (EOL tracking)</li>
+                        <li>Cost allocation and chargebacks</li>
+                    </ul>
+                </div>
+
+                <div class="mvp-item">
+                    <strong>Financial Systems Integration</strong>
+                    <ul>
+                        <li>Direct integration with ERP (SAP, Oracle, NetSuite)</li>
+                        <li>Automated GL coding for expenses</li>
+                        <li>Budget vs actuals reconciliation</li>
+                        <li>Cash flow forecasting for contractor payments</li>
+                        <li>Vendor payment automation</li>
+                    </ul>
+                </div>
+
+                <h3>Phase 5: Market Leadership Features (18-24 months)</h3>
+                <div class="mvp-item">
+                    <strong>Blockchain-Based Credentials</strong>
+                    <ul>
+                        <li>Immutable work history verification</li>
+                        <li>Skills certification tracking</li>
+                        <li>Compliance documentation chain of custody</li>
+                        <li>Cross-organization portability</li>
+                    </ul>
+                </div>
+
+                <div class="mvp-item">
+                    <strong>Marketplace Ecosystem</strong>
+                    <ul>
+                        <li>White-label partnerships with MSPs</li>
+                        <li>Vendor network effects (more vendors = more value)</li>
+                        <li>Talent pool sharing (anonymized, compliance-safe)</li>
+                        <li>Benchmark data for competitive intelligence</li>
+                    </ul>
+                </div>
+
+                <div class="mvp-item">
+                    <strong>Voice-First Interfaces</strong>
+                    <ul>
+                        <li>Natural language time entry ("Log 8 hours for Project X")</li>
+                        <li>Voice-activated status updates</li>
+                        <li>Conversational AI for policy questions</li>
+                        <li>Meeting transcription with automatic action items</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🏆 Innovation Differentiators</h2>
+                <p>What makes Velocity category-defining, not just feature-competitive:</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature Category</th>
+                            <th>Typical Market Approach</th>
+                            <th>Velocity Innovation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AI Integration</td>
+                            <td>Basic chatbot, simple automation</td>
+                            <td>Agentic swarm with multi-agent reasoning</td>
+                        </tr>
+                        <tr>
+                            <td>Data Architecture</td>
+                            <td>Siloed databases per module</td>
+                            <td>Unified graph with hybrid search (vector + keyword)</td>
+                        </tr>
+                        <tr>
+                            <td>Relationship Tracking</td>
+                            <td>Org chart only</td>
+                            <td>Connection health monitoring with early warnings</td>
+                        </tr>
+                        <tr>
+                            <td>Procurement Intelligence</td>
+                            <td>Reactive spend tracking</td>
+                            <td>Predictive 3-6 month lead time forecasting</td>
+                        </tr>
+                        <tr>
+                            <td>Revenue Model</td>
+                            <td>Fixed licensing fees</td>
+                            <td>Multi-stream (platform % + partnerships + referrals)</td>
+                        </tr>
+                        <tr>
+                            <td>Implementation</td>
+                            <td>6-12 month custom deployment</td>
+                            <td>2-week MVP with instant value</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ROI CALCULATOR TAB -->
+        <div id="roi" class="tab-content">
+            <div class="roi-calculator">
+                <h2>💰 ROI Calculator</h2>
+                <p>Calculate the financial impact of implementing Velocity at your organization</p>
+
+                <div class="metric-grid">
+                    <div class="roi-input-group">
+                        <label>Number of Contractors</label>
+                        <input type="number" id="contractors" value="50" min="1" max="10000">
+                    </div>
+                    <div class="roi-input-group">
+                        <label>Number of Internal Staff</label>
+                        <input type="number" id="staff" value="10" min="1" max="1000">
+                    </div>
+                    <div class="roi-input-group">
+                        <label>Average Hourly Rate (Internal)</label>
+                        <input type="number" id="internalRate" value="75" min="1" max="500">
+                    </div>
+                    <div class="roi-input-group">
+                        <label>Annual Contractor Spend ($)</label>
+                        <input type="number" id="contractorSpend" value="5000000" min="1000" max="1000000000">
+                    </div>
+                    <div class="roi-input-group">
+                        <label>Annual Equipment Budget ($)</label>
+                        <input type="number" id="equipmentBudget" value="1000000" min="0" max="100000000">
+                    </div>
+                    <div class="roi-input-group">
+                        <label>Platform Fee Model</label>
+                        <select id="feeModel">
+                            <option value="0.005">0.5% of spend</option>
+                            <option value="0.01" selected>1.0% of spend</option>
+                            <option value="0.015">1.5% of spend</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="calculateROI()" style="width: 100%; margin-top: 1rem;">Calculate ROI</button>
+
+                <div id="roiResults" class="roi-result" style="display: none;">
+                    <h3>Annual Impact Analysis</h3>
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Time Savings (Staff Hours)</div>
+                            <div class="metric-value" id="timeSaved">0</div>
+                            <div class="metric-detail" id="timeSavedDetail"></div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Cost Savings (Time + Efficiency)</div>
+                            <div class="metric-value" id="costSavings">$0</div>
+                            <div class="metric-detail" id="costSavingsDetail"></div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Platform Cost (Annual)</div>
+                            <div class="metric-value" id="platformCost">$0</div>
+                            <div class="metric-detail" id="platformCostDetail"></div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Net Benefit (First Year)</div>
+                            <div class="metric-value" id="netBenefit">$0</div>
+                            <div class="metric-detail" id="roiPercent"></div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 2rem;">Detailed Breakdown</h4>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Savings Category</th>
+                                <th>Manual Process Time</th>
+                                <th>Velocity Time</th>
+                                <th>Annual Savings</th>
+                            </tr>
+                        </thead>
+                        <tbody id="savingsBreakdown"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- REPLIT ASSESSMENT SCRIPT TAB -->
+        <div id="replit" class="tab-content">
+            <div class="card">
+                <h2>🔍 Replit Build Assessment Script</h2>
+                <p>Use this Python script to assess your Replit implementation status and identify gaps before demo day.</p>
+
+                <div style="background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; overflow-x: auto;">
+                    <pre style="margin: 0; white-space: pre-wrap;">#!/usr/bin/env python3
+"""
+VELOCITY MVP - Replit Build Assessment Script
+==============================================
+This script performs a comprehensive technical audit of a Replit-hosted Velocity build
+to determine readiness for stakeholder demos and production deployment.
+
+Usage:
+    python velocity_replit_assessment.py
+
+Requirements:
+    - Run from the root of your Replit project
+    - Requires access to: package.json, server files, client files, database config
+"""
+
+import os
+import json
+import re
+from pathlib import Path
+from typing import Dict, List, Tuple
+
+class VelocityAssessment:
+    def __init__(self):
+        self.score = 0
+        self.max_score = 0
+        self.issues = []
+        self.successes = []
+
+    def check_database_layer(self) -> Tuple[int, int]:
+        """Verify database setup and schema completeness."""
+        print("\n[1/7] CHECKING DATABASE LAYER...")
+        points = 0
+        max_points = 20
+
+        # Check for Drizzle schema file
+        schema_paths = [
+            "server/db/schema.ts",
+            "db/schema.ts",
+            "server/schema.ts"
+        ]
+        schema_found = any(Path(p).exists() for p in schema_paths)
+
+        if schema_found:
+            self.successes.append("✅ Database schema file found")
+            points += 5
+        else:
+            self.issues.append("❌ CRITICAL: No database schema found (Drizzle)")
+
+        # Check for database connection config
+        if os.path.exists(".env") or os.path.exists("server/.env"):
+            env_content = ""
+            if os.path.exists(".env"):
+                with open(".env") as f:
+                    env_content = f.read()
+
+            if "DATABASE_URL" in env_content or "POSTGRES" in env_content:
+                self.successes.append("✅ Database connection configured")
+                points += 10
+            else:
+                self.issues.append("⚠️ DATABASE_URL not found in .env")
+        else:
+            self.issues.append("❌ CRITICAL: No .env file found")
+
+        # Check for pgvector extension
+        if schema_found:
+            for path in schema_paths:
+                if Path(path).exists():
+                    with open(path) as f:
+                        content = f.read()
+                        if "vector" in content.lower():
+                            self.successes.append("✅ pgvector extension configured")
+                            points += 5
+                            break
+            else:
+                self.issues.append("⚠️ pgvector not found in schema")
+
+        return (points, max_points)
+
+    def check_api_endpoints(self) -> Tuple[int, int]:
+        """Verify critical API endpoints exist."""
+        print("\n[2/7] CHECKING API ENDPOINTS...")
+        points = 0
+        max_points = 30
+
+        required_endpoints = [
+            ("/api/v1/vendors/extract", "One-click vendor ingestion"),
+            ("/api/v1/contracts/draft-sow", "AI SOW generation"),
+            ("/api/v1/contracts/analyze", "Contract gap analysis"),
+            ("/api/v1/timecards", "Timecard management"),
+            ("/api/v1/purchase-orders", "PO tracking"),
+        ]
+
+        # Check server routes file
+        routes_paths = [
+            "server/routes.ts",
+            "server/index.ts",
+            "server/app.ts"
+        ]
+
+        routes_content = ""
+        for path in routes_paths:
+            if Path(path).exists():
+                with open(path) as f:
+                    routes_content += f.read()
+
+        for endpoint, description in required_endpoints:
+            if endpoint.replace("/", "") in routes_content:
+                self.successes.append(f"✅ {description} endpoint exists")
+                points += 6
+            else:
+                self.issues.append(f"❌ CRITICAL: Missing {description} ({endpoint})")
+
+        return (points, max_points)
+
+    def check_frontend_pages(self) -> Tuple[int, int]:
+        """Verify critical frontend pages exist."""
+        print("\n[3/7] CHECKING FRONTEND PAGES...")
+        points = 0
+        max_points = 25
+
+        required_pages = [
+            ("contractors", "Contractor management"),
+            ("vendors", "Vendor management"),
+            ("purchase-orders", "PO tracking"),
+            ("timecards", "Timecard entry/approval"),
+            ("contracts", "Contract repository"),
+        ]
+
+        client_dir = Path("client/src/pages")
+        if not client_dir.exists():
+            self.issues.append("❌ CRITICAL: client/src/pages directory not found")
+            return (0, max_points)
+
+        for page_name, description in required_pages:
+            page_files = list(client_dir.glob(f"*{page_name}*"))
+            if page_files:
+                self.successes.append(f"✅ {description} page exists")
+                points += 5
+            else:
+                self.issues.append(f"❌ Missing {description} page")
+
+        return (points, max_points)
+
+    def check_ai_integration(self) -> Tuple[int, int]:
+        """Verify AI service integrations."""
+        print("\n[4/7] CHECKING AI INTEGRATIONS...")
+        points = 0
+        max_points = 15
+
+        # Check for OpenAI configuration
+        if os.path.exists(".env"):
+            with open(".env") as f:
+                env_content = f.read()
+                if "OPENAI_API_KEY" in env_content:
+                    self.successes.append("✅ OpenAI API key configured")
+                    points += 5
+                else:
+                    self.issues.append("❌ CRITICAL: No OpenAI API key")
+
+        # Check for AI service files
+        ai_files = [
+            "server/openai.ts",
+            "server/ai.ts",
+            "server/services/ai.ts"
+        ]
+
+        if any(Path(p).exists() for p in ai_files):
+            self.successes.append("✅ AI service implementation found")
+            points += 10
+        else:
+            self.issues.append("❌ CRITICAL: No AI service implementation")
+
+        return (points, max_points)
+
+    def check_dependencies(self) -> Tuple[int, int]:
+        """Verify required npm packages installed."""
+        print("\n[5/7] CHECKING DEPENDENCIES...")
+        points = 0
+        max_points = 10
+
+        if not Path("package.json").exists():
+            self.issues.append("❌ CRITICAL: No package.json found")
+            return (0, max_points)
+
+        with open("package.json") as f:
+            package = json.load(f)
+
+        required_deps = [
+            ("drizzle-orm", "Database ORM"),
+            ("@refinedev/core", "Refine.dev framework"),
+            ("openai", "OpenAI SDK"),
+        ]
+
+        all_deps = {**package.get("dependencies", {}), **package.get("devDependencies", {})}
+
+        for dep_name, description in required_deps:
+            if dep_name in all_deps:
+                self.successes.append(f"✅ {description} installed")
+                points += 3
+            else:
+                self.issues.append(f"⚠️ Missing {description} ({dep_name})")
+
+        return (points, max_points)
+
+    def check_demo_data(self) -> Tuple[int, int]:
+        """Verify demo data exists for presentation."""
+        print("\n[6/7] CHECKING DEMO DATA...")
+        points = 0
+        max_points = 10
+
+        # Check for seed data or migration files
+        seed_paths = [
+            "server/db/seed.ts",
+            "database/seeds",
+            "drizzle/seed.sql"
+        ]
+
+        if any(Path(p).exists() for p in seed_paths):
+            self.successes.append("✅ Demo data seeding configured")
+            points += 10
+        else:
+            self.issues.append("⚠️ No demo data seeding found (recommended for presentation)")
+
+        return (points, max_points)
+
+    def check_deployment_readiness(self) -> Tuple[int, int]:
+        """Verify deployment configuration."""
+        print("\n[7/7] CHECKING DEPLOYMENT READINESS...")
+        points = 0
+        max_points = 10
+
+        # Check for build script
+        if Path("package.json").exists():
+            with open("package.json") as f:
+                package = json.load(f)
+                scripts = package.get("scripts", {})
+
+                if "build" in scripts:
+                    self.successes.append("✅ Build script configured")
+                    points += 5
+                else:
+                    self.issues.append("⚠️ No build script in package.json")
+
+                if "start" in scripts or "dev" in scripts:
+                    self.successes.append("✅ Start script configured")
+                    points += 5
+                else:
+                    self.issues.append("❌ No start/dev script")
+
+        return (points, max_points)
+
+    def run_assessment(self):
+        """Run complete assessment and generate report."""
+        print("="*60)
+        print("VELOCITY MVP - REPLIT BUILD ASSESSMENT")
+        print("="*60)
+
+        # Run all checks
+        db_score, db_max = self.check_database_layer()
+        api_score, api_max = self.check_api_endpoints()
+        fe_score, fe_max = self.check_frontend_pages()
+        ai_score, ai_max = self.check_ai_integration()
+        dep_score, dep_max = self.check_dependencies()
+        data_score, data_max = self.check_demo_data()
+        deploy_score, deploy_max = self.check_deployment_readiness()
+
+        # Calculate totals
+        self.score = db_score + api_score + fe_score + ai_score + dep_score + data_score + deploy_score
+        self.max_score = db_max + api_max + fe_max + ai_max + dep_max + data_max + deploy_max
+
+        # Generate report
+        print("\n" + "="*60)
+        print("ASSESSMENT RESULTS")
+        print("="*60)
+
+        print(f"\n📊 OVERALL SCORE: {self.score}/{self.max_score} ({self.score/self.max_score*100:.1f}%)")
+
+        if self.score / self.max_score >= 0.9:
+            print("🟢 STATUS: READY FOR DEMO")
+        elif self.score / self.max_score >= 0.7:
+            print("🟡 STATUS: MOSTLY READY (address critical issues)")
+        else:
+            print("🔴 STATUS: NOT READY (significant work needed)")
+
+        print(f"\n✅ SUCCESSES ({len(self.successes)}):")
+        for success in self.successes:
+            print(f"  {success}")
+
+        if self.issues:
+            print(f"\n⚠️ ISSUES TO ADDRESS ({len(self.issues)}):")
+            for issue in self.issues:
+                print(f"  {issue}")
+
+        print("\n" + "="*60)
+        print("RECOMMENDATIONS")
+        print("="*60)
+
+        if self.score / self.max_score < 0.7:
+            print("\n🚨 CRITICAL ACTIONS NEEDED:")
+            print("1. Complete database schema and migrations")
+            print("2. Implement all critical API endpoints")
+            print("3. Build missing frontend pages")
+            print("4. Configure AI service integrations")
+            print("5. Test end-to-end workflows")
+        elif self.score / self.max_score < 0.9:
+            print("\n✅ GOOD PROGRESS! Focus on:")
+            print("1. Address any remaining critical issues")
+            print("2. Add demo data for presentation")
+            print("3. Test all user workflows")
+            print("4. Prepare backup contingencies")
+        else:
+            print("\n🎉 EXCELLENT! Final prep steps:")
+            print("1. Full demo rehearsal (3x minimum)")
+            print("2. Prepare backup materials (video, screenshots)")
+            print("3. Test internet connection and screen sharing")
+            print("4. Time each demo segment")
+
+        print("\n")
+
+if __name__ == "__main__":
+    assessment = VelocityAssessment()
+    assessment.run_assessment()</pre>
+                </div>
+
+                <button class="btn" onclick="downloadScript()" style="margin-top: 1rem;">
+                    Download Assessment Script
+                </button>
+            </div>
+        </div>
+
+        <!-- CTA SECTION -->
+        <div class="cta-section">
+            <h2>Ready to Transform Your Workforce Operations?</h2>
+            <p style="font-size: 1.125rem; margin: 1rem 0;">From chaos to control. From friction to flow. From reactive to proactive.</p>
+            <a href="#" class="btn">Schedule Demo</a>
+            <a href="#" class="btn">Download Full Documentation</a>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Set button active
+            event.target.classList.add('active');
+        }
+
+        // ROI Calculator
+        function calculateROI() {
+            const contractors = parseInt(document.getElementById('contractors').value);
+            const staff = parseInt(document.getElementById('staff').value);
+            const internalRate = parseFloat(document.getElementById('internalRate').value);
+            const contractorSpend = parseFloat(document.getElementById('contractorSpend').value);
+            const equipmentBudget = parseFloat(document.getElementById('equipmentBudget').value);
+            const feeModel = parseFloat(document.getElementById('feeModel').value);
+
+            // Time savings calculations (conservative estimates)
+            const vendorIngestionSavings = contractors * 12 * 2.5; // 2.5 hrs saved per contractor per year (monthly vendor updates)
+            const sowGenerationSavings = contractors * 2 * 1; // 1 hr saved per SOW, 2 per year
+            const contractAnalysisSavings = contractors * 2 * 1.2; // 1.2 hrs saved per contract review
+            const timecardAdminSavings = contractors * 52 * 0.25; // 15 min saved per timecard per week
+            const poTrackingSavings = staff * 52 * 2; // 2 hrs per week per staff member
+            
+            const totalHoursSaved = vendorIngestionSavings + sowGenerationSavings + 
+                                   contractAnalysisSavings + timecardAdminSavings + poTrackingSavings;
+
+            const laborCostSavings = totalHoursSaved * internalRate;
+
+            // Efficiency gains (procurement cost reduction)
+            const procurementSavings = contractorSpend * 0.10; // 10% cost reduction through better visibility
+
+            // Equipment budget optimization
+            const equipmentSavings = equipmentBudget * 0.05; // 5% reduction through lifecycle management
+
+            const totalCostSavings = laborCostSavings + procurementSavings + equipmentSavings;
+
+            // Platform cost
+            const platformCost = contractorSpend * feeModel;
+
+            // Net benefit
+            const netBenefit = totalCostSavings - platformCost;
+            const roiPercent = (netBenefit / platformCost) * 100;
+
+            // Display results
+            document.getElementById('roiResults').style.display = 'block';
+            document.getElementById('timeSaved').textContent = Math.round(totalHoursSaved).toLocaleString();
+            document.getElementById('timeSavedDetail').textContent = `Equivalent to ${Math.round(totalHoursSaved / 2080)} full-time employees`;
+            
+            document.getElementById('costSavings').textContent = `$${Math.round(totalCostSavings).toLocaleString()}`;
+            document.getElementById('costSavingsDetail').textContent = `Labor: $${Math.round(laborCostSavings).toLocaleString()} | Procurement: $${Math.round(procurementSavings).toLocaleString()}`;
+            
+            document.getElementById('platformCost').textContent = `$${Math.round(platformCost).toLocaleString()}`;
+            document.getElementById('platformCostDetail').textContent = `${(feeModel * 100).toFixed(1)}% of contractor spend`;
+            
+            document.getElementById('netBenefit').textContent = `$${Math.round(netBenefit).toLocaleString()}`;
+            document.getElementById('roiPercent').textContent = `${Math.round(roiPercent)}% ROI`;
+
+            // Breakdown table
+            const breakdown = [
+                ['Vendor Data Entry', '2.5 hrs per update', '35 seconds', `$${Math.round(vendorIngestionSavings * internalRate).toLocaleString()}`],
+                ['SOW Generation', '65 min per SOW', '5 min per SOW', `$${Math.round(sowGenerationSavings * internalRate).toLocaleString()}`],
+                ['Contract Analysis', '70 min per contract', '2 min per contract', `$${Math.round(contractAnalysisSavings * internalRate).toLocaleString()}`],
+                ['Timecard Administration', '15 min per timecard', 'Automated', `$${Math.round(timecardAdminSavings * internalRate).toLocaleString()}`],
+                ['PO Tracking & Alerts', '2 hrs per week per staff', 'Automated', `$${Math.round(poTrackingSavings * internalRate).toLocaleString()}`],
+                ['Procurement Optimization', 'Manual process', 'AI-assisted', `$${Math.round(procurementSavings).toLocaleString()}`],
+                ['Equipment Lifecycle', 'Reactive replacement', 'Predictive management', `$${Math.round(equipmentSavings).toLocaleString()}`]
+            ];
+
+            const tbody = document.getElementById('savingsBreakdown');
+            tbody.innerHTML = breakdown.map(row => 
+                `<tr>
+                    <td><strong>${row[0]}</strong></td>
+                    <td>${row[1]}</td>
+                    <td>${row[2]}</td>
+                    <td>${row[3]}</td>
+                </tr>`
+            ).join('');
+        }
+
+        // Download script
+        function downloadScript() {
+            const scriptContent = document.querySelector('#replit pre').textContent;
+            const blob = new Blob([scriptContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'velocity_replit_assessment.py';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Initialize with default ROI calculation
+        window.addEventListener('load', () => {
+            // Auto-calculate on load if on ROI tab
+            if (window.location.hash === '#roi') {
+                calculateROI();
+            }
+        });
+    </script>
+</body>
+</html>
+

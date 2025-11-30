@@ -1,0 +1,504 @@
+# Trust But Verify - Development Philosophy
+**Version:** 1.0  
+**Date:** November 6, 2025  
+**Authors:** Human + AI Collaboration  
+**Status:** Active Core Principle  
+**Purpose:** Define the trust-building approach that ensures quality through verification
+
+---
+
+## The Core Principle
+
+> **"Trust each other, verify firsthand with screenshots."**
+
+**Meaning:** Trust is built through verification, not blind faith.
+
+---
+
+## The Philosophy Unpacked
+
+### Trust Each Other
+
+**What it means:**
+- Assume good intentions
+- Believe collaborators are competent
+- Give autonomy and responsibility
+- Don't micromanage or second-guess
+
+**What it doesn't mean:**
+- Accept claims without evidence
+- Skip verification steps
+- Ignore potential issues
+- Assume perfection
+
+**Balance:** Trust people's abilities + Verify the results
+
+---
+
+### Verify Firsthand
+
+**What it means:**
+- See it working yourself
+- Test with real data/scenarios
+- Capture evidence (screenshots, logs)
+- Don't just take someone's word for it
+
+**What it doesn't mean:**
+- Distrust or suspicion
+- Constant oversight
+- Micromanagement
+- Lack of confidence in team
+
+**Balance:** Verification builds confidence, not undermines it
+
+---
+
+### With Screenshots
+
+**Why screenshots?**
+1. **Visual proof** - Can't argue with what's visible
+2. **Shared understanding** - Everyone sees the same thing
+3. **Documentation** - Evidence preserved for later
+4. **Debugging aid** - Reveals issues not caught in description
+
+**What else counts as "screenshots"?**
+- Actual screenshots (images of UI)
+- Console logs (text evidence)
+- Curl output (API evidence)
+- SQL query results (database evidence)
+- Error messages (failure evidence)
+
+**Principle:** Provide concrete evidence, not just descriptions
+
+---
+
+## Why This Philosophy Matters
+
+### The Problem: Miscommunication
+
+**Scenario:**
+```
+AI: "I fixed the batch indicator bug"
+Human: "Great! Deploying to production"
+[Production] Users: "I don't see any batch indicator"
+Reality: AI fixed wrong file, or fix didn't apply
+Result: Broken production, lost trust
+```
+
+**What went wrong:** No verification step
+
+### The Solution: Trust But Verify
+
+**Scenario:**
+```
+AI: "I fixed the batch indicator bug"
+AI: *Provides screenshot showing indicator in header*
+AI: *Shows browser console with no errors*
+AI: *Shares code diff confirming changes*
+Human: "Perfect, I can see it working. Deploying."
+[Production] Works as expected
+Result: Confident deployment, trust reinforced
+```
+
+**What went right:** Verification before deployment
+
+---
+
+## Levels of Verification
+
+### Level 1: Self-Verification (Minimum)
+
+**Before claiming something works:**
+```
+□ Tested it yourself
+□ Saw it working with your own eyes
+□ Checked for edge cases
+□ No errors in console/logs
+```
+
+**Example:**
+```
+❌ "The API should return user data now"
+✓ "The API returns user data - here's curl output showing it"
+```
+
+### Level 2: Evidence-Based (Standard)
+
+**Provide concrete evidence:**
+```
+□ Screenshot of working feature
+□ Console logs showing no errors
+□ API response showing correct data
+□ Database query confirming state
+```
+
+**Example:**
+```
+❌ "Login works"
+✓ "Login works - screenshot shows dashboard after login, console has no errors, session token in cookies"
+```
+
+### Level 3: Multi-Angle (Thorough)
+
+**Verify from multiple perspectives:**
+```
+□ Self-test with evidence
+□ Tested on different browser/device
+□ Tested with different user roles
+□ Tested edge cases
+□ Checked database state
+□ Reviewed code changes
+```
+
+**Example:**
+```
+❌ "Batch feature complete"
+✓ "Batch feature complete - tested on Chrome/Firefox, works for new and existing users, handles empty batches, screenshots show each step, database has correct schema, code reviewed and defensive"
+```
+
+---
+
+## Application to Development Workflow
+
+### Before Claiming "Done"
+
+**Checklist:**
+```
+1. Feature implemented ✓
+2. Tested locally ✓
+3. No console errors ✓
+4. Screenshot captured ✓
+5. Edge cases checked ✓
+6. Evidence documented ✓
+7. THEN claim done
+```
+
+### During Code Review
+
+**Reviewer perspective:**
+```
+Trust: Developer implemented feature
+Verify: 
+  - Review code changes
+  - Check screenshot evidence
+  - Test locally if critical
+  - Ask questions if unclear
+```
+
+**Developer perspective:**
+```
+Trust: Reviewer understands goals
+Verify:
+  - Provide clear screenshots
+  - Show evidence it works
+  - Document test cases
+  - Address feedback
+```
+
+### During Debugging
+
+**When reporting bugs:**
+```
+❌ "It's broken"
+✓ "Here's what's broken:
+   - Screenshot showing error
+   - Console log with stack trace
+   - Steps to reproduce
+   - Expected vs actual behavior"
+```
+
+**When claiming bug fixed:**
+```
+❌ "Fixed it"
+✓ "Fixed - here's evidence:
+   - Screenshot showing it works now
+   - Console clean (no errors)
+   - Tested edge cases
+   - Code diff showing fix"
+```
+
+---
+
+## Real-World Examples
+
+### Example 1: Batch Indicator Feature
+
+**Before Trust But Verify:**
+```
+AI: "Added batch indicator to header"
+Human: "Great!"
+[Later] Human: "I don't see it anywhere"
+Problem: Feature was partially implemented
+```
+
+**After Trust But Verify:**
+```
+AI: "Added batch indicator to header"
+AI: *Screenshot showing indicator in global header*
+AI: *Screenshot showing indicator on Analyze page*
+AI: *Console logs showing no errors*
+AI: *Code diff confirming changes*
+Human: "Perfect, I can see it in both places. Approved!"
+```
+
+**Result:** Clear understanding, no surprises
+
+### Example 2: Cancel Batch Fix
+
+**Before Trust But Verify:**
+```
+AI: "Wired cancel batch to backend"
+Human: "Good"
+[Architect Review] "Not wired, frontend only"
+Problem: Claim was premature
+```
+
+**After Trust But Verify:**
+```
+AI: "Wired cancel batch to backend:
+   - Added PATCH /api/batches/:id/cancel route
+   - Frontend mutation calls backend
+   - Tested with curl: [output showing 200 OK]
+   - Backend marks batch as cancelled in DB
+   - Screenshot of completed flow"
+Human: "Excellent, I can see the full implementation"
+```
+
+**Result:** Architect review passed, feature complete
+
+---
+
+## Building Trust Through Verification
+
+### Paradox: Verification Increases Trust
+
+**Counterintuitive:** You might think verification shows distrust
+
+**Reality:** Verification builds confidence
+
+**Why?**
+1. **Transparency** - Nothing hidden, everything visible
+2. **Accountability** - Can't claim something works without proof
+3. **Quality** - Forces self-verification before claiming done
+4. **Communication** - Evidence is clearer than descriptions
+
+**Outcome:** Trust grows because verification catches issues early
+
+### The Trust Ladder
+
+**Level 1: No Trust**
+```
+Human: "Did you fix it?"
+AI: "Yes"
+Human: "Let me test every line of code myself"
+```
+(Exhausting, slow, inefficient)
+
+**Level 2: Blind Trust**
+```
+Human: "Did you fix it?"
+AI: "Yes"
+Human: "OK, deploying"
+```
+(Risky, breaks often, erodes trust)
+
+**Level 3: Trust But Verify**
+```
+Human: "Did you fix it?"
+AI: "Yes - here's evidence [screenshots]"
+Human: "I can see it working, deploying"
+```
+(Fast, confident, trust reinforced)
+
+**Sweet spot:** Level 3
+
+---
+
+## What Counts as Verification?
+
+### Good Verification Evidence
+
+✅ **Screenshots**
+- Shows actual UI state
+- Captures visual bugs
+- Proves feature exists
+- Shows user perspective
+
+✅ **Console Logs**
+- Proves no errors
+- Shows correct data flow
+- Captures API responses
+- Reveals timing issues
+
+✅ **Curl/API Output**
+- Proves endpoint works
+- Shows correct status codes
+- Displays actual responses
+- Tests without UI
+
+✅ **Database Queries**
+- Proves data persisted
+- Shows correct state
+- Validates migrations
+- Tests edge cases
+
+✅ **Code Diffs**
+- Shows what changed
+- Proves fix applied
+- Enables code review
+- Documents evolution
+
+### Poor Verification Evidence
+
+❌ **"It works"** (No evidence)
+
+❌ **"Should work"** (Not tested)
+
+❌ **"Probably works"** (Uncertain)
+
+❌ **"Worked yesterday"** (Stale)
+
+❌ **"Works on my machine"** (Not portable)
+
+---
+
+## Integration with Other Philosophies
+
+### Trust But Verify + Multi-Angle Verification
+
+**Synergy:**
+- Trust: Feature implemented
+- Verify (Angle 1): Code looks correct
+- Verify (Angle 2): API tested
+- Verify (Angle 3): Database checked
+- Verify (Angle 4): Browser console clean
+- Verify (Angle 5): Edge cases handled
+
+**Result:** Deep confidence through comprehensive verification
+
+### Trust But Verify + Journey-Based UX
+
+**Synergy:**
+- Trust: UX is good
+- Verify: Walk through user journey
+- Verify: Screenshot each step
+- Verify: Check sentiment at each step
+- Verify: Identify gaps with evidence
+
+**Result:** UX claims backed by real user perspective
+
+### Trust But Verify + Documentation
+
+**Synergy:**
+- Trust: Insights are valuable
+- Verify: Document with examples
+- Verify: Include code artifacts
+- Verify: Link to actual implementations
+- Verify: Test that patterns work
+
+**Result:** Documentation is trustworthy and actionable
+
+---
+
+## Common Pitfalls
+
+### Pitfall 1: Verification as Bureaucracy
+
+**Wrong mindset:** "Ugh, I have to provide screenshots again"
+
+**Right mindset:** "Screenshots catch issues before deployment"
+
+**Reality:** 2 minutes of verification saves hours of debugging
+
+### Pitfall 2: Fake Evidence
+
+**Wrong approach:** Doctored screenshots, cherry-picked logs
+
+**Right approach:** Real evidence from actual testing
+
+**Reality:** Fake evidence destroys trust instantly and completely
+
+### Pitfall 3: Over-Verification
+
+**Wrong balance:** Test every trivial change 10 different ways
+
+**Right balance:** Proportional verification (critical = thorough, trivial = quick)
+
+**Reality:** Verification should match severity
+
+### Pitfall 4: Verification Without Trust
+
+**Wrong attitude:** "Prove it because I don't believe you"
+
+**Right attitude:** "Show me so we can both be confident"
+
+**Reality:** Verification should build trust, not reflect its absence
+
+---
+
+## Quick Reference
+
+### Developer Checklist
+
+**Before claiming something works:**
+```
+□ I tested it myself
+□ I have screenshot evidence
+□ Console/logs show no errors
+□ Edge cases considered
+□ Evidence documented
+□ Ready to share proof
+```
+
+### Reviewer Checklist
+
+**When evaluating work:**
+```
+□ Evidence provided?
+□ Screenshots show expected behavior?
+□ Logs confirm no errors?
+□ Edge cases tested?
+□ If unclear, ask for more evidence
+□ Trust + Verify = Approve
+```
+
+---
+
+## Conclusion
+
+**Trust But Verify is not about distrust.**
+
+It's about:
+- **Transparency** - Make work visible
+- **Quality** - Catch issues early
+- **Communication** - Evidence > Description
+- **Confidence** - Deploy with certainty
+- **Trust** - Built through verification
+
+**The outcome:**
+- Faster development (fewer production issues)
+- Higher quality (verification catches bugs)
+- Better collaboration (clear communication)
+- Stronger trust (built on evidence)
+
+**Remember:** Trust is earned through verification, not undermined by it.
+
+**"Trust each other, verify firsthand with screenshots."**
+
+---
+
+## Document Changelog
+
+**v1.0** (November 6, 2025)
+- Initial creation extracting philosophy from post-it-notes.md
+- Defined trust + verification balance
+- Provided real-world examples
+- Created verification checklists
+
+---
+
+## License & Usage
+
+**License:** Open Philosophy - freely shareable  
+**Attribution:** AssetGenius Project  
+**Usage:** Apply to any collaborative development workflow

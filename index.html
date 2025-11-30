@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Velocity Intelligence Network | Enterprise Workforce Management Platform" />
+    <meta data-rh="true" property="og:image" content="/velocity-logo.png" />
+    <meta data-rh="true" name="twitter:image" content="/velocity-logo.png" />
+    <title>Velocity Intelligence Network - Strategic Workforce Command Center</title>
+  </head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet"
+  />
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <!-- Loading state to prevent white screen during reload -->
+      <div id="app-loader" style="
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(to bottom, rgb(2, 6, 23), rgb(15, 23, 42), rgb(2, 6, 23));
+        z-index: 9999;
+      ">
+        <div style="
+          width: 48px;
+          height: 48px;
+          border: 3px solid rgba(148, 163, 184, 0.2);
+          border-top-color: rgb(34, 211, 238);
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        "></div>
+        <p style="
+          margin-top: 16px;
+          color: rgb(148, 163, 184);
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 14px;
+          letter-spacing: 0.05em;
+        ">Loading Velocity...</p>
+      </div>
+      <style>
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+    </div>
+    <script type="module" src="/src/index.tsx"></script>
+    <!--
+      This HTML file  is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm dev` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>

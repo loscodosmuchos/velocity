@@ -1,0 +1,434 @@
+PROJECT: Enterprise Workforce Management Platform
+Status: 🎯 PHASE 0 - EXPERT-CENTERED ARCHITECTURE DESIGN
+Backend: Supabase (PostgreSQL + Real-Time)
+Design Principle: Build for 10 expert personas simultaneously. Every page solves specific pain points. Every click anticipates user intent.
+
+THE MISSION
+Transform fragmented HR/staffing systems into a unified platform that simultaneously solves pain points for 10 different expert roles: Procurement Officers, Project Managers, VMS Directors, Finance Controllers, HR Leaders, IT Directors, Operations Managers, CISOs, Legal Counsel, and Field Supervisors.
+
+Core Philosophy: No more silos. No manual data entry. No guessing. Users click intentionally and find exactly what they need. Each expert gets their own dashboard, but all are powered by the same unified data.
+
+EXPERT PERSONAS & PAIN POINTS
+The platform serves 10 distinct expert roles:
+
+Chief Procurement Officer (CPO) - Needs vendor cost control, contract risk prevention, procurement optimization
+Senior Project Manager - Needs 165+ project visibility, dependency mapping, resource conflict detection
+VMS Director / Contingent Workforce Manager - Needs contractor lifecycle management, performance tracking, skills gap prediction
+Finance Controller / CFO - Needs budget variance early warning, invoice accuracy, spend visibility, compliance
+VP HR / Talent Acquisition - Needs skills gap analysis, turnover prediction, workforce planning, contractor quality
+IT Director / Systems Architect - Needs integration (iPaaS), unified authentication, 99.99% uptime, minimal custom code
+Facilities / Operations Manager - Needs real-time asset tracking, end-of-life monitoring, maintenance compliance, remote site health
+Chief Information Security Officer (CISO) - Needs audit trails, RBAC, encryption, compliance (SOC2, GDPR, HIPAA), zero-trust architecture
+General Counsel / Legal Risk Manager - Needs contract lifecycle management, risk flagging, centralized repository, e-signature workflows
+Field Operations Supervisor - Needs mobile-first approval workflows, anomaly detection, equipment tracking, real-time utilization
+PHASE 0: EXPERT-CENTERED ARCHITECTURE MAPPING
+Deliverable
+Map platform architecture around 10 expert personas. Define page specifications with MVP fields, click behaviors, metadata context, and wow factors. Fix broken pages. Create complete information architecture blueprint.
+
+Key Features
+Page Specification Template for each major page:
+MVP Fields (what experts MUST see)
+Nice-to-Have Fields (what delights them)
+Click Behavior (what happens when they click each element)
+Metadata Context (where it came from, who touched it, what relates)
+Wow Factor (the surprise feature that shows deep job understanding)
+Recommendations & Insights (learnings about their unique challenges)
+Expert Dashboard Access - Each role sees tailored data views from same backend
+Integration Architecture - iPaaS layer connecting 15+ enterprise systems
+Drill-Through Relationships - Every data point clickable to related context
+Broken Pages Fixed - Change Orders, Approvals, Expenses list pages functional
+Tasks
+ URGENT: Fix Broken Pages - /changeorders, /approvals/requests, /expenses must load with real data
+ Admin Reference/Definition Page - Create /admin/platform-definition showing research insights, logic, and how platform addresses each expert's pain points
+ Page Specification: Purchase Orders - CPO sees vendor costs, PM sees project dependencies, Finance sees budget impact
+ Page Specification: Contractors - VMS Director sees performance history, HR sees skills/qualifications, Field Supervisor sees availability
+ Page Specification: Assets/Equipment - Operations Manager sees real-time location, IT Director sees EOL status, Field sees assignment
+ Page Specification: Vendors - CPO sees performance + risk scores, Finance sees spend trends, Legal sees contract status
+ Page Specification: Invoices - Finance sees variance + compliance, CPO sees vendor performance impact, Legal sees contract alignment
+ Page Specification: Timecards - Field Supervisor approves from mobile, HR sees utilization trends, Finance sees labor costs
+ Page Specification: Expenses - Finance sees policy compliance, Manager approves, Employee sees reimbursement status
+ Page Specification: Approvals - Each role sees personalized approval queue based on authority level and domain
+ Integration Architecture - Document iPaaS layer (Active Directory, ADP, Jira, Salesforce, NetSuite, Stripe, Okta)
+ Dashboard Specifications - Create role-based dashboard templates (Portfolio, Vendor, Contractor, Financial, Operational)
+ Metadata Context Framework - Define standard "where it came from, who touched it, what relates" pattern for all detail views
+ Drill-Through Relationship Map - Document all clickable connections (PO→Vendor→Contracts→Gaps, Employee→Timecards→Expenses→Manager, Asset→Batch→Facility→Location)
+ Breadcrumb Navigation Pattern - Design consistent path-tracking showing how user navigated to current page
+ Mobile-First Patterns - Create Field Supervisor approval flow, timecard submission, equipment scanning patterns
+Notes
+Expert Pain Points Addressed:
+
+CPO: Vendor escalation prevention (E-Plus cost spike), SOW automation (30-day cycle → 3-5 days)
+Project Manager: Portfolio chaos (165 projects on whiteboard → unified visibility), cascade failure detection (Active Directory upgrade blocking 6 projects)
+VMS Director: Contractor quality inconsistency, skills gaps unknown until crisis (need 60-90 day prediction)
+Finance: Budget surprises at month-end, invoice errors before payment approval, vendor cost creep undetected
+HR: Turnover risk unpredictable, hiring reactive not proactive, contractor performance unmeasured
+IT Director: Integration nightmare (15-20 disconnected tools), custom code maintenance burden, EOL surprises (2 switches past end-of-life)
+Operations: Asset location mystery ("where is that switch?"), maintenance skipped, emergency repairs 3x cost
+CISO: Audit trail gaps, permission creep, data access untracked, compliance findings
+Legal: Contracts signed without review, unfavorable terms discovered too late, auto-renewal clause blind spots
+Field Supervisor: Timecard approval desk-bound (2 hours), equipment missing, anomalies (hours at closed site) undetected
+Page Specification Template (Apply to Each Page):
+
+### PAGE NAME: [e.g., Purchase Orders List]
+
+#### Expert Personas Using This Page
+- [Expert 1]: Primary questions answered / pain points solved
+- [Expert 2]: Secondary value / what they discover here
+
+#### MVP Fields (Must Have for MVP)
+- Field 1: Why this expert MUST see it
+- Field 2: Decision-critical information
+- [5-8 total MVP fields]
+
+#### Nice-to-Have Fields (Phase 2+)
+- Field 1: Delightful context
+- Field 2: Historical comparison
+- [3-5 nice-to-have fields]
+
+#### Click Behavior (What Happens When User Clicks)
+- Column Header: Sorts by that column
+- Value (e.g., "Vendor Name"): Drills to Vendor detail page
+- Status Field: Filters list to show only that status
+- Date Field: Range-selects all records from that date
+- ID Field (PO#): Opens detail view with full context
+
+#### Metadata Context (Every Detail Page Shows)
+- Primary record info (header)
+- Who created/modified (audit trail)
+- Where it came from (parent relationship)
+- What it relates to (child/sibling relationships)
+- Action history (timeline of changes)
+
+#### Wow Factor (Surprise Feature Showing Job Understanding)
+- [Feature that demonstrates deep knowledge of their unique challenges]
+- Example: For CPO → Predictive vendor risk scoring (flag E-Plus 3 months before crisis)
+- Example: For Field Supervisor → Voice-to-text timecard submission
+
+#### Recommendations & Insights
+- [Learnings about this expert's daily workflow and hidden pain points]
+Broken Pages Fix Priority:
+
+/changeorders - Check: Are contractors/projects loading? Is Supabase query correct?
+/approvals/requests - Check: Is approval queue filtering by user correctly? Is status field populated?
+/expenses - Check: Is employee/manager relationship loading? Is data provider returning expense records?
+Integration Requirements (for IT Director confidence):
+
+Active Directory / SSO: Okta, Azure AD, OneLogin
+HRIS: ADP, Workday, BambooHR, Paychex
+ERP: NetSuite, SAP, Oracle, QuickBooks
+Project Management: Jira, Asana, Monday.com
+CRM: Salesforce, HubSpot
+Accounting: Stripe, PayPal, ACH
+Security: Splunk, QRadar, Qualys, Tenable
+Communication: Slack, Microsoft Teams, Email
+ADMIN REFERENCE: PLATFORM DEFINITION & RESEARCH INSIGHTS
+Location: /admin/platform-definition
+Access: Admin-only (internal stakeholder reference)
+Purpose: Prove we've deeply understood expert pain points and overdelivered on solutions
+
+Page Contents
+Section 1: The 10 Expert Personas (Expandable Cards)
+Each card shows:
+
+Expert Role (CPO, PM, VMS Director, etc.)
+Primary Pain Points (3-5 specific challenges)
+What They Care About (decision criteria, success metrics)
+How Platform Solves It (features/capabilities addressing each pain point)
+Example CPO card:
+
+CHIEF PROCUREMENT OFFICER
+─────────────────────────
+Pain Points:
+  • Vendor crises escalate unexpectedly (E-Plus cost spike)
+  • SOW automation takes 30 days → loses agility
+  • Contract renewals sneak up → forced into unfavorable terms
+  • No visibility into vendor performance across projects
+
+How We Solve It:
+  ✅ Vendor Performance Scorecard (predicts crises 3+ months ahead)
+  ✅ Purchase Orders page (aggregate vendor spend, trend analysis)
+  ✅ Contract Renewal Alerts (60-day heads up for renegotiation)
+  ✅ Risk Scoring (1-100 vendor health, auto-route risky contracts)
+
+Platform Overdelivery:
+  🎯 Vendors page shows cost trends vs prior year
+  🎯 Real-time vendor risk dashboard alerts CPO before escalation
+  🎯 Integration with finance data to show impact on budget
+  🎯 Predictive scoring prevents crises instead of reacting to them
+Section 2: Research Documents (Linked)
+Link to uploaded research artifact: "use velocity MVP and velocity overall_master plan.md"
+Display raw research findings
+Show methodology (how insights were gathered)
+Quote key learnings directly from research
+Section 3: Feature Mapping Matrix
+Table showing:
+
+Pain Point → Feature Built → Where User Finds It → Overdelivery Factor
+Example row:
+
+| Pain Point | Feature | Location | Overdelivery |
+|---|---|---|---|
+| Asset location mystery ("where is that switch?") | Real-time asset tracking + GPS location + facility mapping | /assets list/detail | Predicts maintenance needs 3+ months ahead (prevents catastrophic outages) |
+| Vendor escalation blindness | Vendor performance scorecard + predictive risk scoring | CPO Dashboard | Flags crises 3 months before they happen (prevents E-Plus type disasters) |
+Section 4: Platform Philosophy
+Show the design principles guiding every decision:
+
+Every page solves 3+ expert pain points simultaneously
+Every clickable element anticipated (users never guess)
+Every detail page shows metadata context (who, when, where, what relates)
+Every dashboard tailored to that expert's decision-making process
+Every feature shows understanding of their unique job challenges
+Section 5: Success Metrics by Expert
+For each expert, show:
+
+Metric → Current State → After Platform
+Examples:
+
+CPO:
+  • Vendor crisis detection → Reactive (discovered during crisis) → Proactive (3-month prediction)
+  • SOW cycle time → 30 days → 3-5 days
+  • Contract surprise prevention → 0% visibility → 100% renewal calendar
+
+PM:
+  • Project visibility → 165 projects on whiteboard → Real-time unified dashboard
+  • Portfolio at-risk detection → Manual → Automated risk scoring
+  • Resource conflict resolution → Hours of meetings → Real-time availability view
+
+Finance:
+  • Budget variance detection → End of month → When invoice created
+  • Invoice error catch rate → Post-payment reconciliation → Pre-payment approval
+  • Vendor cost creep visibility → Annual budget surprise → Monthly trend dashboard
+Section 6: Architecture Overview
+Diagram showing:
+
+10 expert personas at center
+Their pain points radiating outward
+Platform features addressing each
+How all data flows through unified backend
+Integration layer connecting 15+ enterprise systems
+Section 7: Wow Factors by Expert (The "Why We're Different" Section)
+Show the surprising features that prove job understanding:
+
+🎯 CPO: Vendor cost escalation prediction (3-month early warning)
+   → Most systems show historical data. We predict future crises.
+
+🎯 Project Manager: Dependency cascade analyzer
+   → Most systems show projects independently. We show "if you delay this, these 6 are blocked"
+
+🎯 Field Supervisor: Mobile-first approval flow (10-minute timecard review vs 2-hour desk sessions)
+   → Most systems are desktop-first. We built for their reality (in field, on phone, limited time)
+
+🎯 Finance Controller: Invoice variance detection BEFORE payment approval
+   → Most systems catch errors post-payment during reconciliation. We flag them upfront.
+
+🎯 Legal Counsel: Contract renewal alerts + auto-risk-scoring
+   → Most systems have static contract repos. We auto-alert 60 days before expiry and score risk (1-100).
+
+🎯 Operations Manager: Real-time asset location with predictive maintenance
+   → Most systems lose track of equipment. We track location AND predict when it'll fail.
+
+🎯 CISO: Complete audit trail + real-time compliance dashboard
+   → Most systems require manual audit prep. Every action is tracked, compliance status is live.
+
+🎯 VMS Director: AI resume screening (100 resumes in 20 minutes)
+   → Most systems require manual review. We screen + rank automatically.
+
+🎯 HR Leader: Turnover prediction based on engagement trends
+   → Most systems react to departures. We predict which contractors/employees will leave next quarter.
+
+🎯 IT Director: 15+ enterprise system integrations (no custom code)
+   → Most systems create disconnected silos. We unify 15+ systems into one source of truth.
+Section 8: Callout: "We're Overdelivering Because..."
+Final section answering: Why does this platform justify its cost?
+
+Most workforce management systems are transactional (manage timecards, invoices, POs).
+We're transformational (predict problems, prevent crises, enable strategic decisions).
+
+Typical value:
+  • CPO: Prevents 1 vendor crisis/year = $100K+ saved (no disruption, no emergency procurement)
+  • PM: 165 projects managed proactively vs reactively = 40+ hours saved/week (better delivery)
+  • Finance: Invoice accuracy at payment = $50K+ in error prevention
+  • Operations: Equipment tracking prevents loss/damage = $200K+ in asset protection
+  • HR: Turnover prediction enables succession planning = 30% reduction in critical departures
+
+ROI Calculation:
+  Annual spend managed through platform: $50M+
+  Platform cost: 1% of managed spend = $500K
+  Savings (conservative): 5-10% efficiency gain = $2.5M - $5M
+  ROI: 5-10x
+PHASE 1: BROKEN PAGES FIX + MVP FOUNDATION (Expert Pain Points for 6+ Roles)
+Deliverable
+Fix 3 broken pages. Build MVP pages solving critical pain points for 6+ experts simultaneously. Deploy real data. Establish unified dashboard access pattern.
+
+Key Features
+Broken pages fixed and loading data
+Purchase Orders: CPO + PM + Finance visibility
+Contractors: VMS + HR + Field operations visibility
+Assets: Operations + IT + Finance visibility
+Vendors: CPO + Finance + Legal visibility
+Timecards: Field Supervisor + HR + Finance visibility
+Unified dashboard: Each expert sees their data, same backend
+Real-time data persistence (survives refresh)
+Tasks
+ Fix /changeorders page - Load and display data correctly
+ Fix /approvals/requests page - Show approval queue filtered by user/authority level
+ Fix /expenses page - Load expense list with employee/manager context
+ Build Purchase Orders list - CPO sees costs, PM sees dependencies, Finance sees budget
+ Build Purchase Order detail - Header (PO info), Vendor card (clickable), Invoice relationship, Budget variance
+ Build Contractors list - VMS sees performance scores, HR sees skills, Field sees availability/location
+ Build Contractor detail - Performance history, Assigned assets, Manager info, Utilization metrics, Skill qualifications
+ Build Assets list - Category filter (Vehicle/Equipment), Status filter (Active/Inactive), Real-time location
+ Build Asset detail - Current assignment, History (all assignments), Batch info, Facility location, Maintenance records
+ Build Vendors list - Cost trend (this year vs last year), Performance score, Status (Active/Risk/On-Watch)
+ Build Vendor detail - All POs with this vendor, Contract status + expiration, Financial history, Performance metrics
+ Build Invoices list - PO reference (clickable), Vendor name (clickable), Amount, Status, Variance % from contract
+ Build Invoice detail - Variance breakdown, Approvers, PO it matches, Vendor contract terms comparison
+ Build CPO Dashboard - Vendor spend trends, Contract renewals due in 90 days, Risk alerts (E-Plus type escalations)
+ Build Project Manager Dashboard - Portfolio health (At Risk count), Resource conflicts, Dependency bottlenecks
+ Build Finance Dashboard - Budget variance by project/vendor, Invoice accuracy rate, Top cost overruns
+ Build VMS Director Dashboard - Contractor pipeline, Performance scores, Utilization rates, Skills gaps
+ Build HR Dashboard - Open positions, Time-to-fill metrics, Turnover trends, Contractor quality scores
+ Implement breadcrumb navigation - Show path: Dashboard → List → Detail
+ Create activity timeline component - Show who touched this, when, what changed (for audit trail + transparency)
+ Build relationship cards - All clickable links (Vendor card → Vendor page, Manager card → Manager profile)
+Notes
+Expert Pain Point Mapping:
+
+CPO (Procurement): Purchase Orders + Vendors pages eliminate vendor crisis blindness (E-Plus escalation now visible proactively)
+Project Manager: Portfolio dashboard replaces 80 hrs/week reporting with real-time self-service (PM freed up for actual management)
+Finance Controller: Invoices + Budget dashboard prevents month-end surprises (variance visible when invoice created, not discovered later)
+VMS Director: Contractors list shows performance across all projects (no more "call 5 PMs to ask about contractor quality")
+HR Leader: Contractor + Timecard dashboards provide workforce utilization (know capacity constraints 60-90 days ahead)
+IT Director: Integration architecture visible + 99.99% uptime (eliminates "15-20 disconnected tools" complaint)
+Operations Manager: Assets page provides real-time location + EOL status (prevents $2.3M surprise, enables proactive replacement)
+CISO: Activity timeline provides audit trail for every page (compliance ready: who did what when)
+Legal Counsel: Vendor page shows contract renewal dates with status (prevents auto-renewal disasters, enables renegotiation)
+Field Supervisor: Contractor detail shows availability + location (field team knows who's available without asking PM)
+Success Metrics for Phase 1:
+
+All 3 broken pages fixed and loading
+6+ pages with full detail views
+5+ role-specific dashboards functional
+Real data from Supabase (no mock data)
+<200ms page load times
+Breadcrumb navigation working across all pages
+PHASE 2: ADVANCED UX & EXPERT-SPECIFIC WOW FACTORS (3-5 Expert Pain Points)
+Deliverable
+Build advanced drill-through patterns. Implement wow factors showing deep job understanding. Add mobile-first field operations. Create cross-expert intelligence (when PM flags project at risk, auto-alert CFO, VMS Director, CPO).
+
+Key Features
+Mobile-first timecard approval (Field Supervisor: 2 hours → 10 minutes)
+Predictive vendor risk scoring (CPO: predict crises 3+ months ahead)
+Contract renewal alerts (Legal: prevent auto-renewal disasters)
+Skills gap analysis (HR/VMS: 60-90 day workforce planning)
+Budget anomaly detection (Finance: flag invoice variance before payment)
+Equipment location tracking (Operations: real-time asset visibility)
+Voice-to-text expense/timecard submission (Field: reduce friction)
+Cross-expert intelligence (PM flags project risk → auto-alerts CPO, CFO, VMS Director)
+Tasks
+ Build mobile timecard approval UI - Supervisor can approve 10 timecards in 10 minutes from phone
+ Implement anomaly detection - Flag "hours logged at closed site" or "overtime exceeds threshold"
+ Build expense submission with photo receipts - Field worker takes photo, voice-to-text description, auto-categorizes
+ Create vendor performance scorecard - CPO sees trend showing "E-Plus trending toward crisis" 3 months ahead
+ Build contract renewal alert system - Legal sees contract expiring in 60 days, flags for renegotiation
+ Implement skills gap analysis - HR sees "need 5 cloud engineers in Q2 based on project pipeline"
+ Create invoice variance detector - Finance sees invoice 18% above last quarter, flags for review before payment
+ Build equipment location dashboard - Operations sees all assets across 19 sites in real-time
+ Implement geofencing clock-in/out - Field worker arrives at site, auto-clocks in (if geofencing supported)
+ Create dependency cascade analyzer - PM flags "Active Directory upgrade blocks 6 projects" with cascade impact
+ Build cross-expert alerts - When PM creates project, automatically suggests needed contractors from VMS data
+ Create what-if scenario tool - PM asks "If we delay Project X by 2 weeks, what's the cascade?" and gets instant analysis
+ Build contractor marketplace - Field locations can see available contractors at nearby sites (internal talent sharing)
+ Implement AI resume parsing - VMS Director screens 100 resumes in 20 minutes (80% time savings vs manual)
+ Create role-based export templates - Finance exports Budget Report; CPO exports Vendor Performance Report (formatted for their needs)
+ Build predictive utilization alerts - "Team A overloaded next week, suggest reallocating 2 people"
+Notes
+Wow Factors by Expert:
+
+CPO: "I can see E-Plus cost escalation 3 months before it becomes crisis? That's why I'd pay for this platform."
+Project Manager: "I transformed 165 projects from whiteboard chaos to real-time portfolio dashboard in 6 weeks? That's generational."
+VMS Director: "AI screens 100 resumes in 20 minutes and I trust its rankings? That's productivity transformation."
+Finance: "I catch invoice errors BEFORE payment instead of 30 days later during reconciliation? Game-changer."
+HR: "I know exactly which contractors will leave in the next quarter based on engagement trends? Prevents critical staffing gaps."
+IT Director: "I reduced my support burden 40% because systems finally talk to each other? That's why we're scaling."
+Operations: "Real-time asset location means I'm not wasting 20 hours/month looking for equipment? Efficiency multiplier."
+CISO: "Every action tracked, every approval audited, compliance dashboard shows real-time status? Audit confidence."
+Legal: "Contract renewals never get auto-renewed by accident again because I get 60-day alerts? Risk eliminated."
+Field Supervisor: "I approve timecards from my phone in 10 minutes instead of 2-hour desk sessions? Quality of life improvement."
+PHASE 3: PLATFORM SCALE & INTELLIGENCE (Predictive + Advanced)
+Deliverable
+Implement predictive ML models, real-time collaboration, advanced analytics, and enterprise compliance. Platform becomes "system of record" that predicts problems before experts even know to look.
+
+Key Features
+Predictive vendor risk (CPO)
+Turnover prediction (HR)
+Budget forecasting (Finance)
+Project timeline prediction (PM)
+Equipment failure prediction (Operations)
+Security anomaly detection (CISO)
+Contract risk scoring (Legal)
+Workforce capacity planning (VMS)
+Tasks
+ Implement predictive vendor risk model - Train on historical data, flag vendors trending toward problems
+ Build turnover prediction engine - Score employees by flight risk based on compensation, utilization, engagement
+ Create budget forecasting - Q2 spend prediction based on active projects + contractor commitments + vendor trends
+ Build timeline prediction ML - Project delivery estimates with confidence intervals (80%, 95%)
+ Implement equipment failure prediction - IoT sensor data (if available) or usage pattern analysis
+ Create security anomaly detector - Flag unusual data access patterns (user X accessed 10K records at 2 AM)
+ Build contract risk scoring (1-100) - Auto-route high-risk contracts (>75) to legal review
+ Implement real-time collaboration - Multiple experts see live updates (vendor score changed → CPO sees immediately)
+ Add advanced search across all data - "Show me all E-Plus invoices from Q3 with >5% variance"
+ Create compliance dashboard - Real-time SOC2/GDPR/HIPAA/SOX status with gap analysis
+ Build export suite (PDF/CSV/Excel) - Each expert gets their own report template (Board-ready, audit-ready, etc.)
+ Implement role-based data isolation (RLS) - Employee sees only their own records; Manager sees their team; Executive sees all
+ Add full-text search - Search across all contracts, invoices, timecards, employee records
+ Create audit compliance reports - Automatically generate SOX/GAAP audit workpapers
+ Build AI recommendation engine - "Based on your vendor performance data, recommend renegotiating X contracts for $Y savings"
+Notes
+Predictive Intelligence Value:
+
+CPO: Vendor risk scores let them replace reactive firefighting with proactive renegotiation
+HR: Turnover predictions enable succession planning instead of "key person just left unexpectedly"
+Finance: Budget forecasts prevent "project overrun discovered at end of quarter" disasters
+PM: Timeline predictions make executive reporting credible ("we'll hit this date with 85% confidence")
+Operations: Equipment failure prediction prevents catastrophic outages
+CISO: Anomaly detection catches security threats before data exfiltration
+Legal: Contract risk scoring automates high-risk contract identification
+VMS: Capacity planning shows "we need 15 contractors Q2, have only 8 on bench, start recruiting now"
+PHASE 4: ENTERPRISE PLATFORM & MARKET SCALE
+Deliverable
+On-premise deployment option, multi-tenant architecture, white-label capabilities, agency integrations. Platform becomes "system of truth" for entire staffing industry.
+
+Key Features
+On-premise deployment (data sovereignty for regulated industries)
+Multi-tenant SaaS architecture
+White-label portal for staffing agencies
+Integration marketplace (third-party extensions)
+Industry-specific templates (healthcare, finance, manufacturing)
+Advanced API access for partner integrations
+Tasks
+ Build on-premise deployment option - Docker containerization, deployment guides
+ Implement multi-tenant data isolation - Tenant 1 data never visible to Tenant 2
+ Create white-label portal - Staffing agencies can rebrand as their own
+ Build integration marketplace - Developers can publish connectors for other systems
+ Create industry templates - Pre-configured workflows for healthcare, finance, manufacturing, logistics
+ Build advanced API suite - Third parties can build on platform
+ Implement transaction-based pricing engine - Calculate 1% of managed spend automatically
+ Create partner enablement program - Training, support, co-marketing for agencies
+ Build agency dashboard - View all clients, usage, revenue
+CURRENT BLOCKERS
+🔴 CRITICAL (Phase 1 - Week 1):
+
+/changeorders list page not loading
+/approvals/requests list page not loading
+/expenses list page not loading
+🟡 IMPORTANT (Phase 0 - Complete specifications before building):
+
+Page specifications not yet written (template ready, need to document each page per expert personas)
+Integration architecture not documented (iPaaS requirements for IT Director confidence)
+Expert personas not yet interviewed (questions prepared, need stakeholder input to validate pain points)
+SUCCESS CRITERIA - PHASE 0
+✅ All 10 expert personas understood with specific pain points documented ✅ Page Specification Template applied to 9 major pages (PO, Contractor, Asset, Vendor, Invoice, Timecard, Expense, Approval, Dashboard) ✅ MVP vs nice-to-have fields defined per expert ✅ Click behavior documented (what happens when user clicks each element) ✅ Wow factors identified (surprise features showing job understanding) ✅ Integration architecture specified (15+ systems, iPaaS layer requirements) ✅ Metadata context patterns defined (audit trail, relationships, history) ✅ 3 broken pages identified with root cause analysis ✅ Admin Reference/Definition page created showing research, logic, and how we address each expert pain point
+
+SUCCESS CRITERIA - PHASE 1
+✅ 3 broken pages fixed and loading with real data ✅ 6+ major pages built with full detail views ✅ 5+ role-specific dashboards functional and providing value ✅ Breadcrumb navigation working across all pages ✅ Activity timeline showing audit trail on all detail pages ✅ Relationship cards clickable and navigable ✅ <200ms page load times ✅ Real data from Supabase (no mock data) ✅ Each expert can accomplish their top 3 pain-point-solving workflows

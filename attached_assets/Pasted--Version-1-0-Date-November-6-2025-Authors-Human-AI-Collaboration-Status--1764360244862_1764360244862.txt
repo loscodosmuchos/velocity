@@ -1,0 +1,99 @@
+**Version:** 1.0  
+**Date:** November 6, 2025  
+**Authors:** Human + AI Collaboration  
+**Status:** Active Technical Standard  
+**Purpose:** Complete guide for extracting, organizing, and documenting insights from conversations
+
+---
+
+## 🎯 Document Purpose
+
+**This is a meta-guide** - it documents the system I used to create all the other insight documents you see in this project.
+
+**Target audience:** New AI instances in other Repl projects who need to replicate this insight extraction and documentation system.
+
+**What you'll learn:**
+1. How to extract valuable insights from conversations
+2. How to gauge importance and prioritize
+3. How to structure and format insight documents
+4. How to organize files and directories
+5. How to preserve context and relationships
+6. How to make insights actionable and searchable
+
+---
+
+## Table of Contents
+
+1. [System Overview](#system-overview)
+2. [The Extraction Process](#extraction-process)
+3. [Value Assessment](#value-assessment)
+4. [Document Creation](#document-creation)
+5. [File Organization](#file-organization)
+6. [Naming Conventions](#naming-conventions)
+7. [Context Preservation](#context-preservation)
+8. [Quality Standards](#quality-standards)
+9. [Integration Features](#integration-features)
+10. [Real-World Examples](#real-world-examples)
+
+---
+
+## System Overview
+
+### The Problem This Solves
+
+**Knowledge evaporation** - Valuable insights from conversations disappear unless systematically captured.
+
+**Conversation flow:**
+```
+User: "Here's an interesting concept..."
+AI: "Great analysis! Let me explore this..."
+[10 messages of deep discussion]
+Result: Insights lost in chat history
+```
+
+**With this system:**
+```
+User: "Here's an interesting concept..."
+AI: "Great analysis! Let me explore this..."
+[10 messages of deep discussion]
+AI: Creates standalone document capturing insights
+Result: Permanent, searchable, shareable knowledge
+```
+
+### Core Principles
+
+**1. When In Doubt, Doc It Out**
+- If it took >5 minutes to discuss, document it
+- If it's reusable, document it
+- If it matters, document it
+
+**2. Harvest-Classify-Store-Retrieve-Deploy**
+- Extract insights from conversations
+- Classify by type and importance
+- Store in organized structure
+- Enable easy retrieval via search
+- Make insights deployable/actionable
+
+**3. Context Preservation > Raw Storage**
+- Always capture WHY alongside WHAT
+- Include decision history and iteration process
+- Document what was rejected and why
+- Preserve user quotes and rationale
+
+**4. Progressive Enhancement**
+- Start with quick capture
+- Enhance with examples over time
+- Link related insights
+- Build knowledge graph
+
+---
+
+## The Extraction Process
+
+### Step 1: Identify Extractable Insights
+
+**During conversation, watch for:**
+
+✅ **Patterns and methodologies**
+- "Here's how we approach X"
+- "The pattern is: A → B → C"

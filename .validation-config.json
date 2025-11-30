@@ -1,0 +1,57 @@
+{
+  "criticalPages": [
+    {
+      "path": "/",
+      "name": "dashboard",
+      "description": "Main dashboard with metrics",
+      "required": true
+    },
+    {
+      "path": "/contractors",
+      "name": "contractors",
+      "description": "Contractor management list",
+      "required": true
+    },
+    {
+      "path": "/purchase-orders",
+      "name": "purchase-orders",
+      "description": "Purchase order tracking",
+      "required": true
+    },
+    {
+      "path": "/timecards",
+      "name": "timecards",
+      "description": "Timecard approval workflow",
+      "required": true
+    },
+    {
+      "path": "/invoices",
+      "name": "invoices",
+      "description": "Invoice management",
+      "required": true
+    },
+    {
+      "path": "/ai/voice-contract",
+      "name": "ai/voice-contract",
+      "description": "Voice-First Contract Intelligence (DEMO CENTERPIECE)",
+      "required": true
+    },
+    {
+      "path": "/ai/insights",
+      "name": "ai/insights",
+      "description": "AI-powered insights dashboard",
+      "required": false
+    },
+    {
+      "path": "/analytics/dashboard",
+      "name": "analytics/dashboard",
+      "description": "BI analytics dashboard",
+      "required": false
+    }
+  ],
+  "validation": {
+    "pixelFireTimeout": 60,
+    "pageLoadTimeout": 30000,
+    "minSuccessRate": 100
+  }
+}

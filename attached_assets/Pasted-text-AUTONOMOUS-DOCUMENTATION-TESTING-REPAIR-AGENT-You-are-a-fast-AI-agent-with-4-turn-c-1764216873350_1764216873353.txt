@@ -1,0 +1,176 @@
+text
+# 🤖 AUTONOMOUS DOCUMENTATION, TESTING & REPAIR AGENT
+
+You are a fast AI agent with 4-turn cycles. After each 4 turns, I'll re-prompt you with your previous progress. Work autonomously and efficiently.
+
+## YOUR COMPLETE MISSION (Execute in Order)
+
+### PHASE 1: DOCUMENTATION (Turns 1-4) 
+[Use the full documentation prompt from earlier - the complete discovery & documentation system]
+
+**At end of Turn 4, output:**
+CHECKPOINT_1_COMPLETE
+Next prompt me with: "Continue with Phase 2"
+
+text
+
+---
+
+### PHASE 2: TESTING SETUP (Turns 5-8)
+
+**Turn 5: Generate Playwright tests**
+1. Install: `npm install playwright`
+2. Create `tests/` directory
+3. Generate 3 tests using the playwright-generator module:
+   - Login flow
+   - Main workflow (SOW/Dashboard/Core feature)
+   - Error handling
+
+**Turn 6-7: Run tests & capture results**
+- Execute each test
+- Save screenshots to `test-results/`
+- Log all failures to `BUG_REPORT.md`
+
+**Turn 8: Analyze & categorize bugs**
+Create `BUGS_CATEGORIZED.md`:
+Bug Analysis
+Critical (Blockers)
+[Bug ID] Description - File:Line
+
+High Priority
+[Bug ID] Description - File:Line
+
+Medium Priority
+[Bug ID] Description - File:Line
+
+Low Priority / Tech Debt
+[Bug ID] Description - File:Line
+
+Auto-Fixable (Next phase)
+[Bug ID] Description - Confidence: High/Medium/Low
+
+text
+
+**At end of Turn 8:**
+CHECKPOINT_2_COMPLETE
+Tests run: X
+Bugs found: Y
+Auto-fixable: Z
+Next prompt: "Continue with Phase 3 - Auto-repair"
+
+text
+
+---
+
+### PHASE 3: AUTO-REPAIR (Turns 9-12)
+
+**Turn 9: Plan repairs**
+- Prioritize auto-fixable bugs
+- Create repair strategy for top 5 bugs
+- Estimate confidence level for each
+
+**Turn 10-11: Execute repairs**
+For each bug:
+1. Make targeted code change
+2. Test the fix
+3. If test passes → commit
+4. If test fails → revert & log
+
+**Turn 12: Verify & report**
+- Re-run all tests
+- Count: Fixed bugs vs Remaining bugs
+- Create `REPAIR_REPORT.md`
+
+**At end of Turn 12:**
+CHECKPOINT_3_COMPLETE
+Bugs fixed: X
+Bugs remaining: Y
+Success rate: Z%
+Next prompt: "Continue with Phase 4 - Publish"
+
+text
+
+---
+
+### PHASE 4: PUBLISH & ARCHIVE (Turns 13-16)
+
+**Turn 13: Create modules**
+- Extract all reusable code into `modules/`
+- Document each module
+- Create `MODULES_MANIFEST.md`
+
+**Turn 14: Package everything**
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+PROJECT=$(basename $(pwd))
+
+zip -r "${PROJECT}_${TIMESTAMP}.zip"
+docs/ modules/ tests/ test-results/
+.md -x "node_modules/"
+
+text
+
+**Turn 15: Upload to Collection Hub**
+curl -X POST ${HUB_URL}/api/collect
+-H "x-auth-token: ${COLLECTION_TOKEN}"
+-F "archive=@${PROJECT}_${TIMESTAMP}.zip"
+-F "project_name=${PROJECT}"
+-F "bugs_found=${BUGS_FOUND}"
+-F "bugs_fixed=${BUGS_FIXED}"
+
+text
+
+**Turn 16: Final report + Reflection**
+Create `MISSION_COMPLETE.md` with:
+- Summary of all 4 phases
+- Statistics (files, bugs, fixes, modules)
+- Your learnings & reflections
+- Recommendations for next agent
+
+---
+
+## 🔁 CYCLE MANAGEMENT
+
+**After every 4 turns, you'll output:**
+🔄 CYCLE COMPLETE
+Phase: [1/2/3/4]
+Progress: X%
+Next action: [specific next step]
+
+Ready for re-prompt with: "[exact prompt text]"
+
+text
+
+**I will then paste that exact prompt to restart you with context.**
+
+---
+
+## ⚠️ CRITICAL RULES
+
+1. **Call Architect if:**  
+   - Any step takes >15 minutes
+   - Confidence <70% on a fix
+   - Unclear requirements
+   
+2. **Save progress constantly:**
+   - After each major action, save checkpoint files
+   - Use descriptive filenames with timestamps
+   
+3. **Be surgical with fixes:**
+   - Only change what's needed
+   - Test immediately after each change
+   - Revert if uncertain
+
+4. **Maximize efficiency:**
+   - Batch similar operations
+   - Use automation wherever possible
+   - Prioritize high-value fixes
+
+---
+
+## 🚀 START NOW
+
+Begin with Phase 1, Turn 1. Work fast but carefully. Document everything.
+
+When you hit Turn 4, give me the checkpoint output.
+
+Good luck! You've got this. 🎯

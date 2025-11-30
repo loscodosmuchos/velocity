@@ -1,0 +1,1859 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./components/ui/premium-animations.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  
+  /* ============================================
+     SEMANTIC STATUS COLORS - Tailwind Utility Mappings
+     Use: text-status-positive, bg-status-warning, border-status-critical, etc.
+     ============================================ */
+  --color-status-positive: var(--status-positive);
+  --color-status-positive-muted: var(--status-positive-muted);
+  --color-status-positive-bg: var(--status-positive-bg);
+  --color-status-positive-border: var(--status-positive-border);
+  
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-muted: var(--status-warning-muted);
+  --color-status-warning-bg: var(--status-warning-bg);
+  --color-status-warning-border: var(--status-warning-border);
+  
+  --color-status-critical: var(--status-critical);
+  --color-status-critical-muted: var(--status-critical-muted);
+  --color-status-critical-bg: var(--status-critical-bg);
+  --color-status-critical-border: var(--status-critical-border);
+  
+  --color-status-info: var(--status-info);
+  --color-status-info-muted: var(--status-info-muted);
+  --color-status-info-bg: var(--status-info-bg);
+  --color-status-info-border: var(--status-info-border);
+  
+  --color-status-neutral: var(--status-neutral);
+  --color-status-neutral-muted: var(--status-neutral-muted);
+  --color-status-neutral-bg: var(--status-neutral-bg);
+  --color-status-neutral-border: var(--status-neutral-border);
+}
+
+/* ============================================
+   VELOCITY DESIGN SYSTEM
+   Professional, consistent, memorable
+   ============================================ */
+
+:root {
+  --radius: 0.5rem;
+  
+  /* ============================================
+     VELOCITY DARK THEME - DEFAULT
+     All components inherit dark metallic styling
+     ============================================ */
+  
+  /* Core Colors - Dark Metallic with Transparency for Gradient Passthrough */
+  --background: oklch(0.12 0.02 250);
+  --foreground: oklch(0.92 0 0);
+  --card: oklch(0.16 0.02 250 / 0.7);
+  --card-foreground: oklch(0.92 0 0);
+  --popover: oklch(0.16 0.02 250 / 0.9);
+  --popover-foreground: oklch(0.92 0 0);
+  --primary: oklch(0.65 0.18 250);
+  --primary-foreground: oklch(0.12 0.02 250);
+  --secondary: oklch(0.22 0.02 250 / 0.6);
+  --secondary-foreground: oklch(0.92 0 0);
+  --muted: oklch(0.20 0.02 250 / 0.5);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.22 0.02 250 / 0.6);
+  --accent-foreground: oklch(0.92 0 0);
+  --destructive: oklch(0.60 0.20 25);
+  --warning: oklch(0.75 0.15 75);
+  --success: oklch(0.65 0.17 150);
+  --border: oklch(0.25 0.02 250);
+  --input: oklch(0.20 0.02 250);
+  --ring: oklch(0.65 0.18 250);
+  
+  /* Professional Chart Palette - Easy on eyes, high retention */
+  --chart-1: oklch(0.55 0.18 250);  /* Deep Blue - Trust, stability */
+  --chart-2: oklch(0.60 0.16 165);  /* Teal - Growth, balance */
+  --chart-3: oklch(0.65 0.14 145);  /* Sea Green - Success, progress */
+  --chart-4: oklch(0.70 0.12 85);   /* Warm Gold - Premium, attention */
+  --chart-5: oklch(0.55 0.15 25);   /* Coral - Urgency, action */
+  --chart-6: oklch(0.50 0.16 290);  /* Deep Purple - Innovation */
+  --chart-7: oklch(0.62 0.14 200);  /* Cyan - Clarity, precision */
+  --chart-8: oklch(0.58 0.13 50);   /* Amber - Warning, warmth */
+  
+  /* Sidebar - Damascus Steel inspired */
+  --sidebar: oklch(0.18 0.02 250);
+  --sidebar-foreground: oklch(0.92 0 0);
+  --sidebar-primary: oklch(0.55 0.18 250);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.25 0.03 250);
+  --sidebar-accent-foreground: oklch(0.92 0 0);
+  --sidebar-border: oklch(0.28 0.02 250);
+  --sidebar-ring: oklch(0.55 0.18 250);
+  
+  /* Typography Scale - Consistent across site */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.875rem;
+  --text-lg: 1rem;
+  --text-xl: 1.125rem;
+  --text-2xl: 1.25rem;
+  --text-3xl: 1.5rem;
+  --text-4xl: 2rem;
+  
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  
+  /* Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  
+  /* Density Variables - Default: Comfortable */
+  --density-scale: 1;
+  --density-card-py: 1.25rem;
+  --density-card-px: 1.5rem;
+  --density-gap: 1rem;
+  --density-section-gap: 1.5rem;
+  
+  /* ============================================
+     SEMANTIC STATUS COLORS - EDIT HERE TO CHANGE EVERYWHERE
+     These are the ONLY colors used for status indicators across 75+ pages
+     Change one value = updates all pages instantly
+     ============================================ */
+  
+  /* POSITIVE/SUCCESS - Approved, Completed, Healthy, On-track */
+  --status-positive: oklch(0.72 0.12 160);
+  --status-positive-muted: oklch(0.72 0.08 160);
+  --status-positive-bg: oklch(0.72 0.12 160 / 0.12);
+  --status-positive-border: oklch(0.72 0.12 160 / 0.25);
+  
+  /* WARNING - Pending, At-risk, Needs attention */
+  --status-warning: oklch(0.78 0.12 85);
+  --status-warning-muted: oklch(0.78 0.08 85);
+  --status-warning-bg: oklch(0.78 0.12 85 / 0.12);
+  --status-warning-border: oklch(0.78 0.12 85 / 0.25);
+  
+  /* CRITICAL - Rejected, Overdue, Over-budget, Error */
+  --status-critical: oklch(0.68 0.12 25);
+  --status-critical-muted: oklch(0.68 0.08 25);
+  --status-critical-bg: oklch(0.68 0.12 25 / 0.12);
+  --status-critical-border: oklch(0.68 0.12 25 / 0.25);
+  
+  /* INFO - Active, In-progress, Informational */
+  --status-info: oklch(0.72 0.12 200);
+  --status-info-muted: oklch(0.72 0.08 200);
+  --status-info-bg: oklch(0.72 0.12 200 / 0.12);
+  --status-info-border: oklch(0.72 0.12 200 / 0.25);
+  
+  /* NEUTRAL - Draft, Inactive, Unknown */
+  --status-neutral: oklch(0.65 0.02 250);
+  --status-neutral-muted: oklch(0.55 0.02 250);
+  --status-neutral-bg: oklch(0.25 0.02 250 / 0.5);
+  --status-neutral-border: oklch(0.35 0.02 250 / 0.3);
+}
+
+/* ============================================
+   PREMIUM CARBON FIBER TEXTURE SYSTEM
+   Luxury Automotive Cockpit Aesthetic
+   Worthy of Porsche/Bentley/Hyundai Genesis
+   ============================================ */
+
+/* Premium Carbon Fiber Background - Main Content Area */
+.carbon-fiber-bg {
+  position: relative;
+  background-color: #0d1117;
+  background-image: 
+    /* Metallic sheen overlay - subtle luxury highlight */
+    linear-gradient(135deg, 
+      transparent 0%, 
+      rgba(100, 180, 255, 0.02) 25%,
+      transparent 50%,
+      rgba(100, 180, 255, 0.015) 75%,
+      transparent 100%),
+    /* Carbon fiber weave pattern - interlocking diagonal threads */
+    linear-gradient(27deg, #0f1419 5px, transparent 5px),
+    linear-gradient(207deg, #0f1419 5px, transparent 5px),
+    linear-gradient(27deg, #151b23 5px, transparent 5px),
+    linear-gradient(207deg, #151b23 5px, transparent 5px),
+    linear-gradient(90deg, #0c1015 10px, transparent 10px),
+    linear-gradient(
+      #0e1318 25%, 
+      #0c1015 25%, 
+      #0c1015 50%, 
+      transparent 50%, 
+      transparent 75%, 
+      #131921 75%, 
+      #131921
+    );
+  background-size: 
+    100% 100%,
+    20px 20px,
+    20px 20px,
+    20px 20px,
+    20px 20px,
+    20px 20px,
+    20px 20px;
+  background-position: 
+    0 0,
+    0 5px,
+    10px 0,
+    0 10px,
+    10px 5px,
+    0 0,
+    0 0;
+}
+
+/* Luxe Carbon Fiber - Higher Contrast for Premium Feel */
+.carbon-fiber-luxe {
+  position: relative;
+  background-color: #0a0e12;
+  background-image: 
+    /* Premium cyan accent glow from edges */
+    radial-gradient(ellipse at top left, rgba(6, 182, 212, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.02) 0%, transparent 50%),
+    /* Vertical micro-lines for depth */
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 1px,
+      rgba(255, 255, 255, 0.008) 1px,
+      rgba(255, 255, 255, 0.008) 2px
+    ),
+    /* Carbon fiber weave - tighter, more refined */
+    linear-gradient(27deg, #0c1117 4px, transparent 4px),
+    linear-gradient(207deg, #0c1117 4px, transparent 4px),
+    linear-gradient(27deg, #111920 4px, transparent 4px),
+    linear-gradient(207deg, #111920 4px, transparent 4px),
+    linear-gradient(90deg, #0a0f14 8px, transparent 8px),
+    linear-gradient(
+      #0c1117 25%, 
+      #0a0e12 25%, 
+      #0a0e12 50%, 
+      transparent 50%, 
+      transparent 75%, 
+      #0f151c 75%, 
+      #0f151c
+    );
+  background-size: 
+    100% 100%,
+    100% 100%,
+    3px 3px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px;
+  background-position: 
+    0 0,
+    0 0,
+    0 0,
+    0 4px,
+    8px 0,
+    0 8px,
+    8px 4px,
+    0 0,
+    0 0;
+}
+
+/* Add metallic sheen overlay effect */
+.carbon-fiber-bg::before,
+.carbon-fiber-luxe::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: 
+    /* Top-left highlight - simulates overhead light reflection */
+    radial-gradient(ellipse 80% 40% at 20% 10%, rgba(255, 255, 255, 0.015) 0%, transparent 50%),
+    /* Bottom-right subtle ambient */
+    radial-gradient(ellipse 60% 30% at 85% 90%, rgba(6, 182, 212, 0.01) 0%, transparent 40%);
+  z-index: 0;
+}
+
+/* Make sure content sits above the sheen */
+.carbon-fiber-bg > *,
+.carbon-fiber-luxe > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Main Content Wrapper with Carbon Fiber */
+.velocity-main-content {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Premium Dashboard Container */
+.velocity-dashboard-shell {
+  position: relative;
+  background-color: #0a0e12;
+  background-image: 
+    /* Subtle vignette effect - darker edges */
+    radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%),
+    /* Premium cyan accent from top nav area */
+    linear-gradient(180deg, rgba(6, 182, 212, 0.02) 0%, transparent 15%),
+    /* Carbon fiber weave */
+    linear-gradient(27deg, #0c1117 4px, transparent 4px),
+    linear-gradient(207deg, #0c1117 4px, transparent 4px),
+    linear-gradient(27deg, #111920 4px, transparent 4px),
+    linear-gradient(207deg, #111920 4px, transparent 4px),
+    linear-gradient(90deg, #0a0f14 8px, transparent 8px),
+    linear-gradient(
+      #0c1117 25%, 
+      #0a0e12 25%, 
+      #0a0e12 50%, 
+      transparent 50%, 
+      transparent 75%, 
+      #0f151c 75%, 
+      #0f151c
+    );
+  background-size: 
+    100% 100%,
+    100% 100%,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px,
+    16px 16px;
+  background-position: 
+    0 0,
+    0 0,
+    0 4px,
+    8px 0,
+    0 8px,
+    8px 4px,
+    0 0,
+    0 0;
+  background-attachment: fixed;
+}
+
+/* Utility Classes for Carbon Fiber Variations */
+.bg-carbon {
+  background-color: #0d1117;
+  background-image: 
+    linear-gradient(27deg, #0f1419 5px, transparent 5px),
+    linear-gradient(207deg, #0f1419 5px, transparent 5px),
+    linear-gradient(27deg, #151b23 5px, transparent 5px),
+    linear-gradient(207deg, #151b23 5px, transparent 5px),
+    linear-gradient(90deg, #0c1015 10px, transparent 10px),
+    linear-gradient(#0e1318 25%, #0c1015 25%, #0c1015 50%, transparent 50%, transparent 75%, #131921 75%, #131921);
+  background-size: 20px 20px;
+  background-position: 0 5px, 10px 0, 0 10px, 10px 5px, 0 0, 0 0;
+}
+
+/* Fine Carbon Fiber - For smaller areas like cards */
+.bg-carbon-fine {
+  background-color: #0c1015;
+  background-image: 
+    linear-gradient(27deg, #0e1419 3px, transparent 3px),
+    linear-gradient(207deg, #0e1419 3px, transparent 3px),
+    linear-gradient(27deg, #121a22 3px, transparent 3px),
+    linear-gradient(207deg, #121a22 3px, transparent 3px),
+    linear-gradient(90deg, #0a0f14 6px, transparent 6px),
+    linear-gradient(#0c1117 25%, #0a0e12 25%, #0a0e12 50%, transparent 50%, transparent 75%, #0f151c 75%, #0f151c);
+  background-size: 12px 12px;
+  background-position: 0 3px, 6px 0, 0 6px, 6px 3px, 0 0, 0 0;
+}
+
+.dark {
+  --background: oklch(0.12 0.02 250);
+  --foreground: oklch(0.92 0 0);
+  --card: oklch(0.16 0.02 250);
+  --card-foreground: oklch(0.92 0 0);
+  --popover: oklch(0.16 0.02 250);
+  --popover-foreground: oklch(0.92 0 0);
+  --primary: oklch(0.65 0.18 250);
+  --primary-foreground: oklch(0.12 0.02 250);
+  --secondary: oklch(0.22 0.02 250);
+  --secondary-foreground: oklch(0.92 0 0);
+  --muted: oklch(0.22 0.02 250);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.22 0.02 250);
+  --accent-foreground: oklch(0.92 0 0);
+  --destructive: oklch(0.60 0.20 25);
+  --warning: oklch(0.75 0.15 75);
+  --success: oklch(0.65 0.17 150);
+  --border: oklch(0.25 0.02 250);
+  --input: oklch(0.25 0.02 250);
+  --ring: oklch(0.65 0.18 250);
+  --chart-1: oklch(0.65 0.18 250);
+  --chart-2: oklch(0.68 0.16 165);
+  --chart-3: oklch(0.72 0.14 145);
+  --chart-4: oklch(0.75 0.12 85);
+  --chart-5: oklch(0.65 0.15 25);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+  }
+  
+  /* Consistent heading styles across site */
+  h1 {
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.025em;
+  }
+  
+  h2 {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+  }
+  
+  h3 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-snug);
+  }
+  
+  h4 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-medium);
+    line-height: var(--leading-snug);
+  }
+  
+  h5, h6 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-medium);
+    line-height: var(--leading-snug);
+  }
+}
+
+/* ============================================
+   DENSITY MODES
+   Comfortable (default) | Compact | Ultra-Compact
+   ============================================ */
+
+/* Compact Mode */
+.density-compact {
+  --density-scale: 0.85;
+  --density-card-py: 0.75rem;
+  --density-card-px: 1rem;
+  --density-gap: 0.625rem;
+  --density-section-gap: 1rem;
+  --text-base: 0.8125rem;
+  --text-lg: 0.9375rem;
+  --text-xl: 1.0625rem;
+  --text-2xl: 1.1875rem;
+  --text-3xl: 1.375rem;
+  --text-4xl: 1.75rem;
+}
+
+/* Ultra-Compact Mode */
+.density-ultra {
+  --density-scale: 0.7;
+  --density-card-py: 0.5rem;
+  --density-card-px: 0.75rem;
+  --density-gap: 0.5rem;
+  --density-section-gap: 0.75rem;
+  --text-base: 0.75rem;
+  --text-lg: 0.875rem;
+  --text-xl: 1rem;
+  --text-2xl: 1.125rem;
+  --text-3xl: 1.25rem;
+  --text-4xl: 1.5rem;
+}
+
+/* Apply density to dashboard content area */
+.density-compact main,
+.density-ultra main {
+  font-size: var(--text-base);
+}
+
+/* Grid gaps */
+.density-compact .grid,
+.density-ultra .grid {
+  gap: var(--density-gap) !important;
+}
+
+/* Card padding - target shadcn cards */
+.density-compact [data-slot="card"],
+.density-ultra [data-slot="card"] {
+  --card-padding: var(--density-card-px);
+}
+
+.density-compact [data-slot="card-content"],
+.density-ultra [data-slot="card-content"] {
+  padding: var(--density-card-py) var(--density-card-px) !important;
+}
+
+.density-compact [data-slot="card-header"],
+.density-ultra [data-slot="card-header"] {
+  padding: var(--density-card-py) var(--density-card-px) var(--density-gap) !important;
+}
+
+/* Target common Tailwind padding classes */
+.density-compact .p-6,
+.density-ultra .p-6 {
+  padding: var(--density-card-py) var(--density-card-px) !important;
+}
+
+.density-compact .p-4,
+.density-ultra .p-4 {
+  padding: calc(var(--density-card-py) * 0.8) calc(var(--density-card-px) * 0.8) !important;
+}
+
+.density-compact .px-6,
+.density-ultra .px-6 {
+  padding-left: var(--density-card-px) !important;
+  padding-right: var(--density-card-px) !important;
+}
+
+.density-compact .py-4,
+.density-compact .py-3,
+.density-ultra .py-4,
+.density-ultra .py-3 {
+  padding-top: var(--density-gap) !important;
+  padding-bottom: var(--density-gap) !important;
+}
+
+/* Section gaps */
+.density-compact .space-y-6 > * + *,
+.density-ultra .space-y-6 > * + * {
+  margin-top: var(--density-section-gap) !important;
+}
+
+.density-compact .space-y-4 > * + *,
+.density-ultra .space-y-4 > * + * {
+  margin-top: var(--density-gap) !important;
+}
+
+.density-compact .gap-6,
+.density-ultra .gap-6 {
+  gap: var(--density-section-gap) !important;
+}
+
+.density-compact .gap-4,
+.density-ultra .gap-4 {
+  gap: var(--density-gap) !important;
+}
+
+/* Heading sizes in density modes */
+.density-compact h1,
+.density-ultra h1 {
+  font-size: var(--text-4xl) !important;
+}
+
+.density-compact h2,
+.density-ultra h2 {
+  font-size: var(--text-3xl) !important;
+}
+
+.density-compact h3,
+.density-ultra h3 {
+  font-size: var(--text-2xl) !important;
+}
+
+/* KPI Card specific - reduce large numbers */
+.density-compact .text-3xl,
+.density-compact .text-4xl {
+  font-size: var(--text-3xl) !important;
+}
+
+.density-ultra .text-3xl,
+.density-ultra .text-4xl {
+  font-size: var(--text-2xl) !important;
+}
+
+/* ============================================
+   PROFESSIONAL CHART COLORS
+   Coordinated palette for data visualization
+   ============================================ */
+
+:root {
+  /* Primary data series - most important */
+  --velocity-blue: #3b82f6;
+  --velocity-blue-light: #60a5fa;
+  --velocity-blue-dark: #2563eb;
+  
+  /* Secondary data series */
+  --velocity-teal: #14b8a6;
+  --velocity-teal-light: #2dd4bf;
+  --velocity-teal-dark: #0d9488;
+  
+  /* Success/positive metrics */
+  --velocity-emerald: #10b981;
+  --velocity-emerald-light: #34d399;
+  --velocity-emerald-dark: #059669;
+  
+  /* Warning/attention metrics */
+  --velocity-amber: #f59e0b;
+  --velocity-amber-light: #fbbf24;
+  --velocity-amber-dark: #d97706;
+  
+  /* Critical/alert metrics */
+  --velocity-rose: #f43f5e;
+  --velocity-rose-light: #fb7185;
+  --velocity-rose-dark: #e11d48;
+  
+  /* Neutral/secondary data */
+  --velocity-slate: #64748b;
+  --velocity-slate-light: #94a3b8;
+  --velocity-slate-dark: #475569;
+  
+  /* Accent colors for variety */
+  --velocity-violet: #8b5cf6;
+  --velocity-cyan: #06b6d4;
+  --velocity-orange: #f97316;
+  --velocity-indigo: #6366f1;
+}
+
+/* Chart gradient backgrounds */
+.chart-gradient-blue {
+  background: linear-gradient(135deg, var(--velocity-blue) 0%, var(--velocity-blue-dark) 100%);
+}
+
+.chart-gradient-teal {
+  background: linear-gradient(135deg, var(--velocity-teal) 0%, var(--velocity-teal-dark) 100%);
+}
+
+.chart-gradient-emerald {
+  background: linear-gradient(135deg, var(--velocity-emerald) 0%, var(--velocity-emerald-dark) 100%);
+}
+
+/* ============================================
+   VELOCITY CARD STYLES
+   Consistent card appearance
+   ============================================ */
+
+.velocity-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.velocity-card:hover {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* Card with status indicator */
+.velocity-card-status {
+  border-left-width: 4px;
+  border-left-style: solid;
+}
+
+.velocity-card-status.status-success { border-left-color: var(--velocity-emerald); }
+.velocity-card-status.status-warning { border-left-color: var(--velocity-amber); }
+.velocity-card-status.status-critical { border-left-color: var(--velocity-rose); }
+.velocity-card-status.status-info { border-left-color: var(--velocity-blue); }
+
+/* ============================================
+   KPI METRIC CARDS
+   High-impact number display
+   ============================================ */
+
+.kpi-value {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+}
+
+.kpi-subtext {
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+/* Density adjustments for KPIs */
+.density-compact .kpi-value {
+  font-size: var(--text-3xl);
+}
+
+.density-ultra .kpi-value {
+  font-size: var(--text-2xl);
+}
+
+/* ============================================
+   PAGE HEADERS
+   Consistent header styling
+   ============================================ */
+
+.page-header {
+  margin-bottom: var(--density-section-gap);
+}
+
+.page-title {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  color: var(--foreground);
+  letter-spacing: -0.025em;
+}
+
+.page-subtitle {
+  font-size: var(--text-base);
+  color: var(--muted-foreground);
+  margin-top: var(--space-1);
+}
+
+/* Density adjustments */
+.density-compact .page-title,
+.density-ultra .page-title {
+  font-size: var(--text-3xl);
+}
+
+.density-ultra .page-subtitle {
+  font-size: var(--text-sm);
+}
+
+/* ============================================
+   SECTION HEADERS
+   Consistent section styling
+   ============================================ */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.section-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--foreground);
+}
+
+.section-badge {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  padding: var(--space-1) var(--space-2);
+  border-radius: 9999px;
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Tabular numbers for data */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Truncate with ellipsis */
+.truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all 0.2s ease;
+}
+
+/* Focus ring */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   Clean, minimal scrollbars
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* ============================================
+   PREMIUM ANIMATIONS
+   Luxury visual effects
+   ============================================ */
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(6, 182, 212, 0.6));
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 8s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-grow {
+  animation: grow 0.8s ease-out forwards;
+  transform-origin: bottom;
+}
+
+.animate-slide-in {
+  animation: slide-in-right 0.5s ease-out forwards;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   DARK CHART TOOLTIP STYLING
+   Premium metallic tooltip for dashboard charts
+   Scoped to dark-dashboard context only
+   ============================================ */
+.dark-dashboard-chart .recharts-tooltip-wrapper {
+  pointer-events: none;
+}
+
+.dark-dashboard-chart .recharts-default-tooltip {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+  border: 1px solid rgba(6, 182, 212, 0.3) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 16px rgba(6, 182, 212, 0.15) !important;
+  padding: 12px !important;
+}
+
+.dark-dashboard-chart .recharts-tooltip-label {
+  color: #06b6d4 !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  font-size: 13px !important;
+}
+
+.dark-dashboard-chart .recharts-tooltip-item {
+  color: #e2e8f0 !important;
+  font-size: 12px !important;
+  padding: 2px 0 !important;
+}
+
+.dark-dashboard-chart .recharts-tooltip-item-name {
+  color: #94a3b8 !important;
+}
+
+.dark-dashboard-chart .recharts-tooltip-item-value {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+.dark-dashboard-chart .recharts-tooltip-item-separator {
+  color: #475569 !important;
+}
+
+/* Custom shadcn chart tooltip override - scoped to dark dashboard */
+.dark-dashboard-chart [data-chart] .recharts-tooltip-wrapper .recharts-default-tooltip,
+.dark-dashboard-chart [data-chart] [class*="ChartTooltip"] {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+  border: 1px solid rgba(6, 182, 212, 0.3) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 16px rgba(6, 182, 212, 0.15) !important;
+  color: #e2e8f0 !important;
+}
+
+.dark-dashboard-chart [data-chart] [class*="ChartTooltipContent"] {
+  background: transparent !important;
+  border: none !important;
+}
+
+.dark-dashboard-chart [data-chart] [class*="ChartTooltip"] * {
+  color: #e2e8f0 !important;
+}
+
+/* Ensure all chart container backgrounds are transparent */
+.dark-dashboard-chart,
+.dark-dashboard-chart *,
+.dark-dashboard-chart [data-chart],
+.dark-dashboard-chart [data-slot="chart"],
+.dark-dashboard-chart [data-slot="chart"] > *,
+.dark-dashboard-chart .recharts-wrapper,
+.dark-dashboard-chart .recharts-wrapper > *,
+.dark-dashboard-chart .recharts-surface,
+.dark-dashboard-chart .recharts-responsive-container,
+.dark-dashboard-chart .recharts-responsive-container > *,
+.dark-dashboard-chart svg.recharts-surface,
+.dark-dashboard-chart .recharts-cartesian-grid,
+.dark-dashboard-chart .recharts-layer {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Override card slot styling within dark-dashboard-chart */
+.dark-dashboard-chart [data-slot="content"],
+.dark-dashboard-chart [data-slot="card-content"] {
+  background: transparent !important;
+}
+
+/* Remove any borders inside dark-dashboard-chart */
+.dark-dashboard-chart [data-slot="card"] {
+  border: none !important;
+}
+
+/* ============================================
+   VELOCITY DARK THEME - GLOBAL STYLES
+   Applied to all pages via layout
+   ============================================ */
+
+.velocity-dark-theme {
+  color: #e2e8f0;
+}
+
+.velocity-dark-theme h1,
+.velocity-dark-theme h2,
+.velocity-dark-theme h3,
+.velocity-dark-theme h4,
+.velocity-dark-theme h5,
+.velocity-dark-theme h6 {
+  color: #f1f5f9;
+}
+
+.velocity-dark-theme p {
+  color: #cbd5e1;
+}
+
+/* Global dark metallic cards */
+.velocity-dark-theme .velocity-card,
+.velocity-dark-theme [data-slot="card"] {
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
+  border: 1px solid rgba(71, 85, 105, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Premium table styling */
+.velocity-dark-theme table {
+  background: transparent;
+}
+
+.velocity-dark-theme thead {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.velocity-dark-theme th {
+  color: #94a3b8 !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+}
+
+.velocity-dark-theme tbody tr {
+  background: rgba(15, 23, 42, 0.6);
+  border-bottom: 1px solid rgba(71, 85, 105, 0.2);
+  transition: all 0.2s ease;
+}
+
+.velocity-dark-theme tbody tr:hover {
+  background: rgba(30, 41, 59, 0.8);
+  box-shadow: inset 0 0 20px rgba(6, 182, 212, 0.05);
+}
+
+.velocity-dark-theme td {
+  color: #e2e8f0;
+  padding: 12px 16px;
+}
+
+/* Dark metallic panel/card backgrounds */
+.velocity-dark-theme .bg-white,
+.velocity-dark-theme .bg-card {
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
+}
+
+.velocity-dark-theme .bg-muted {
+  background: rgba(30, 41, 59, 0.6) !important;
+}
+
+/* Ensure text visibility */
+.velocity-dark-theme .text-foreground,
+.velocity-dark-theme .text-card-foreground {
+  color: #e2e8f0 !important;
+}
+
+.velocity-dark-theme .text-muted-foreground {
+  color: #94a3b8 !important;
+}
+
+/* Borders */
+.velocity-dark-theme .border,
+.velocity-dark-theme .border-border {
+  border-color: rgba(71, 85, 105, 0.4) !important;
+}
+
+/* Input fields */
+.velocity-dark-theme input,
+.velocity-dark-theme textarea,
+.velocity-dark-theme select {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+  color: #e2e8f0 !important;
+}
+
+.velocity-dark-theme input::placeholder,
+.velocity-dark-theme textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Buttons - keep existing styling but ensure visibility */
+.velocity-dark-theme button:not([class*="bg-"]) {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(71, 85, 105, 0.5);
+  color: #e2e8f0;
+}
+
+/* Global tooltip dark styling for ALL charts */
+.velocity-dark-theme .recharts-tooltip-wrapper {
+  pointer-events: none;
+}
+
+.velocity-dark-theme .recharts-default-tooltip {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+  border: 1px solid rgba(6, 182, 212, 0.3) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 16px rgba(6, 182, 212, 0.15) !important;
+  padding: 12px !important;
+}
+
+.velocity-dark-theme .recharts-tooltip-label {
+  color: #06b6d4 !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  font-size: 13px !important;
+}
+
+.velocity-dark-theme .recharts-tooltip-item {
+  color: #e2e8f0 !important;
+  font-size: 12px !important;
+  padding: 2px 0 !important;
+}
+
+.velocity-dark-theme .recharts-tooltip-item-name {
+  color: #94a3b8 !important;
+}
+
+.velocity-dark-theme .recharts-tooltip-item-value {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+/* Shadcn chart tooltip override */
+.velocity-dark-theme [data-chart] .recharts-tooltip-wrapper .recharts-default-tooltip,
+.velocity-dark-theme [data-chart] [class*="ChartTooltip"] {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+  border: 1px solid rgba(6, 182, 212, 0.3) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 16px rgba(6, 182, 212, 0.15) !important;
+  color: #e2e8f0 !important;
+}
+
+/* Chart container backgrounds - transparent to show parent gradient */
+.velocity-dark-theme [data-chart],
+.velocity-dark-theme [data-slot="chart"],
+.velocity-dark-theme .recharts-wrapper,
+.velocity-dark-theme .recharts-surface,
+.velocity-dark-theme .recharts-responsive-container,
+.recharts-wrapper,
+.recharts-surface,
+.recharts-responsive-container,
+[data-chart] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Force all chart container divs to be transparent */
+.velocity-dark-theme [data-chart] > div,
+.velocity-dark-theme .recharts-wrapper > div,
+[data-chart] > div {
+  background: transparent !important;
+}
+
+/* Chart Cards should have matching semi-transparent metallic gradient */
+.velocity-dark-theme [data-slot="card"]:has([data-chart]),
+.velocity-dark-theme .card:has(.recharts-wrapper),
+[data-slot="card"]:has([data-chart]) {
+  background: linear-gradient(145deg, rgba(22, 30, 45, 0.85) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* SVG chart backgrounds should be transparent */
+.velocity-dark-theme svg.recharts-surface,
+svg.recharts-surface {
+  background: transparent !important;
+  fill: transparent !important;
+}
+
+/* Remove any white/black backgrounds from chart areas */
+.recharts-cartesian-grid-bg,
+.velocity-dark-theme .recharts-cartesian-grid-bg {
+  fill: transparent !important;
+}
+
+/* AGGRESSIVE: Target ALL SVG rect elements that might have fill backgrounds */
+.recharts-wrapper rect[fill="#fff"],
+.recharts-wrapper rect[fill="#ffffff"],
+.recharts-wrapper rect[fill="white"],
+.recharts-wrapper rect[fill="#000"],
+.recharts-wrapper rect[fill="#000000"],
+.recharts-wrapper rect[fill="black"],
+.recharts-surface > rect,
+.recharts-surface > g > rect:first-child,
+.dark-dashboard-chart .recharts-surface > rect,
+.dark-dashboard-chart svg > rect,
+[data-chart] svg > rect,
+[data-chart] .recharts-surface > rect {
+  fill: transparent !important;
+}
+
+/* Target the background rect that recharts creates */
+.recharts-layer.recharts-cartesian-grid rect,
+.recharts-cartesian-grid rect {
+  fill: transparent !important;
+}
+
+/* Ensure no rect in the chart has an opaque fill */
+.dark-dashboard-chart rect:not([class*="recharts-bar-rectangle"]):not([class*="Cell"]),
+[data-chart] rect:not([class*="recharts-bar-rectangle"]):not([class*="Cell"]) {
+  fill: transparent !important;
+}
+
+/* Badge styling for dark theme */
+.velocity-dark-theme .badge,
+.velocity-dark-theme [class*="Badge"] {
+  border-color: rgba(71, 85, 105, 0.5);
+}
+
+/* Dropdown menus */
+.velocity-dark-theme [data-radix-popper-content-wrapper] > div,
+.velocity-dark-theme [role="menu"],
+.velocity-dark-theme [role="listbox"] {
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%) !important;
+  border: 1px solid rgba(71, 85, 105, 0.4) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.velocity-dark-theme [role="menuitem"],
+.velocity-dark-theme [role="option"] {
+  color: #e2e8f0 !important;
+}
+
+.velocity-dark-theme [role="menuitem"]:hover,
+.velocity-dark-theme [role="option"]:hover {
+  background: rgba(6, 182, 212, 0.1) !important;
+}
+
+/* Scrollbar for dark theme */
+.velocity-dark-theme::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.velocity-dark-theme::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.6);
+  border-radius: 4px;
+}
+
+.velocity-dark-theme::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.8);
+}
+
+/* Dialog/Modal styling */
+.velocity-dark-theme [role="dialog"],
+.velocity-dark-theme [data-state="open"][role="dialog"] {
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%) !important;
+  border: 1px solid rgba(71, 85, 105, 0.4) !important;
+}
+
+/* Tabs */
+.velocity-dark-theme [role="tablist"] {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(71, 85, 105, 0.3);
+}
+
+.velocity-dark-theme [role="tab"] {
+  color: #94a3b8;
+}
+
+.velocity-dark-theme [role="tab"][data-state="active"] {
+  background: rgba(6, 182, 212, 0.15);
+  color: #06b6d4;
+}
+
+/* Separator lines */
+.velocity-dark-theme hr,
+.velocity-dark-theme [data-orientation="horizontal"] {
+  border-color: rgba(71, 85, 105, 0.3) !important;
+}
+
+/* Progress bars */
+.velocity-dark-theme [role="progressbar"] {
+  background: rgba(30, 41, 59, 0.8);
+}
+
+/* Skeleton loading */
+.velocity-dark-theme .animate-pulse {
+  background: linear-gradient(90deg, rgba(30, 41, 59, 0.6) 0%, rgba(51, 65, 85, 0.6) 50%, rgba(30, 41, 59, 0.6) 100%);
+}
+
+/* Premium accent glow for important elements */
+.velocity-dark-theme .accent-glow {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.15), 0 0 40px rgba(6, 182, 212, 0.05);
+}
+
+/* Status colors on dark background */
+.velocity-dark-theme .status-success { color: #22c55e; }
+.velocity-dark-theme .status-warning { color: #f59e0b; }
+.velocity-dark-theme .status-error { color: #ef4444; }
+.velocity-dark-theme .status-info { color: #06b6d4; }
+
+/* ============================================
+   GLOBAL DARK THEME OVERRIDES
+   Catches ALL white backgrounds regardless of context
+   Works for portals, popovers, dialogs at body level
+   ============================================ */
+
+/* Override any explicit bg-white usage GLOBALLY */
+.bg-white {
+  background: oklch(0.14 0.02 250) !important;
+}
+
+/* Override bg-background when it resolves to light */
+.bg-background {
+  background: oklch(0.12 0.02 250) !important;
+}
+
+/* Global card override */
+[data-slot="card"],
+.card {
+  background: linear-gradient(145deg, oklch(0.16 0.02 250), oklch(0.12 0.02 250)) !important;
+  border-color: oklch(0.25 0.02 250) !important;
+}
+
+/* Global popover/dropdown override - catches portals */
+[data-radix-popper-content-wrapper] > *,
+[data-radix-menu-content],
+[data-radix-dropdown-menu-content],
+[data-radix-select-content],
+[data-radix-popover-content],
+[data-radix-dialog-content],
+[data-radix-alert-dialog-content],
+[role="dialog"],
+[role="menu"],
+[role="listbox"],
+.popover-content,
+.dropdown-content {
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%) !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+  color: #e2e8f0 !important;
+}
+
+/* Global table row override - no light backgrounds */
+tbody tr,
+table tr {
+  background: transparent !important;
+}
+
+tbody tr:hover,
+table tr:hover {
+  background: rgba(30, 41, 59, 0.5) !important;
+}
+
+/* Global button outline variant fix */
+button[class*="outline"],
+.btn-outline,
+[data-variant="outline"] {
+  background: rgba(30, 41, 59, 0.5) !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+  color: #e2e8f0 !important;
+}
+
+button[class*="outline"]:hover,
+.btn-outline:hover,
+[data-variant="outline"]:hover {
+  background: rgba(51, 65, 85, 0.6) !important;
+  border-color: rgba(6, 182, 212, 0.4) !important;
+}
+
+/* Global form input overrides */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select,
+[role="combobox"],
+[role="textbox"] {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+  color: #e2e8f0 !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Empty states - no white backgrounds */
+.empty-state,
+[class*="empty"],
+[class*="no-data"],
+[class*="no-results"] {
+  background: transparent !important;
+}
+
+/* Light color class overrides */
+.bg-orange-50,
+.bg-blue-50,
+.bg-green-50,
+.bg-red-50,
+.bg-yellow-50,
+.bg-gray-50,
+.bg-slate-50,
+.bg-zinc-50,
+.bg-neutral-50 {
+  background: rgba(30, 41, 59, 0.6) !important;
+}
+
+.bg-orange-100,
+.bg-blue-100,
+.bg-green-100,
+.bg-red-100,
+.bg-yellow-100,
+.bg-gray-100,
+.bg-slate-100,
+.bg-zinc-100,
+.bg-neutral-100 {
+  background: rgba(30, 41, 59, 0.7) !important;
+}
+
+/* Premium energy flow animations for LEGENDARY pages */
+@keyframes energy-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse-glow-cyan {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3), 0 0 20px rgba(6, 182, 212, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5), 0 0 40px rgba(6, 182, 212, 0.2);
+  }
+}
+
+@keyframes border-flow {
+  0% {
+    border-color: rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    border-color: rgba(6, 182, 212, 0.6);
+  }
+  100% {
+    border-color: rgba(6, 182, 212, 0.3);
+  }
+}
+
+.energy-gradient {
+  background: linear-gradient(270deg, #0f172a, #1e3a5f, #0d9488, #1e3a5f, #0f172a);
+  background-size: 400% 400%;
+  animation: energy-flow 8s ease infinite;
+}
+
+.pulse-border {
+  animation: border-flow 2s ease-in-out infinite;
+}
+
+.glow-card {
+  animation: pulse-glow-cyan 3s ease-in-out infinite;
+}
+
+/* ============================================
+   VELOCITY AUTOMOTIVE ANIMATIONS
+   Luxury sports car inspired motion design
+   ============================================ */
+
+/* Currency flow animation - money moving right */
+@keyframes flow-right {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200%);
+    opacity: 0;
+  }
+}
+
+.animate-flow-right {
+  animation: flow-right 3s ease-in-out infinite;
+}
+
+/* Speed lines - racing effect */
+@keyframes speed-lines {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-speed-lines {
+  animation: speed-lines 2s linear infinite;
+}
+
+/* Tachometer sweep */
+@keyframes tach-sweep {
+  0% {
+    transform: rotate(-120deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(-120deg);
+  }
+}
+
+.animate-tach-sweep {
+  animation: tach-sweep 4s ease-in-out infinite;
+}
+
+/* Digital odometer counting effect */
+@keyframes odometer {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(-10%);
+  }
+  20% {
+    transform: translateY(0);
+  }
+}
+
+.animate-odometer {
+  animation: odometer 0.8s ease-in-out infinite;
+}
+
+/* Turbo boost pulse */
+@keyframes turbo-boost {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.3), 0 0 20px rgba(251, 191, 36, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.6), 0 0 60px rgba(251, 191, 36, 0.3);
+    transform: scale(1.02);
+  }
+}
+
+.animate-turbo-boost {
+  animation: turbo-boost 2s ease-in-out infinite;
+}
+
+/* Racing stripe */
+@keyframes racing-stripe {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.animate-racing-stripe {
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 100%
+  );
+  background-size: 200px 100%;
+  animation: racing-stripe 1.5s linear infinite;
+}
+
+/* Exhaust glow */
+@keyframes exhaust-glow {
+  0%, 100% {
+    opacity: 0.3;
+    filter: blur(4px);
+  }
+  50% {
+    opacity: 0.8;
+    filter: blur(8px);
+  }
+}
+
+.animate-exhaust-glow {
+  animation: exhaust-glow 1s ease-in-out infinite;
+}
+
+/* ============================================
+   CRITICAL ALERT ANIMATIONS
+   Urgent attention-grabbing racing-inspired effects
+   ============================================ */
+
+/* Emergency strobe - intense red flashing for critical alerts */
+@keyframes critical-strobe {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.4), 0 0 16px rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+  25% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.8), 0 0 40px rgba(239, 68, 68, 0.4), 0 0 60px rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.9);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.3), 0 0 16px rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+  }
+  75% {
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.9), 0 0 50px rgba(239, 68, 68, 0.5), 0 0 80px rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 1);
+  }
+}
+
+.animate-critical-strobe {
+  animation: critical-strobe 1.5s ease-in-out infinite;
+}
+
+/* Urgent beacon - pulsing red glow for immediate attention */
+@keyframes urgent-beacon {
+  0%, 100% {
+    box-shadow: 
+      0 0 5px rgba(239, 68, 68, 0.3),
+      0 0 10px rgba(239, 68, 68, 0.2),
+      inset 0 0 5px rgba(239, 68, 68, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 
+      0 0 20px rgba(239, 68, 68, 0.6),
+      0 0 40px rgba(239, 68, 68, 0.4),
+      0 0 60px rgba(239, 68, 68, 0.2),
+      inset 0 0 15px rgba(239, 68, 68, 0.2);
+    transform: scale(1.02);
+  }
+}
+
+.animate-urgent-beacon {
+  animation: urgent-beacon 2s ease-in-out infinite;
+}
+
+/* Racing alert - speed lines rushing through */
+@keyframes racing-alert {
+  0% {
+    background-position: -200px 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 400px 0;
+    opacity: 0;
+  }
+}
+
+.animate-racing-alert {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-racing-alert::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(239, 68, 68, 0.15) 30%,
+    rgba(239, 68, 68, 0.4) 50%,
+    rgba(239, 68, 68, 0.15) 70%,
+    transparent 100%
+  );
+  background-size: 200px 100%;
+  animation: racing-alert 1.2s linear infinite;
+  pointer-events: none;
+}
+
+/* Warning flash - amber strobe for warnings */
+@keyframes warning-flash {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+    border-color: rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.7), 0 0 50px rgba(245, 158, 11, 0.3);
+    border-color: rgba(245, 158, 11, 0.8);
+  }
+}
+
+.animate-warning-flash {
+  animation: warning-flash 2s ease-in-out infinite;
+}
+
+/* Danger zone - cascading red waves */
+@keyframes danger-zone {
+  0% {
+    box-shadow: 
+      inset 0 0 0 0 rgba(239, 68, 68, 0),
+      0 0 0 0 rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 
+      inset 0 0 20px 0 rgba(239, 68, 68, 0.15),
+      0 0 0 8px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 
+      inset 0 0 0 0 rgba(239, 68, 68, 0),
+      0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.animate-danger-zone {
+  animation: danger-zone 1.5s ease-out infinite;
+}
+
+/* Heartbeat pulse - rhythmic critical indicator */
+@keyframes heartbeat-critical {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+  }
+  14% {
+    transform: scale(1.08);
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.8);
+  }
+  28% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+  }
+  42% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+  }
+  56% {
+    transform: scale(1);
+  }
+}
+
+.animate-heartbeat-critical {
+  animation: heartbeat-critical 1.2s ease-in-out infinite;
+}
+
+/* Action required blink - subtle but noticeable */
+@keyframes action-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-action-blink {
+  animation: action-blink 1s ease-in-out infinite;
+}
+
+/* Red alert glow for badges/counts */
+@keyframes red-alert-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+    background-color: rgba(239, 68, 68, 0.9);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.9), 0 0 35px rgba(239, 68, 68, 0.5);
+    background-color: rgba(239, 68, 68, 1);
+  }
+}
+
+.animate-red-alert-glow {
+  animation: red-alert-glow 1s ease-in-out infinite;
+}
+
+/* Speed trail effect - motion blur racing */
+@keyframes speed-trail {
+  0% {
+    transform: translateX(0) scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(20px) scaleX(1.5);
+    opacity: 0;
+  }
+}
+
+.animate-speed-trail::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  border-radius: inherit;
+  animation: speed-trail 0.8s ease-out infinite;
+  z-index: -1;
+}

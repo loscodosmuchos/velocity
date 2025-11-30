@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insight Orchestrator Lab - Comprehensive Platform</title>
+    <style>
+:root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+  --color-gold-500: rgba(245, 158, 11, 1);
+  --color-blue-700: rgba(29, 78, 216, 1);
+
+  /* RGB versions for opacity control */
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+  --color-gold-500-rgb: 245, 158, 11;
+  --color-blue-700-rgb: 29, 78, 216;
+
+  /* Background color tokens (Light Mode) */
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+
+  /* Semantic Color Tokens (Light Mode) */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-accent: var(--color-gold-500);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+  /* Typography */
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  /* Spacing */
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  overflow-x: hidden;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-16) var(--space-24);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.app-logo {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.version-badge {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  padding: var(--space-4) var(--space-8);
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.global-search {
+  position: relative;
+  width: 300px;
+}
+
+.global-search input {
+  width: 100%;
+  padding: var(--space-8) var(--space-12) var(--space-8) var(--space-32);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+}
+
+.global-search::before {
+  content: '🔍';
+  position: absolute;
+  left: var(--space-10);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-base);
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Main Container */
+.app-container {
+  display: flex;
+  height: calc(100vh - 140px);
+}
+
+/* Left Sidebar */
+.sidebar-nav {
+  width: 260px;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+  padding: var(--space-20);
+  flex-shrink: 0;
+}
+
+.nav-section {
+  margin-bottom: var(--space-32);
+}
+
+.nav-section h3 {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-12);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-10) var(--space-12);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-4);
+}
+
+.nav-item:hover {
+  background-color: var(--color-secondary);
+}
+
+.nav-item.active {
+  background-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.nav-icon {
+  font-size: var(--font-size-xl);
+  width: 24px;
+  text-align: center;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-24);
+  position: relative;
+}
+
+/* Right Sidebar (Activity Log) */
+.sidebar-right {
+  width: 340px;
+  background-color: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  overflow-y: auto;
+  padding: var(--space-20);
+  flex-shrink: 0;
+  transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+.sidebar-right.hidden {
+  transform: translateX(100%);
+  position: absolute;
+  right: 0;
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-16);
+}
+
+.log-header h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.log-content {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+}
+
+.log-entry {
+  padding: var(--space-8);
+  margin-bottom: var(--space-6);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-secondary);
+  border-left: 3px solid var(--color-border);
+}
+
+.log-entry.log-success { border-left-color: var(--color-success); }
+.log-entry.log-error { border-left-color: var(--color-error); }
+.log-entry.log-warning { border-left-color: var(--color-warning); }
+.log-entry.log-info { border-left-color: var(--color-info); }
+
+.log-time {
+  color: var(--color-text-secondary);
+  margin-right: var(--space-8);
+}
+
+/* Status Bar */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-12) var(--space-24);
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+}
+
+.status-left, .status-right {
+  display: flex;
+  gap: var(--space-24);
+}
+
+.status-item {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.status-label { color: var(--color-text-secondary); }
+.status-value { color: var(--color-text); font-weight: var(--font-weight-medium); }
+
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: var(--space-10) var(--space-16);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  border: none;
+  text-decoration: none;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.btn--primary:hover { background: var(--color-primary-hover); }
+
+.btn--secondary {
+  background: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.btn--secondary:hover { background: var(--color-secondary-hover); }
+
+.btn--sm {
+  padding: var(--space-6) var(--space-12);
+  font-size: var(--font-size-sm);
+}
+
+.btn--lg {
+  padding: var(--space-12) var(--space-20);
+  font-size: var(--font-size-lg);
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  padding: var(--space-6);
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-fast);
+}
+
+.btn-icon:hover { background-color: var(--color-secondary); }
+
+/* Card Styles */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  padding: var(--space-20);
+  margin-bottom: var(--space-16);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--duration-normal);
+}
+
+.card:hover { box-shadow: var(--shadow-md); }
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-16);
+}
+
+.card-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.card-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-4);
+}
+
+/* Form Elements */
+.form-control {
+  width: 100%;
+  padding: var(--space-10) var(--space-12);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  transition: border-color var(--duration-fast);
+}
+
+.form-control:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+/* Module-specific Views */
+.view { display: none; }
+.view.active { display: block; }
+
+.page-header {
+  margin-bottom: var(--space-32);
+}
+
+.page-title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-8);
+}
+
+.page-description {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  max-width: 800px;
+}
+
+/* Grid Layouts */
+.grid {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 1200px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .sidebar-nav { width: 220px; }
+  .sidebar-right { width: 300px; }
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-10);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.status-badge--pending { background-color: var(--color-bg-2); color: var(--color-warning); }
+.status-badge--active { background-color: var(--color-bg-3); color: var(--color-success); }
+.status-badge--complete { background-color: var(--color-bg-1); color: var(--color-primary); }
+.status-badge--error { background-color: var(--color-bg-4); color: var(--color-error); }
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.visible { display: flex; }
+
+.modal-content {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  max-width: 700px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-20);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.modal-body { padding: var(--space-20); }
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-12);
+  padding: var(--space-20);
+  border-top: 1px solid var(--color-border);
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: var(--font-size-3xl);
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+
+.btn-close:hover { background-color: var(--color-secondary); }
+
+/* Utility Classes */
+.mt-16 { margin-top: var(--space-16); }
+.mb-16 { margin-bottom: var(--space-16); }
+.mb-8 { margin-bottom: var(--space-8); }
+.text-center { text-align: center; }
+.hidden { display: none; }
+
+kbd {
+  padding: var(--space-4) var(--space-8);
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+}
+
+/* Philosophy Highlight */
+.philosophy-card {
+  background: var(--color-bg-1);
+  border-left: 4px solid var(--color-primary);
+  padding: var(--space-16);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-16);
+}
+
+.philosophy-card h4 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-8);
+  color: var(--color-primary);
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-48);
+  text-align: center;
+}
+
+.empty-state-icon {
+  font-size: 64px;
+  margin-bottom: var(--space-16);
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-12);
+}
+
+.empty-state p {
+  color: var(--color-text-secondary);
+  max-width: 400px;
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="app-logo">🧠 Insight Orchestrator Lab</div>
+            <span class="version-badge">v1.0.0-MVP</span>
+        </div>
+        <div class="header-right">
+            <div class="global-search">
+                <input type="text" placeholder="Search across modules..." id="globalSearch">
+            </div>
+            <div class="connection-status">
+                <span class="status-dot"></span>
+                <span>Ready</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Left Sidebar Navigation -->
+        <aside class="sidebar-nav">
+            <nav class="nav-section">
+                <h3>Core Modules</h3>
+                <div class="nav-item active" data-view="dashboard">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" data-view="voice">
+                    <span class="nav-icon">🎙️</span>
+                    <span>Voice Capture</span>
+                </div>
+                <div class="nav-item" data-view="threads">
+                    <span class="nav-icon">🧵</span>
+                    <span>Thread Parser</span>
+                </div>
+                <div class="nav-item" data-view="workflows">
+                    <span class="nav-icon">⚡</span>
+                    <span>Workflow Composer</span>
+                </div>
+                <div class="nav-item" data-view="catalog">
+                    <span class="nav-icon">📦</span>
+                    <span>Service Catalog</span>
+                </div>
+            </nav>
+
+            <nav class="nav-section">
+                <h3>Documentation</h3>
+                <div class="nav-item" data-view="admin">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Admin Portal</span>
+                </div>
+                <div class="nav-item" data-view="philosophy">
+                    <span class="nav-icon">💡</span>
+                    <span>Philosophy</span>
+                </div>
+                <div class="nav-item" data-view="export">
+                    <span class="nav-icon">📤</span>
+                    <span>Export &amp; Package</span>
+                </div>
+            </nav>
+
+            <nav class="nav-section">
+                <h3>Quick Actions</h3>
+                <button class="btn btn--secondary btn--sm" style="width: 100%; margin-bottom: 8px;" onclick="toggleLog()">📋 Toggle Log</button>
+                <button class="btn btn--secondary btn--sm" style="width: 100%;" onclick="showHelp()">❓ Keyboard Shortcuts</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="mainContent">
+            <!-- Dashboard View -->
+            <div class="view active" id="dashboardView">
+                <div class="page-header">
+                    <h1 class="page-title">Welcome to Insight Orchestrator Lab</h1>
+                    <p class="page-description">A comprehensive platform built on philosophical alignment: chain of custody, context preservation, and professional excellence in every interaction.</p>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card" style="cursor: pointer;" onclick="switchView('voice')">
+                        <div class="card-header">
+                            <div>
+                                <div style="font-size: 32px; margin-bottom: 12px;">🎙️</div>
+                                <h3 class="card-title">Voice Capture</h3>
+                                <p class="card-subtitle">Local-first transcription with full chain of custody</p>
+                            </div>
+                        </div>
+                        <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                            Hotkey recording • Retry capability • MCP-ready • Privacy-first
+                        </div>
+                    </div>
+
+                    <div class="card" style="cursor: pointer;" onclick="switchView('threads')">
+                        <div class="card-header">
+                            <div>
+                                <div style="font-size: 32px; margin-bottom: 12px;">🧵</div>
+                                <h3 class="card-title">Thread Parser</h3>
+                                <p class="card-subtitle">Multi-topic classification &amp; asset extraction</p>
+                            </div>
+                        </div>
+                        <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                            Auto-detection • Context analysis • Export bundles • Decision tracking
+                        </div>
+                    </div>
+
+                    <div class="card" style="cursor: pointer;" onclick="switchView('workflows')">
+                        <div class="card-header">
+                            <div>
+                                <div style="font-size: 32px; margin-bottom: 12px;">⚡</div>
+                                <h3 class="card-title">Workflow Composer</h3>
+                                <p class="card-subtitle">Visual solution design with estimation</p>
+                            </div>
+                        </div>
+                        <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                            Drag &amp; drop • Cost estimation • Compare alternatives • Export workflows
+                        </div>
+                    </div>
+
+                    <div class="card" style="cursor: pointer;" onclick="switchView('catalog')">
+                        <div class="card-header">
+                            <div>
+                                <div style="font-size: 32px; margin-bottom: 12px;">📦</div>
+                                <h3 class="card-title">Service Catalog</h3>
+                                <p class="card-subtitle">Complete microservice inventory</p>
+                            </div>
+                        </div>
+                        <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                            Metadata tracking • Security policies • Usage stats • Health monitoring
+                        </div>
+                    </div>
+
+                    <div class="card" style="cursor: pointer;" onclick="switchView('admin')">
+                        <div class="card-header">
+                            <div>
+                                <div style="font-size: 32px; margin-bottom: 12px;">⚙️</div>
+                                <h3 class="card-title">Admin Portal</h3>
+                                <p class="card-subtitle">Implementation tracking &amp; documentation</p>
+                            </div>
+                        </div>
+                        <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                            Progress dashboard • Decision log • Best practices • Integration guides
+                        </div>
+                    </div>
+
+                    <div class="card" style="cursor: pointer;" onclick="switchView('philosophy')">
+                        <div class="card-header">
+                            <div>
+                                <div style="font-size: 32px; margin-bottom: 12px;">💡</div>
+                                <h3 class="card-title">Philosophy</h3>
+                                <p class="card-subtitle">Core principles &amp; architectural decisions</p>
+                            </div>
+                        </div>
+                        <div style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                            Non-negotiables • Design rationale • Meta-development • Excellence standards
+                        </div>
+                    </div>
+                </div>
+
+                <div class="philosophy-card mt-16">
+                    <h4>🎯 Platform Philosophy</h4>
+                    <p style="color: var(--color-text-secondary); line-height: 1.6;">
+                        This platform embodies our commitment to professional excellence: every action is logged with chain of custody, 
+                        context is preserved at all levels, and we eat our own dog food by using these tools to build themselves. 
+                        Nothing is orphaned, nothing is ambiguous, and every decision is justified and traceable.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Voice Capture View -->
+            <div class="view" id="voiceView"></div>
+
+            <!-- Thread Parser View -->
+            <div class="view" id="threadsView"></div>
+
+            <!-- Workflow Composer View -->
+            <div class="view" id="workflowsView"></div>
+
+            <!-- Service Catalog View -->
+            <div class="view" id="catalogView"></div>
+
+            <!-- Admin Portal View -->
+            <div class="view" id="adminView"></div>
+
+            <!-- Philosophy View -->
+            <div class="view" id="philosophyView"></div>
+
+            <!-- Export & Package View -->
+            <div class="view" id="exportView"></div>
+        </main>
+
+        <!-- Right Sidebar (Activity Log) -->
+        <aside class="sidebar-right" id="logPanel">
+            <div class="log-header">
+                <h3>Activity Log</h3>
+                <button class="btn-icon" onclick="copyLog()" title="Copy log">📋</button>
+            </div>
+            <div class="log-content" id="logContent">
+                <!-- Log entries dynamically inserted -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- Status Bar -->
+    <footer class="status-bar">
+        <div class="status-left">
+            <div class="status-item">
+                <span class="status-label">Current View:</span>
+                <span class="status-value" id="currentView">Dashboard</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Total Operations:</span>
+                <span class="status-value" id="totalOps">0</span>
+            </div>
+        </div>
+        <div class="status-right">
+            <div class="status-item">
+                <span class="status-label">Chain of Custody:</span>
+                <span class="status-value" style="color: var(--color-success);">✓ Active</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Shortcuts:</span>
+                <span class="status-value"><kbd>Ctrl+?</kbd></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals will be dynamically created -->
+
+    <script src="app.js"></script>
+</body>
+</html>

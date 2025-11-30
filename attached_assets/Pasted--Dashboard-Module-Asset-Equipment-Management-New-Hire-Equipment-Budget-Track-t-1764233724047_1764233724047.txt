@@ -1,0 +1,58 @@
+**Dashboard Module: Asset & Equipment Management**
+
+* **New-Hire Equipment Budget**
+
+  * Track the \$8.6 M allocation over 4 years for outfitting new hires.
+  * Display – total committed vs. spent to-date; forecast remaining funds.
+* **Contract & Change-Order Repository**
+
+  * Central database for master service agreements (SW/PDF) and all amendments.
+  * Submit, review, approve change-order requests in-app; log timestamps & approver.
+* **Monthly Payment Schedule**
+
+  * Tile showing guaranteed monthly payment amount, due dates, and status.
+  * Trend chart – actual vs. planned payments; highlight variances.
+* **Spend Threshold Alerts**
+
+  * Trigger notifications when spend reaches configurable % of budget (e.g., 80%).
+  * Banner or blinking alert if change-order approval is overdue.
+
+---
+
+**Module: Time & Materials Invoicing**
+
+* **End-to-End Workflow Tracker**
+
+  1. Contractor submits T & M entries.
+  2. Hyundai management approval.
+  3. Export to Balance Staffing for modifications.
+  4. Re-export back to Hyundai’s ERP.
+* **Audit Trail Dashboard**
+
+  * Table with status per invoice: “Submitted,” “Approved,” “Modified,” “Re-exported.”
+  * Filter by date, contractor, PO, or approval lag.
+* **KPI Cards**
+
+  * Avg. approval turnaround time.
+  * Number of modifications per period.
+  * % of invoices overdue.
+* **Approval-Delay Alerts**
+
+  * Color-coded indicators for invoices pending > X days.
+  * Option to escalate to next-level approver.
+
+---
+
+**Contextual Notes for “Wes-Procurement”**
+
+* **User Persona**: Simple UI – clear panels, minimal clicks; focused on core tasks.
+* **Business-Unit Scale**: \$100 M IT spend; high visibility on budgets and approvals.
+* **Pain Points**:
+
+  * Fragmented systems ? lost or delayed data.
+  * Manual PDF/SW tracking ? no real-time visibility.
+  * Complex T & M handoffs ? transcription errors.
+
+---
+
+*Integrate these modules alongside existing Vendor Spend, PO Management, Recruiting, and Alerts sections to centralize asset tracking and T & M workflows within the VELOCITY dashboard.*

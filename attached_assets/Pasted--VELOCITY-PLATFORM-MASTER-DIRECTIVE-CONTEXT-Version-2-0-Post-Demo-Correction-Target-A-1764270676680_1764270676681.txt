@@ -1,0 +1,161 @@
+# VELOCITY PLATFORM: MASTER DIRECTIVE & CONTEXT
+**Version**: 2.0 (Post-Demo Correction)
+**Target Audience**: Replit AI Agent & Development Team
+**Mission**: Deliver the "Exclaiming, Not Explaining" Standard
+
+---
+
+## PART 1: OPERATIONAL PHILOSOPHY & STANDARDS
+
+### 1.1 The Core Standard: "Exclaiming vs. Explaining"
+We deploy ONLY when we are **Exclaiming** (celebrating features that work instantly). We NEVER deploy when **Explaining** (justifying why it didn't work, why data is fake, or why it's slow).
+*   **Exclaiming**: "Look how fast this creates POs!", "It caught the budget overrun automatically!"
+*   **Explaining**: "Well, that feature isn't quite ready...", "The data looks weird because it's sample..."
+
+### 1.2 Zero Mock Data Policy
+*   **Strict Prohibition**: No `lorem ipsum`, no `John Doe`, no placeholder stats in any production/demo path.
+*   **Data Integrity**: All calculations (PO totals, burn rates, taxes) must be mathematically accurate. 
+*   **Consequence**: A single math error or "fake data" label destroys stakeholder confidence immediately.
+
+### 1.3 The "Senior Developer" Persona
+You are not just writing code; you are the Technical Lead.
+*   **Make Decisions**: Don't ask "Should I use React Query or SWR?" -> Pick the best one (React Query) and implement it.
+*   **Fix, Don't Ask**: If you see a TypeScript error or a logical gap, fix it. Only ask the user about **Business Logic** or **UI Preferences**.
+*   **Parallelize**: When reading or writing multiple files, use parallel tool calls. Do not block sequentially unless necessary.
+
+---
+
+## PART 2: POST-MORTEM & IMMEDIATE CORRECTIONS (Nov 27 Failure)
+
+**Context**: The previous demo failed because critical buttons didn't work in "Demo Mode" and the flow was not tested end-to-end.
+
+### 2.1 The "Wes Demo" Critical Path
+*This workflow must work flawlessly (Zero Errors, <2s load time) before ANY code commit.*
+
+1.  **LOGIN** → Homepage/Command Center displays immediately.
+2.  **UPLOAD** → Asset Management SOW document (PDF).
+3.  **VIEW** → Document analyzer processes and displays extracted data.
+4.  **NAVIGATE** → See SOW components (deliverables, timelines, budget).
+5.  **DRILL DOWN** → View associated POs.
+6.  **CREATE** → Open new PO request linked to SOW.
+7.  **ASSIGN** → Add associates/contractors to PO.
+8.  **TRACK** → See approval workflow status.
+
+### 2.2 The "Watchdog" Requirement
+You must implement a self-healing Watchdog process that runs before deployment.
+*   **Script**: `scripts/pre-demo-check.js`
+*   **Function**: 
+    *   Pings the URL.
+    *   Checks `[data-test="document-analyzer"]` accessibility.
+    *   Verifies all links return 200 OK.
+    *   Confirms "Demo Mode" does not disable buttons.
+
+### 2.3 Automated Testing (Playwright)
+Install and configure Playwright. Create `tests/critical-demo-path.spec.js` to automate the exact workflow in 2.1.
+*   **Requirement**: The test must pass in a CI environment before any deployment to the demo URL.
+
+---
+
+## PART 3: MVP REQUIREMENTS (Source of Truth)
+
+**Critical Timeline**: December 2025
+**Stakeholder**: Hyundai (Multi-billion dollar opportunity)
+
+### 3.1 PRIORITY 1: MISSION CRITICAL (Must Complete Before First Demo)
+*Failure to deliver any of these eliminates the opportunity.*
+
+#### **1.1 SOW (Statement of Work) Management**
+*   **Goal**: Chaos to Clarity.
+*   **Features**:
+    *   **Intake**: Data entry + PDF/Word Upload.
+    *   **Capture**: Project name, budget, timeline, deliverables, headcount, tranches.
+    *   **Linkage**: Associate multiple POs to single SOW; reconcile budgets.
+    *   **SLA Tracking**: Red/Yellow/Green status; automated monitoring against deadlines.
+    *   **Dashboard**: All 168 active SOWs visible at a glance.
+*   **Success Metric**: Input real SOW, see visualization, track SLA, navigate to details in <3 clicks.
+
+#### **1.2 Command Center Dashboard**
+*   **Goal**: "Single Pane of Glass" immediate understanding.
+*   **Features**:
+    *   **Real-time Status**: Health indicators, budget burn rate, headcount, pending approvals.
+    *   **Visuals**: Modern "Apple-like" aesthetic. Minimal text, maximum visual signal (colors, icons).
+    *   **Role Views**: Specific layouts for Wes (Ops), Ben (Finance), Mark (Exec).
+*   **Performance**: Load in <2 seconds with 168 SOWs.
+
+#### **1.3 Triage & Alert System**
+*   **Goal**: Proactive Management.
+*   **Features**:
+    *   **Monitors**: Deadlines, budget overruns, SLA violations, missing docs.
+    *   **Prioritization**: Red (Critical), Yellow (Warning), Green (Info).
+    *   **Workflow**: Acknowledge, Assign, Resolve.
+
+#### **1.4 Backend Stability & Data Integrity**
+*   **Goal**: Bulletproof Confidence.
+*   **Tech Stack**: Normalized Database (PostgreSQL), ACID compliance, Audit Logging.
+*   **Validation**: Strict input sanitization. No stack traces visible to users.
+
+### 3.2 PRIORITY 2: ESSENTIAL (Competitive Positioning)
+
+#### **2.1 Vendor Portal**
+*   **Features**: Secure login, profile management, document sharing (SOWs/Contracts), messaging hub.
+*   **Success Criteria**: Vendor logs in, views SOW, submits invoice without email/phone.
+
+#### **2.2 Time Card Management**
+*   **Features**: Daily/Weekly entry, auto-import (CSV), approval routing, exception handling (overtime/missing).
+
+#### **2.3 Budget Tracking & Alerts**
+*   **Features**: Real-time utilization (Actual vs. Budget), burn rate analysis, projected overrun alerts (80%, 90% thresholds).
+
+#### **2.4 Invoice Management**
+*   **Features**: 3-Way Matching (PO vs Invoice vs Receipt), automated validation, approval workflow.
+
+#### **2.5 Communication Hub**
+*   **Features**: Context-aware messaging (attached to SOW/Invoice), pre-drafted templates ("Deadline Approaching"), 1-click send.
+
+---
+
+## PART 4: REPLIT IMPLEMENTATION GUIDE
+
+### 4.1 File & Code Structure
+*   **Centralized Services**: Use the `services/` pattern (e.g., `sow-service.ts`, `po-service.ts`). Do not scatter logic across UI components.
+*   **Type Safety**: Define interfaces FIRST (e.g., `interface SOW { ... }`). Use Zod for validation at API boundaries.
+*   **Parallel Operations**:
+    ```
+    // BAD: Sequential
+    await readFile('A');
+    await readFile('B');
+    
+    // GOOD: Parallel
+    await Promise.all([readFile('A'), readFile('B')]);
+    ```
+
+### 4.2 Testing Strategy
+*   **Unit Tests**: Business logic (Budget calculations, SLA date diffs).
+*   **Integration Tests**: Module data flow (SOW -> PO linkage).
+*   **E2E Tests**: Playwright scripts for the "Wes Demo" path.
+
+### 4.3 Deployment Protocol
+1.  **T-24 Hours**: Run full Playwright suite. Fix all failures.
+2.  **T-2 Hours**: Deploy to Demo Environment. Run `scripts/pre-demo-check.js`.
+3.  **T-30 Mins**: Manual smoke test of the "Happy Path".
+4.  **T-0**: Demo with confidence (Exclaiming!).
+
+---
+
+## PART 5: IMPLEMENTATION ROADMAP
+
+1.  **Phase 1 (Foundation)**: Database, SOW Intake, Basic Dashboard. (Checkpoint: Create SOW, view on dashboard).
+2.  **Phase 2 (Critical Path)**: Complete SOW module, Triage/Alerts, Real-time Dashboard. (Checkpoint: Internal Demo).
+3.  **Phase 3 (External Readiness)**: Vendor Portal, Time Cards, Budget Tracking.
+4.  **Phase 4 (Client Demo)**: Load 168 Real Hyundai SOWs. Train Wes.
+
+---
+
+**FINAL INSTRUCTION TO AGENT**:
+You are now responsible for executing this directive. 
+1. **Analyze** the current codebase against the "Critical Path".
+2. **Identify** gaps in the "Watchdog" or Testing coverage.
+3. **Implement** the missing "Mission Critical" features from Priority 1.
+4. **Verify** all calculations and data integrity (Zero Mock Data).
+
+**Go.**

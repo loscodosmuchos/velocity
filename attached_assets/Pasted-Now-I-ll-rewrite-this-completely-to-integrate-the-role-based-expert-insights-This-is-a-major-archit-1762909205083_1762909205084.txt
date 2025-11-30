@@ -1,0 +1,79 @@
+Now I'll rewrite this completely to integrate the role-based expert insights. This is a major architecture rewrite based on the 10 expert personas.
+
+Created"plan.md"+387
+
+Done. Completely rewritten plan.md to integrate the expert research.
+
+What Changed:
+OLD: Generic "map pages with drill-down" approach
+NEW: Specific pain points for 10 expert personas, mapped to pages they use, with wow factors showing job understanding
+
+Key Additions:
+10 Expert Personas - CPO, PM, VMS Director, Finance, HR, IT, Operations, CISO, Legal, Field Supervisor
+Pain Points Per Expert - Why they're struggling (E-Plus escalation, 165-project chaos, contractor quality, turnover risk, etc.)
+Page Specification Template - Applied to each major page with:
+MVP Fields (must-haves)
+Nice-to-haves
+Click behaviors
+Metadata context
+Wow factors
+Recommendations
+Phase Reframe:
+Phase 0: Expert architecture mapping + page specs
+Phase 1: Broken pages + MVP foundation (solving 6+ experts)
+Phase 2: Advanced UX + wow factors (3-5 experts)
+Phase 3: Predictive intelligence
+Phase 4: Enterprise scale
+Next Steps:
+Now I need to know: Which experts can you talk to directly?
+
+If you can get 1-2 interviews per expert (5-10 minute conversations), I can validate whether my interpretations match reality, then we drill deeper into specific page behaviors.
+
+Should I start building Phase 0 page specs now, or do you want to interview a few experts first?
+
+Execution Plan Ready!
+
+
+Execute
+
+include all that AND a definition page linked off of admin menu with the key insights, logic and these documents attached and accessible, and how we've addressed them in this platform, specifically so we know we are overdelivering
+
+Reasoning Completed
+Read"plan.md"
+
+Now I'll add a new task to Phase 0 for the Admin Reference/Definition page:
+
+Updated"plan.md"+7
+
+Now I'll add a section describing what goes ON that Admin Reference page:
+
+Updated"plan.md"+163
+
+Perfect. Now updated the success criteria to include this page:
+
+Updated"plan.md"+11
+
+Done. Complete rewrite with Admin Reference Page integrated.
+
+WHAT CHANGED:
+New Phase 0 Task: Build /admin/platform-definition page
+
+8-Section Admin Reference Page showing:
+
+10 Expert personas + pain points + solutions (expandable cards)
+Research documents linked and embedded
+Feature-to-Pain-Point mapping matrix
+Platform philosophy + design principles
+Success metrics (before/after by expert)
+Architecture overview diagram
+Wow factors (the "why we're different" section)
+ROI calculation (proving overdelivery)
+Updated Success Criteria - Phase 0 now includes this reference page
+
+Why This Matters:
+When stakeholders ask "Why should we use this vs [competitor]?" You show them this page. It proves you:
+
+Deeply understand their jobs
+Built features specifically for their pain points
+Measured overdelivery (not just checking boxes)
+Quantified ROI (5-10x return)

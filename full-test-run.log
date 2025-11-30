@@ -1,0 +1,957 @@
+
+> refine-ai-project@1.0.0 test /home/runner/workspace
+> playwright test --project\=chromium --reporter\=list
+
+
+Running 24 tests using 4 workers
+
+Failed on route /contractors/import: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731671538[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+Failed on route /: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731671973[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✘   3 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /contractors/import - Contractors Import (30.5s)
+  ✘   4 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: / - Dashboard (30.5s)
+Failed on route /purchase-orders: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731672929[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✘   2 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /purchase-orders - Purchase Orders List (31.0s)
+Failed on route /contractors: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731675230[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✘   1 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /contractors - Contractors List (31.1s)
+Failed on route /timecards: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731709427[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+Failed on route /assets: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731709642[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✘   7 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /timecards - Timecards List (30.5s)
+Failed on route /invoices: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731710506[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✘   6 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /assets - Assets List (30.8s)
+  ✘   5 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /invoices - Invoices List (31.0s)
+Failed on route /expenses: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731721688[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✓  10 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /ai/insights - AI Insights (10.4s)
+  ✘   8 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /expenses - Expenses List (40.7s)
+Failed on route /statement-of-works: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731746121[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✘  11 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /statement-of-works - Statements of Work List (30.5s)
+Failed on route /statement-of-works/create: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731746731[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✘   9 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /statement-of-works/create - SOW Create (30.8s)
+Failed on route /change-orders: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@27'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@27'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731759018[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✓  15 [chromium] › tests/routes-audit.spec.ts:40:3 › Demo-Critical Paths - Segment Testing › Segment 1: Contractor Import Flow (7.5s)
+  ✘  12 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /change-orders - Change Orders List (32.7s)
+Failed on route /employees: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731766241[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✓  16 [chromium] › tests/routes-audit.spec.ts:52:3 › Demo-Critical Paths - Segment Testing › Segment 2: SOW Creation Flow (9.7s)
+  ✘  13 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /employees - Employees List (33.5s)
+  ✓  17 [chromium] › tests/routes-audit.spec.ts:64:3 › Demo-Critical Paths - Segment Testing › Segment 3: AI Insights Page (6.4s)
+  ✓  20 [chromium] › tests/routes-audit.spec.ts:93:5 › List Pages - UX Standards (Hover, Sort, Single-Click) › List Page: /contractors - Hover & Click States (6.9s)
+  ✓  19 [chromium] › tests/routes-audit.spec.ts:93:5 › List Pages - UX Standards (Hover, Sort, Single-Click) › List Page: /purchase-orders - Hover & Click States (13.9s)
+Failed on route /approvals/requests: page.textContent: Test timeout of 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+    at [90m/home/runner/workspace/[39mtests/routes-audit.spec.ts:13:38 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'/home/runner/workspace/tests/routes-audit.spec.ts'[39m,
+      line: [33m13[39m,
+      column: [33m38[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+    apiName: [32m'page.textContent'[39m,
+    params: {
+      selector: [32m'.error-component, [role="alert"].error, .text-destructive'[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@36'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@36'[39m,
+      _title: [32m`Get text content locator('.error-component, [role="alert"].error, .text-destructive')`[39m,
+      _parentStep: [90mundefined[39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1762731787915[39m,
+    error: {
+      message: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m,
+      stack: [32m'Error: page.textContent: Test timeout of 30000ms exceeded.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m`\x1B[2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')\x1B[22m\n`[39m +
+        [32m'\n'[39m +
+        [32m'    at /home/runner/workspace/tests/routes-audit.spec.ts:13:38'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+  ✓  21 [chromium] › tests/routes-audit.spec.ts:93:5 › List Pages - UX Standards (Hover, Sort, Single-Click) › List Page: /invoices - Hover & Click States (7.3s)
+  ✘  14 [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /approvals/requests - Approvals List (37.1s)
+  ✓  23 [chromium] › tests/routes-audit.spec.ts:93:5 › List Pages - UX Standards (Hover, Sort, Single-Click) › List Page: /timecards - Hover & Click States (6.8s)
+  ✓  18 [chromium] › tests/routes-audit.spec.ts:72:3 › Demo-Critical Paths - Segment Testing › Segment 4: Dashboard Impact View (27.5s)
+  ✓  22 [chromium] › tests/routes-audit.spec.ts:93:5 › List Pages - UX Standards (Hover, Sort, Single-Click) › List Page: /assets - Hover & Click States (11.3s)
+  ✓  24 [chromium] › tests/routes-audit.spec.ts:93:5 › List Pages - UX Standards (Hover, Sort, Single-Click) › List Page: /expenses - Hover & Click States (4.9s)
+
+
+  1) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: / - Dashboard 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---All-93-Routes-Route---Dashboard-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---All-93-Routes-Route---Dashboard-chromium/error-context.md
+
+  2) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /contractors - Contractors List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---94983-tractors---Contractors-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---94983-tractors---Contractors-List-chromium/error-context.md
+
+  3) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /contractors/import - Contractors Import 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---9f606-import---Contractors-Import-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---9f606-import---Contractors-Import-chromium/error-context.md
+
+  4) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /purchase-orders - Purchase Orders List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---88c86-ders---Purchase-Orders-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---88c86-ders---Purchase-Orders-List-chromium/error-context.md
+
+  5) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /invoices - Invoices List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---2d2fe-te-invoices---Invoices-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---2d2fe-te-invoices---Invoices-List-chromium/error-context.md
+
+  6) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /assets - Assets List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---acc6d--Route-assets---Assets-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---acc6d--Route-assets---Assets-List-chromium/error-context.md
+
+  7) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /timecards - Timecards List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---66e03--timecards---Timecards-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---66e03--timecards---Timecards-List-chromium/error-context.md
+
+  8) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /expenses - Expenses List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---1b5d0-te-expenses---Expenses-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---1b5d0-te-expenses---Expenses-List-chromium/error-context.md
+
+  9) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /statement-of-works/create - SOW Create 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---87eef-f-works-create---SOW-Create-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---87eef-f-works-create---SOW-Create-chromium/error-context.md
+
+  10) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /statement-of-works - Statements of Work List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---78c57-s---Statements-of-Work-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---78c57-s---Statements-of-Work-List-chromium/error-context.md
+
+  11) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /change-orders - Change Orders List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---66676-orders---Change-Orders-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /employees - Employees List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---f34da--employees---Employees-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---f34da--employees---Employees-List-chromium/error-context.md
+
+  13) [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /approvals/requests - Approvals List 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.textContent: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.error-component, [role="alert"].error, .text-destructive')[22m
+
+
+      11 |
+      12 |         // Check for critical errors
+    > 13 |         const errorText = await page.textContent('.error-component, [role="alert"].error, .text-destructive');
+         |                                      ^
+      14 |         expect(errorText).toBeFalsy();
+      15 |
+      16 |         // Check page loaded (basic content present)
+        at /home/runner/workspace/tests/routes-audit.spec.ts:13:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/routes-audit-Route-Audit---7bf13-s-requests---Approvals-List-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/routes-audit-Route-Audit---7bf13-s-requests---Approvals-List-chromium/error-context.md
+
+  13 failed
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: / - Dashboard 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /contractors - Contractors List 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /contractors/import - Contractors Import 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /purchase-orders - Purchase Orders List 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /invoices - Invoices List 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /assets - Assets List 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /timecards - Timecards List 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /expenses - Expenses List 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /statement-of-works/create - SOW Create 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /statement-of-works - Statements of Work List 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /change-orders - Change Orders List 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /employees - Employees List 
+    [chromium] › tests/routes-audit.spec.ts:7:5 › Route Audit - All 93+ Routes › Route: /approvals/requests - Approvals List 
+  11 passed (2.8m)
+ ELIFECYCLE  Test failed. See above for more details.

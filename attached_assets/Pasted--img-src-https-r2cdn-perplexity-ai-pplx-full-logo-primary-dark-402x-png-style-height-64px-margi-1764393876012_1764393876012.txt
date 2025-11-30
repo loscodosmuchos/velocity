@@ -1,0 +1,71 @@
+<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
+
+# ElevenLabs Project Management Assessment Agent Script
+
+Based on your Project Management Assessment Portal, I've created a comprehensive conversational AI agent script that systematically captures all 38 data points across 6 assessment sections. Here's your complete implementation guide:
+
+![ElevenLabs Project Management Assessment Interview Workflow](https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/bc061b86da2a08aa738fcee28b51ae00/9370d241-da91-4d5e-ac34-7fd5ecfdc779/048966a9.png)
+
+ElevenLabs Project Management Assessment Interview Workflow
+
+## Complete Agent Implementation
+
+The workflow transforms your HTML form into a structured 16-node conversational flow that guides stakeholders through a comprehensive project management assessment interview.
+
+## Key Implementation Features
+
+### **Intelligent Routing \& Personalization**
+
+- **Stakeholder Qualification**: Adjusts questioning depth based on role (Sponsor/Manager/Technical Lead)
+- **LLM Condition Routing**: Smart branching based on responses and validation results
+- **Data Validation Loops**: Ensures completeness and accuracy at each section
+
+
+### **Comprehensive Data Collection**
+
+- **Diagnostic Questions (8 items)**: Scope clarity, resource management, communication methods
+- **Project Profile (10 items)**: Complete project overview with SMART objectives
+- **Scope Control (7 items)**: Change management processes and documentation
+- **KPI Tracking (6 metrics)**: Performance indices, completion rates, utilization
+- **Stakeholder Mapping (4 roles)**: Responsibilities and escalation matrix
+- **Risk Management (3 categories)**: Recurring emergencies, active risks, constraints
+
+
+### **Professional Conversational Flow**
+
+- **Estimated Duration**: 45-60 minutes (optimized from original 89-minute maximum)
+- **Consultative Tone**: Professional guidance with follow-up questions
+- **Progress Tracking**: Real-time completion status and section validation
+
+
+## Implementation Summary Tables
+
+## Setup Instructions
+
+1. **Create Agent**: Import the script as your base system prompt
+2. **Configure Nodes**: Set up the 16-node workflow structure shown in the flowchart
+3. **Attach Knowledge Bases**:
+    - PM best practices for diagnostic questions
+    - KPI calculation formulas for metrics tracking
+    - Risk register templates for issue management
+4. **Integrate Tools**:
+    - Data validation functions for each section
+    - JSON/CSV export capabilities for AI integration
+5. **Test \& Validate**: Use the provided testing scenarios to ensure proper routing
+
+## Key Benefits
+
+✅ **Structured Data Collection**: Systematic capture of all 38 project management data points
+✅ **AI-Ready Output**: JSON and CSV formats optimized for AI analysis tools
+✅ **Conversational Experience**: Natural dialogue vs. form-filling
+✅ **Role-Based Adaptation**: Personalized questioning based on stakeholder type
+✅ **Quality Assurance**: Built-in validation and retry mechanisms
+✅ **Professional Delivery**: Consultant-level interview experience
+
+The agent script converts your comprehensive HTML assessment portal into an intelligent conversational interview that maintains data integrity while providing a superior user experience for stakeholders.
+<span style="display:none">[^1]</span>
+
+<div align="center">⁂</div>
+
+[^1]: project_assessment_portal.html
+

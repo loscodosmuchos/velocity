@@ -1,0 +1,54 @@
+{
+  "timestamp": "2025-11-18T21:27:45.231Z",
+  "checks": {
+    "apiHealth": {
+      "name": "API Health",
+      "status": "healthy",
+      "details": {
+        "status": "ok",
+        "timestamp": "2025-11-18T21:27:48.053Z",
+        "services": {
+          "api": {
+            "status": "healthy",
+            "uptime": 206.15193708
+          },
+          "database": {
+            "status": "healthy",
+            "connected": true
+          }
+        },
+        "environment": {
+          "mode": "demo",
+          "nodeVersion": "v20.19.3"
+        }
+      },
+      "critical": true
+    },
+    "frontendServing": {
+      "name": "Frontend Serving",
+      "status": "healthy",
+      "statusCode": 200,
+      "hasHtml": true,
+      "hasViteClient": true,
+      "isErrorPage": false,
+      "critical": true
+    },
+    "menuResources": {
+      "name": "Menu Resources",
+      "status": "healthy",
+      "expectedItems": 11,
+      "missingItems": [],
+      "critical": false
+    },
+    "sidebarComponent": {
+      "name": "Sidebar Component",
+      "status": "healthy",
+      "fileExists": true,
+      "hasExport": true,
+      "critical": true
+    }
+  },
+  "allHealthy": true,
+  "criticalFailure": false,
+  "summary": "All UI integrity checks passed"
+}

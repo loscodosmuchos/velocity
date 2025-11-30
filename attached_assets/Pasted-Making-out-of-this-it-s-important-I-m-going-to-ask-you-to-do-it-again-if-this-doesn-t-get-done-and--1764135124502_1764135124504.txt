@@ -1,0 +1,11 @@
+Making out of this, it's important I'm going to ask you to do it again if this doesn't get done and we miss things. There's no reason it should. This is pretty clear and concise.
+The links on top are:
+- AI insights
+- Approvals
+- Alerts
+- Reports
+- Notifications
+- Support
+Remember what I said about support. If you haven't already made those changes, which you haven't looks like, then we may be missing some insights from these chats. But maybe we're going too quick and I'm overloading with requests. If that's the case, then I need to know that. So I need to know what happened with the request to put the support page in the admin section and then to remove or create a second copy for support, but make it focused on ElevenLabs AI. So support agents for the platform itself or getting in contact with Velocity headquarters. But it should not contain the research documents, the build assessment, the gap analysis. Those are all internal documents.
+For now, we can leave the top 10 expert personas we serve. That can stay. But the platform philosophy and success metrics, the core architecture should stay for now. The ROI calculation needs to have the legendary applied to it because the text is all wrong colors and contrast. And also the platform definition and research insights main top navbar - the tabbed interface needs to be differentiated. It needs contrast. It needs color. It needs to be different. Right now, there's no contrast, and you can't really tell that there are different buttons. They look like it could all be the same page, which is confusion. Confusion causes uncertainty and certainly causes anxiety.
+So let's take it back a step and look at it through the eyes of the user. What are they going to exclaim about when they see this and be eager to click on things and learn what they do? That's why we make it so attractive and interesting icons. That's why we put thought into them because they're more fun to interact with and useful in the help them ascertain what's what. Can get clarity, and that's the point.

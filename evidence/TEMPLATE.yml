@@ -1,0 +1,58 @@
+# Evidence File Template
+# Copy this file and rename to: ready-[feature]-[YYYYMMDD].yml
+
+feature: your-feature-name-here
+date: 2025-11-20T00:00:00Z
+agent: claude-4.5-sonnet
+status: ready
+
+# Required Evidence
+screenshots:
+  - evidence/screenshots/feature-step1.png
+  - evidence/screenshots/feature-step2.png
+  - evidence/screenshots/feature-success.png
+
+console_logs:
+  - evidence/logs/console-zero-errors.log
+  - evidence/logs/network-success.log
+
+tests:
+  - evidence/tests/feature-test-results.log
+
+workflow_status:
+  - api-server: RUNNING
+  - dev: RUNNING
+
+architect_review:
+  status: approved  # approved | rejected | pending
+  timestamp: 2025-11-20T00:00:00Z
+  file: evidence/architect-review-[feature].md
+
+checklist_items:
+  - item: "LSP diagnostics clean"
+    status: passed  # passed | failed | pending
+    evidence: "No LSP errors found"
+  
+  - item: "GUI tested with screenshot"
+    status: passed
+    evidence: "3 screenshots captured"
+  
+  - item: "Console errors checked"
+    status: passed
+    evidence: "console-zero-errors.log shows no errors"
+  
+  - item: "Network calls verified"
+    status: passed
+    evidence: "All API calls returned 200 OK"
+  
+  - item: "E2E flow tested"
+    status: passed
+    evidence: "Manual testing completed successfully"
+  
+  - item: "Architect review"
+    status: passed
+    evidence: "Architect approved implementation"
+
+notes: |
+  Brief description of what was implemented and tested.
+  Any important details or edge cases covered.

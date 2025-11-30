@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceFlow - Voice to Text Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-left">
+            <h1 class="app-title">🎙️ VoiceFlow</h1>
+            <span class="version">v1.0.0</span>
+        </div>
+        <div class="header-right">
+            <div class="connection-status" id="connectionStatus">
+                <span class="status-dot status-dot--connected"></span>
+                <span>Ready</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar sidebar-left">
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                
+                <!-- Recording Button -->
+                <button class="btn btn--primary btn--record" id="recordBtn">
+                    <span class="record-icon" id="recordIcon">⏺</span>
+                    <span id="recordBtnText">Start Recording</span>
+                </button>
+                
+                <!-- Audio Level Meter -->
+                <div class="audio-meter" id="audioMeter">
+                    <div class="audio-meter-label">Audio Level</div>
+                    <div class="audio-meter-bar">
+                        <div class="audio-meter-fill" id="audioMeterFill"></div>
+                    </div>
+                </div>
+                
+                <!-- Recording Info -->
+                <div class="recording-info" id="recordingInfo">
+                    <div class="recording-duration" id="recordingDuration">00:00</div>
+                </div>
+                
+                <hr class="divider">
+                
+                <!-- Action Buttons -->
+                <button class="btn btn--secondary" id="settingsBtn">
+                    <span>⚙️</span> Settings
+                </button>
+                
+                <button class="btn btn--secondary" id="exportBtn">
+                    <span>📤</span> Export Clips
+                </button>
+                
+                <button class="btn btn--secondary" id="toggleLogBtn">
+                    <span>📋</span> Toggle Log
+                </button>
+                
+                <hr class="divider">
+                
+                <!-- Keyboard Shortcuts -->
+                <div class="shortcuts-help">
+                    <h4>Keyboard Shortcuts</h4>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl+Shift+R</kbd>
+                        <span>Record</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl+F</kbd>
+                        <span>Search</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl+E</kbd>
+                        <span>Export</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl+L</kbd>
+                        <span>Toggle Log</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input 
+                    type="text" 
+                    class="form-control search-input" 
+                    id="searchInput" 
+                    placeholder="🔍 Search clips by keyword or date..."
+                >
+                <select class="form-control filter-select" id="filterSelect">
+                    <option value="all">All Clips</option>
+                    <option value="starred">Starred</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                </select>
+            </div>
+            
+            <!-- Clips Grid -->
+            <div class="clips-container" id="clipsContainer">
+                <!-- Clips will be dynamically inserted here -->
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-state-icon">🎤</div>
+                <h3>No clips yet</h3>
+                <p>Press <kbd>Ctrl+Shift+R</kbd> or click "Start Recording" to create your first transcription.</p>
+            </div>
+        </main>
+
+        <!-- Right Sidebar (Log Panel) -->
+        <aside class="sidebar sidebar-right" id="logPanel">
+            <div class="log-panel">
+                <div class="log-header">
+                    <h3>Activity Log</h3>
+                    <button class="btn-icon" id="copyLogBtn" title="Copy log to clipboard">
+                        📋
+                    </button>
+                </div>
+                <div class="log-content" id="logContent">
+                    <!-- Log entries will be dynamically inserted here -->
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Bottom Status Bar -->
+    <footer class="status-bar">
+        <div class="status-item">
+            <span class="status-label">Total Clips:</span>
+            <span class="status-value" id="totalClips">0</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">Storage Used:</span>
+            <span class="status-value" id="storageUsed">0 KB</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">Model:</span>
+            <span class="status-value" id="currentModel">base</span>
+        </div>
+    </footer>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="btn-close" id="closeSettingsBtn">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Transcription Model</label>
+                    <select class="form-control" id="modelSelect">
+                        <option value="tiny">Tiny (Fastest, Good Accuracy)</option>
+                        <option value="base" selected>Base (Fast, Better Accuracy)</option>
+                        <option value="small">Small (Medium Speed, Good Accuracy)</option>
+                        <option value="medium">Medium (Slow, Excellent Accuracy)</option>
+                        <option value="large">Large (Slowest, Best Accuracy)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Audio Quality</label>
+                    <select class="form-control" id="audioQualitySelect">
+                        <option value="low">Low (16 kHz)</option>
+                        <option value="medium" selected>Medium (24 kHz)</option>
+                        <option value="high">High (48 kHz)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">MCP Server Endpoint</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="mcpEndpoint" 
+                        placeholder="http://localhost:3000/api"
+                    >
+                    <button class="btn btn--secondary mt-8" id="testMcpBtn">
+                        Test Connection
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">ElevenLabs API Key</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="elevenLabsKey" 
+                        placeholder="Enter API key"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="privacyMode" checked>
+                        <span>Privacy Mode (Local-only processing)</span>
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="elevenLabsToggle">
+                        <span>Enable ElevenLabs Integration</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--secondary" id="cancelSettingsBtn">Cancel</button>
+                <button class="btn btn--primary" id="saveSettingsBtn">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clip Detail Modal -->
+    <div class="modal" id="clipModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Clip Details</h2>
+                <button class="btn-close" id="closeClipBtn">×</button>
+            </div>
+            <div class="modal-body" id="clipModalBody">
+                <!-- Clip details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

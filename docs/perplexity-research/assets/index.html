@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Source BI & Dashboard Research Report - November 2025</title>
+    <style>
+        :root {
+            --color-primary: #2563eb;
+            --color-secondary: #7c3aed;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --color-bg: #0f172a;
+            --color-surface: #1e293b;
+            --color-surface-light: #334155;
+            --color-text: #f1f5f9;
+            --color-text-secondary: #cbd5e1;
+            --color-border: #475569;
+            --color-accent: #06b6d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--color-text);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .header .meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .meta-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .section {
+            background: var(--color-surface);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-accent);
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem 0;
+            color: var(--color-primary);
+        }
+
+        .section h4 {
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem 0;
+            color: var(--color-success);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: var(--color-surface-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid var(--color-border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--color-accent);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-star {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .badge-ai {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+
+        .badge-free {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .badge-lightweight {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+        }
+
+        .badge-enterprise {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .comparison-table thead {
+            background: var(--color-surface-light);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid var(--color-border);
+        }
+
+        .comparison-table th {
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .link-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(124, 58, 237, 0.2));
+            border-left: 4px solid var(--color-primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .pros, .cons {
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .pros {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--color-success);
+        }
+
+        .cons {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--color-danger);
+        }
+
+        .pros h4 {
+            color: var(--color-success);
+        }
+
+        .cons h4 {
+            color: var(--color-danger);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--color-accent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            border: 3px solid var(--color-bg);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: var(--color-surface-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--color-border);
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            display: block;
+        }
+
+        .stat-card .label {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+        }
+
+        .toc {
+            background: var(--color-surface-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .toc h3 {
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 0.5rem 0;
+        }
+
+        .toc a {
+            color: var(--color-text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .toc a:hover {
+            color: var(--color-accent);
+        }
+
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+            border: 2px solid var(--color-success);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .recommendation-box h3 {
+            color: var(--color-success);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 Open Source BI & Dashboard Research Report</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 1rem;">Comprehensive Analysis for ITAD Precious Metals Refining Business Intelligence</p>
+            <div class="meta">
+                <div class="meta-item">📅 Date: November 4, 2025</div>
+                <div class="meta-item">👤 Client: Technical Professional, 30+ Years Silicon Valley</div>
+                <div class="meta-item">🎯 Focus: Angel Investor-Ready Dashboards</div>
+                <div class="meta-item">💼 Industry: ITAD/Precious Metals Refining</div>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="section toc">
+            <h3>📋 Table of Contents</h3>
+            <ul>
+                <li><a href="#executive">Executive Summary</a></li>
+                <li><a href="#context">Business Context & Requirements</a></li>
+                <li><a href="#opensource">14 Open Source BI Tools Analysis</a></li>
+                <li><a href="#libraries">Top Dashboard Libraries for Quick Deploy</a></li>
+                <li><a href="#templates">Lightweight React Templates</a></li>
+                <li><a href="#ai-dashboards">AI-Powered Dashboard Solutions</a></li>
+                <li><a href="#comparison">Detailed Comparison Tables</a></li>
+                <li><a href="#recommendation">Final Recommendations</a></li>
+                <li><a href="#notion">Notion Integration Guide</a></li>
+            </ul>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="section" id="executive">
+            <h2>📊 Executive Summary</h2>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="number">30+</span>
+                    <span class="label">Tools Analyzed</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">14</span>
+                    <span class="label">Open Source BI Platforms</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">5</span>
+                    <span class="label">AI-Native Solutions</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">10+</span>
+                    <span class="label">React Templates</span>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Key Findings</h3>
+                <ul class="features-list">
+                    <li><strong>Best Overall for Quick Deploy:</strong> TailAdmin React with native AI components</li>
+                    <li><strong>Best Open Source Library:</strong> Tremor (React + Tailwind) for beautiful, production-ready dashboards</li>
+                    <li><strong>Best AI Integration:</strong> Retool AI for enterprise-grade natural language dashboards</li>
+                    <li><strong>Best Developer Experience:</strong> Refine AI (open-source Retool alternative)</li>
+                    <li><strong>Best for Replit Deploy:</strong> Evidence.dev (SQL + Markdown approach)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Business Context -->
+        <div class="section" id="context">
+            <h2>💼 Business Context & Requirements</h2>
+            <div class="highlight-box">
+                <h3>Client Profile</h3>
+                <p><strong>Background:</strong> 30 years experience in Silicon Valley tech, expertise in legacy/modern systems, data recovery, ediscovery, and storage technology</p>
+                <p><strong>Current Focus:</strong> Precious metals refining from ITAD market</p>
+                <p><strong>Goal:</strong> Seeking angel investors - needs professional, impressive dashboards</p>
+                <p><strong>Location:</strong> Morgan Hill, CA</p>
+            </div>
+
+            <h3>Dashboard Requirements</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📈 Business Metrics</h3>
+                    <ul class="features-list">
+                        <li>Precious metals inventory tracking</li>
+                        <li>Recovery rate visualizations</li>
+                        <li>Real-time pricing dashboards</li>
+                        <li>ITAD supply chain metrics</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🎯 Technical Requirements</h3>
+                    <ul class="features-list">
+                        <li>Open source or affordable</li>
+                        <li>Beautiful, professional design</li>
+                        <li>Quick deployment (hours, not weeks)</li>
+                        <li>Easy to customize</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🤖 AI Requirements</h3>
+                    <ul class="features-list">
+                        <li>Built-in AI assistant for data exploration</li>
+                        <li>Natural language queries</li>
+                        <li>Investor Q&amp;A capabilities</li>
+                        <li>Auto-generated insights</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 14 Open Source BI Tools -->
+        <div class="section" id="opensource">
+            <h2>🔧 14 Open Source BI Tools Analysis</h2>
+
+            <div class="card-grid">
+                <!-- Preset/Apache Superset -->
+                <div class="card">
+                    <h3>1. Preset (Apache Superset)</h3>
+                    <div>
+                        <span class="badge badge-star">⭐ POPULAR</span>
+                        <span class="badge badge-enterprise">ENTERPRISE</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>Fully hosted BI tool for Apache Superset</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Semantic layer with last-mile SQL transformations</li>
+                        <li>No-code drag-and-drop builders</li>
+                        <li>40+ visualization types including heatmaps</li>
+                        <li>Chart &amp; dashboard caching</li>
+                        <li>Slack delivery integration</li>
+                        <li>Handles petabyte-scale data</li>
+                    </ul>
+                    <h4>Origin:</h4>
+                    <p>Started as Airbnb hackathon project (Summer 2015)</p>
+                    <a href="https://preset.io" class="link-button" target="_blank">Visit Preset →</a>
+                </div>
+
+                <!-- Lightdash -->
+                <div class="card">
+                    <h3>2. Lightdash</h3>
+                    <div>
+                        <span class="badge badge-star">⭐ TOP RATED</span>
+                        <span class="badge badge-ai">DBT NATIVE</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>New open-source BI connecting to dbt projects</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Self-hosted or fully hosted options</li>
+                        <li>Unlimited users, charts, dashboards</li>
+                        <li>GitHub, GitLab &amp; dbt integration</li>
+                        <li>Metrics declared in YAML alongside dbt</li>
+                        <li>Team collaboration (cloud/enterprise)</li>
+                    </ul>
+                    <h4>Rating:</h4>
+                    <p>⭐ 5/5 on Capterra - praised for dbt integration and ease of use</p>
+                    <a href="https://lightdash.com" class="link-button" target="_blank">Visit Lightdash →</a>
+                </div>
+
+                <!-- Helical Insights -->
+                <div class="card">
+                    <h3>3. Helical Insights</h3>
+                    <div>
+                        <span class="badge badge-ai">AI/NLP</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>Unique API-based self-service analytics platform</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Machine learning &amp; NLP for instant intelligence</li>
+                        <li>Robust APIs for custom functionality</li>
+                        <li>Workflow design based on business process</li>
+                        <li>Fully browser-based (no downloads)</li>
+                        <li>Multiple export formats (PDF, Excel, CSV)</li>
+                        <li>Advanced scheduling options</li>
+                    </ul>
+                    <h4>Rating:</h4>
+                    <p>⭐ 5.0/5 on Capterra - clean design and report visualization</p>
+                    <a href="https://helicalinsight.com" class="link-button" target="_blank">Visit Helical →</a>
+                </div>
+
+                <!-- BIRT -->
+                <div class="card">
+                    <h3>4. BIRT</h3>
+                    <div>
+                        <span class="badge badge-enterprise">ENTERPRISE</span>
+                        <span class="badge badge-free">ECLIPSE</span>
+                    </div>
+                    <p><strong>Eclipse Foundation business intelligence reporting tool</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Data customization via computed columns</li>
+                        <li>JavaScript scripting for complete control</li>
+                        <li>Eclipse project management integration</li>
+                        <li>CSS-based styling system</li>
+                        <li>Shared libraries across reports</li>
+                        <li>Internationalization &amp; localization support</li>
+                    </ul>
+                    <h4>Note:</h4>
+                    <p>Steep learning curve but powerful data analysis capabilities</p>
+                    <a href="https://eclipse.org/birt/" class="link-button" target="_blank">Visit BIRT →</a>
+                </div>
+
+                <!-- Jaspersoft -->
+                <div class="card">
+                    <h3>5. Jaspersoft</h3>
+                    <div>
+                        <span class="badge badge-enterprise">DEVELOPER-FOCUSED</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>Developer-friendly embedded analytics solution</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>API-first approach for embedded dashboards</li>
+                        <li>Flexible deployment (cloud, on-premise, hybrid)</li>
+                        <li>JavaScript framework with REST services</li>
+                        <li>Granular security (row/column permissions)</li>
+                        <li>Modifiable source code</li>
+                    </ul>
+                    <h4>Rating:</h4>
+                    <p>⭐ 4.2/5 on Capterra - highly customizable for Java developers</p>
+                    <a href="https://jaspersoft.com" class="link-button" target="_blank">Visit Jaspersoft →</a>
+                </div>
+
+                <!-- KNIME -->
+                <div class="card">
+                    <h3>6. KNIME</h3>
+                    <div>
+                        <span class="badge badge-ai">ML/AI</span>
+                        <span class="badge badge-enterprise">ENTERPRISE</span>
+                    </div>
+                    <p><strong>Scalable data science platform with visual programming</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Drag-and-drop visual programming</li>
+                        <li>Node control for entire data lifecycle</li>
+                        <li>KNIME Hub for R, Python, ML tools</li>
+                        <li>Multiple data connectors (Oracle, AWS, Azure)</li>
+                        <li>Statistical operations and ML models</li>
+                        <li>Classification, regression, clustering support</li>
+                    </ul>
+                    <h4>Rating:</h4>
+                    <p>⭐ 4.7/5 on Gartner - powerful but high memory usage</p>
+                    <a href="https://knime.com" class="link-button" target="_blank">Visit KNIME →</a>
+                </div>
+
+                <!-- SpagoBI -->
+                <div class="card">
+                    <h3>7. SpagoBI</h3>
+                    <div>
+                        <span class="badge badge-free">COMMUNITY</span>
+                        <span class="badge badge-enterprise">ENTERPRISE</span>
+                    </div>
+                    <p><strong>Traditional + big data BI with advanced visualization</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Community and enterprise versions</li>
+                        <li>Automatic dossier generation (doc/ppt)</li>
+                        <li>Custom code visualization (HTML, R, Python)</li>
+                        <li>Plugins: smart data, location intelligence</li>
+                        <li>Pre-packaged component gallery</li>
+                    </ul>
+                    <h4>Note:</h4>
+                    <p>Configuration requires scripting knowledge</p>
+                    <a href="https://spagobi.org" class="link-button" target="_blank">Visit SpagoBI →</a>
+                </div>
+
+                <!-- ReportServer -->
+                <div class="card">
+                    <h3>8. ReportServer</h3>
+                    <div>
+                        <span class="badge badge-free">GPL LICENSE</span>
+                    </div>
+                    <p><strong>Free BI platform with multiple reporting engines</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Integration with BIRT, Jasper, Mondrian, Crystal Reports</li>
+                        <li>Audit-proof detailed documentation</li>
+                        <li>Extendable via scripting</li>
+                        <li>Flexible parameters (cascaded, script-based)</li>
+                        <li>Automation capabilities</li>
+                    </ul>
+                    <h4>Rating:</h4>
+                    <p>⭐ 4.2/5 on G2 - powerful but expensive licenses</p>
+                    <a href="https://reportserver.net" class="link-button" target="_blank">Visit ReportServer →</a>
+                </div>
+
+                <!-- Tableau Public -->
+                <div class="card">
+                    <h3>9. Tableau Public</h3>
+                    <div>
+                        <span class="badge badge-star">⭐ POPULAR</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>Free version of Tableau for public visualizations</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Public sharing of visualizations</li>
+                        <li>Extensive visualization options</li>
+                        <li>Up to 10 million rows</li>
+                        <li>Beginner-friendly with strong community</li>
+                        <li>Sample data for practice</li>
+                    </ul>
+                    <h4>Rating:</h4>
+                    <p>⭐ 4.4/5 on G2 - limited connectors in free version</p>
+                    <h4>Note:</h4>
+                    <p><strong>Caveat:</strong> All visualizations are PUBLIC only</p>
+                    <a href="https://public.tableau.com" class="link-button" target="_blank">Visit Tableau Public →</a>
+                </div>
+
+                <!-- ART -->
+                <div class="card">
+                    <h3>10. ART (A Reporting Tool)</h3>
+                    <div>
+                        <span class="badge badge-free">GPLv3</span>
+                        <span class="badge badge-lightweight">BEGINNER-FRIENDLY</span>
+                    </div>
+                    <p><strong>Simple open-source reporting and BI solution</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Scheduling for automated delivery</li>
+                        <li>Non-technical user design</li>
+                        <li>Multiple export formats (PDF, Excel, CSV)</li>
+                        <li>OLAP support for flexible BI</li>
+                        <li>Embedded HSQLDB database</li>
+                        <li>LDAP and Active Directory authentication</li>
+                    </ul>
+                    <a href="https://art.sourceforge.io" class="link-button" target="_blank">Visit ART →</a>
+                </div>
+
+                <!-- Abixen -->
+                <div class="card">
+                    <h3>11. Abixen</h3>
+                    <div>
+                        <span class="badge badge-enterprise">MICROSERVICES</span>
+                    </div>
+                    <p><strong>Microservices-based platform with BI module</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Microservices architecture</li>
+                        <li>Built-in security system</li>
+                        <li>Easily scalable instances</li>
+                        <li>Spring Cloud and Netflix OSS</li>
+                        <li>AWS compatible</li>
+                        <li>24/7 support with custom modules</li>
+                    </ul>
+                    <a href="https://abixen.com" class="link-button" target="_blank">Visit Abixen →</a>
+                </div>
+
+                <!-- FineReport -->
+                <div class="card">
+                    <h3>12. FineReport</h3>
+                    <div>
+                        <span class="badge badge-free">FREE</span>
+                        <span class="badge badge-ai">MOBILE APP</span>
+                    </div>
+                    <p><strong>Free Java BI tool with mobile app</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Drag-and-drop report builder</li>
+                        <li>50+ HTML5 chart styles with 3D effects</li>
+                        <li>Data entry widgets with validation</li>
+                        <li>Powerful mobile app (offline viewing, data entry)</li>
+                        <li>Easy Java integration</li>
+                    </ul>
+                    <h4>Rating:</h4>
+                    <p>⭐ 4.1/5 on G2 - lacks self-service reporting</p>
+                    <a href="https://finereport.com" class="link-button" target="_blank">Visit FineReport →</a>
+                </div>
+
+                <!-- Grafana -->
+                <div class="card">
+                    <h3>13. Grafana</h3>
+                    <div>
+                        <span class="badge badge-star">⭐ INDUSTRY STANDARD</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>Open-source platform for monitoring and observability</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>Customizable dashboards with drag-and-drop</li>
+                        <li>Advanced alerting system (Slack, PagerDuty)</li>
+                        <li>Templating and variables for dynamic dashboards</li>
+                        <li>Annotations for event marking</li>
+                        <li>Granular RBAC permissions</li>
+                        <li>Rich plugin ecosystem</li>
+                    </ul>
+                    <h4>Rating:</h4>
+                    <p>Highly praised for flexibility and integrations</p>
+                    <a href="https://grafana.com" class="link-button" target="_blank">Visit Grafana →</a>
+                </div>
+
+                <!-- Evidence.dev -->
+                <div class="card">
+                    <h3>14. Evidence.dev</h3>
+                    <div>
+                        <span class="badge badge-star">⭐ DEVELOPER-FOCUSED</span>
+                        <span class="badge badge-free">FREE</span>
+                        <span class="badge badge-lightweight">LIGHTWEIGHT</span>
+                    </div>
+                    <p><strong>SQL + Markdown reports with Git version control</strong></p>
+                    <h4>Key Features:</h4>
+                    <ul class="features-list">
+                        <li>SQL queries + Markdown formatting</li>
+                        <li>Git version control integration</li>
+                        <li>Automated scheduled updates</li>
+                        <li>Custom data visualizations</li>
+                        <li>GitHub/GitLab collaboration</li>
+                        <li>Open-source and extensible</li>
+                    </ul>
+                    <h4>Perfect For:</h4>
+                    <p>Developer teams that love SQL and code-first approach</p>
+                    <a href="https://evidence.dev" class="link-button" target="_blank">Visit Evidence.dev →</a>
+                </div>
+            </div>
+
+            <!-- Pros/Cons of Open Source BI -->
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>✅ Pros of Open Source BI</h4>
+                    <ul class="features-list">
+                        <li>Full ownership forever - truly free</li>
+                        <li>No vendor lock-in risk</li>
+                        <li>Complete flexibility and customization</li>
+                        <li>Can embed into any system</li>
+                        <li>Maximum adaptability with developer resources</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h4>❌ Cons of Open Source BI</h4>
+                    <ul class="features-list">
+                        <li>Self-managed - requires large IT resources</li>
+                        <li>Limited built-in integrations</li>
+                        <li>Custom integration needs code-level work</li>
+                        <li>No dedicated support (community-based)</li>
+                        <li>Can be challenging to find specific help</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Libraries -->
+        <div class="section" id="libraries">
+            <h2>📚 Top Dashboard Libraries for Quick Deploy</h2>
+
+            <div class="card-grid">
+                <!-- Tremor -->
+                <div class="card">
+                    <h3>1. Tremor</h3>
+                    <div>
+                        <span class="badge badge-star">⭐ TOP RECOMMENDATION</span>
+                        <span class="badge badge-lightweight">LIGHTWEIGHT</span>
+                        <span class="badge badge-ai">AI-READY</span>
+                    </div>
+                    <p><strong>Copy-paste React components for beautiful dashboards</strong></p>
+                    <h4>What It Is:</h4>
+                    <p>35+ React components built on Tailwind CSS and Radix UI specifically for dashboards</p>
+                    <h4>Why It's Great:</h4>
+                    <ul class="features-list">
+                        <li>Copy-paste components - extremely fast deployment</li>
+                        <li>Built on Recharts for visualizations</li>
+                        <li>Beautiful, modern design out-of-the-box</li>
+                        <li>Fully open-source (Apache 2.0 license)</li>
+                        <li>Works seamlessly with Next.js and React</li>
+                        <li>Excellent for AI-powered dashboards</li>
+                    </ul>
+                    <h4>Easy Deployment:</h4>
+                    <p>Works perfectly on Replit, Vercel, or any Node.js environment</p>
+                    <a href="https://tremor.so" class="link-button" target="_blank">Visit Tremor →</a>
+                    <a href="https://github.com/tremorlabs/tremor" class="link-button" target="_blank">GitHub →</a>
+                </div>
+
+                <!-- Recharts -->
+                <div class="card">
+                    <h3>2. Recharts</h3>
+                    <div>
+                        <span class="badge badge-lightweight">LIGHTWEIGHT</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>Composable charting library for React</strong></p>
+                    <h4>Why It's Great:</h4>
+                    <ul class="features-list">
+                        <li>Simple, declarative API</li>
+                        <li>Composable React components</li>
+                        <li>Beautiful SVG-based charts</li>
+                        <li>Low learning curve</li>
+                        <li>Powers Tremor under the hood</li>
+                    </ul>
+                    <h4>Use With:</h4>
+                    <p>Tremor, Next.js, or plain React</p>
+                    <a href="https://recharts.org" class="link-button" target="_blank">Visit Recharts →</a>
+                </div>
+
+                <!-- Apache ECharts -->
+                <div class="card">
+                    <h3>3. Apache ECharts</h3>
+                    <div>
+                        <span class="badge badge-enterprise">ENTERPRISE-GRADE</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>Powerful enterprise-grade charts</strong></p>
+                    <h4>Why It's Great:</h4>
+                    <ul class="features-list">
+                        <li>Extremely powerful and flexible</li>
+                        <li>20+ chart types</li>
+                        <li>Rich interactive features</li>
+                        <li>Large ecosystem</li>
+                        <li>Great performance</li>
+                        <li>Supports React, Vue, Angular</li>
+                    </ul>
+                    <h4>Best For:</h4>
+                    <p>Complex, enterprise-level dashboards</p>
+                    <a href="https://echarts.apache.org" class="link-button" target="_blank">Visit ECharts →</a>
+                </div>
+
+                <!-- shadcn/ui -->
+                <div class="card">
+                    <h3>4. shadcn/ui</h3>
+                    <div>
+                        <span class="badge badge-ai">AI-NATIVE</span>
+                        <span class="badge badge-lightweight">MODULAR</span>
+                    </div>
+                    <p><strong>AI-native component library</strong></p>
+                    <h4>AI Components Available:</h4>
+                    <ul class="features-list">
+                        <li>ChatGPT-style chat interfaces</li>
+                        <li>Terminal with AI completions</li>
+                        <li>Interactive data visualizations</li>
+                        <li>QR code generation</li>
+                        <li>Advanced color pickers</li>
+                    </ul>
+                    <h4>Stack:</h4>
+                    <p>React + TypeScript + Tailwind CSS</p>
+                    <h4>Perfect For:</h4>
+                    <p>Building custom AI dashboards from scratch</p>
+                    <a href="https://shadcn.io" class="link-button" target="_blank">Visit shadcn/ui →</a>
+                </div>
+            </div>
+
+            <div class="recommendation-box">
+                <h3>🎯 Best Combination for Your Needs</h3>
+                <h4>For Precious Metals Refining Business Dashboards:</h4>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Framework:</strong> Next.js on Replit
+                    </div>
+                    <div class="timeline-item">
+                        <strong>UI Library:</strong> Tremor (beautiful, professional, fast)
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Charts:</strong> Recharts (included with Tremor)
+                    </div>
+                    <div class="timeline-item">
+                        <strong>AI Integration:</strong> Replit Agent for quick prototyping
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Deployment:</strong> Replit Deployments (one-click) or Vercel
+                    </div>
+                </div>
+                <h4>Why This Works:</h4>
+                <ul class="features-list">
+                    <li>Beautiful, professional design (impresses investors)</li>
+                    <li>Fast development (components are ready)</li>
+                    <li>Easy to integrate real-time data (ITAD operations)</li>
+                    <li>AI-assisted development via Replit Agent</li>
+                    <li>No infrastructure headaches</li>
+                    <li>Fully open-source (Apache 2.0)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Lightweight React Templates -->
+        <div class="section" id="templates">
+            <h2>⚡ Lightweight React Dashboard Templates</h2>
+
+            <div class="card-grid">
+                <!-- TailAdmin React -->
+                <div class="card">
+                    <h3>1. TailAdmin React</h3>
+                    <div>
+                        <span class="badge badge-star">⭐ TOP PICK</span>
+                        <span class="badge badge-ai">AI BUILT-IN</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>Ultra-modern, feature-complete, AI-ready</strong></p>
+                    <h4>What's Included:</h4>
+                    <ul class="features-list">
+                        <li>500+ UI elements</li>
+                        <li>Built-in AI components</li>
+                        <li>7 dashboard variations (SaaS, Stock, Analytics, eCommerce, AI, CRM)</li>
+                        <li>React + Tailwind CSS (extremely lightweight)</li>
+                    </ul>
+                    <h4>Pre-built AI Pages:</h4>
+                    <ul class="features-list">
+                        <li>AI dashboard with prompts</li>
+                        <li>Searchable history</li>
+                        <li>Attachments and downloads</li>
+                        <li>AI chat screens natively</li>
+                    </ul>
+                    <h4>Deployment:</h4>
+                    <p>One-click deploy to Vercel/Netlify</p>
+                    <p><strong>Deploy Time:</strong> 5 minutes</p>
+                    <a href="https://tailadmin.com/react" class="link-button" target="_blank">Visit TailAdmin →</a>
+                </div>
+
+                <!-- Berry Free MUI -->
+                <div class="card">
+                    <h3>2. Berry Free MUI Template</h3>
+                    <div>
+                        <span class="badge badge-star">⭐ MOST POPULAR</span>
+                        <span class="badge badge-free">FREE</span>
+                        <span class="badge badge-lightweight">LIGHTWEIGHT</span>
+                    </div>
+                    <p><strong>Minimalist, professional, production-ready</strong></p>
+                    <h4>Features:</h4>
+                    <ul class="features-list">
+                        <li>React + Material-UI (MUI)</li>
+                        <li>Essential components only</li>
+                        <li>Charts, forms, tables in minimalist design</li>
+                        <li>Most popular free template on GitHub</li>
+                    </ul>
+                    <h4>Perfect For:</h4>
+                    <p>Professional dashboards that need to look polished fast</p>
+                    <p><strong>Deploy Time:</strong> 5 minutes</p>
+                    <a href="https://mui.com/store/items/berry-react-material-admin-free/" class="link-button" target="_blank">Get Berry →</a>
+                </div>
+
+                <!-- Volt React -->
+                <div class="card">
+                    <h3>3. Volt React Dashboard</h3>
+                    <div>
+                        <span class="badge badge-free">FREE</span>
+                        <span class="badge badge-lightweight">LIGHTWEIGHT</span>
+                    </div>
+                    <p><strong>Bootstrap 5 powerhouse</strong></p>
+                    <h4>Features:</h4>
+                    <ul class="features-list">
+                        <li>100+ UI components</li>
+                        <li>React 18 + TypeScript support</li>
+                        <li>Light/dark modes</li>
+                        <li>Charts, modals, forms</li>
+                        <li>Performance-optimized</li>
+                    </ul>
+                    <h4>Best For:</h4>
+                    <p>Teams familiar with Bootstrap</p>
+                    <p><strong>Deploy Time:</strong> 5 minutes</p>
+                    <a href="https://themesberg.com/product/dashboard/volt-react" class="link-button" target="_blank">Get Volt →</a>
+                </div>
+
+                <!-- Minimal UI Kit -->
+                <div class="card">
+                    <h3>4. Minimal UI Kit React</h3>
+                    <div>
+                        <span class="badge badge-lightweight">MINIMALIST</span>
+                        <span class="badge badge-free">FREE</span>
+                    </div>
+                    <p><strong>Clean canvas approach</strong></p>
+                    <h4>Features:</h4>
+                    <ul class="features-list">
+                        <li>React + Material-UI + TypeScript</li>
+                        <li>Minimalist design, maximum flexibility</li>
+                        <li>Pre-built pages: Analytics, e-commerce, user management</li>
+                        <li>Very lightweight, focused on essentials</li>
+                    </ul>
+                    <h4>Perfect For:</h4>
+                    <p>Startups and MVPs</p>
+                    <a href="https://www.wrappixel.com/templates/materialpro-react-admin-lite/" class="link-button" target="_blank">Get Minimal →</a>
+                </div>
+
+                <!-- CoreUI -->
+                <div class="card">
+                    <h3>5. CoreUI React Admin</h3>
+                    <div>
+                        <span class="badge badge-free">FREE</span>
+                        <span class="badge badge-enterprise">PRODUCTION-READY</span>
+                    </div>
+                    <p><strong>Enterprise-grade free template</strong></p>
+                    <h4>Features:</h4>
+                    <ul class="features-list">
+                        <li>React 18 + TypeScript</li>
+                        <li>Bootstrap 5 based</li>
+                        <li>40+ UI components</li>
+                        <li>Responsive and mobile-first</li>
+                        <li>Well-documented</li>
+                    </ul>
+                    <a href="https://coreui.io/product/free-react-admin-template/" class="link-button" target="_blank">Get CoreUI →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI-Powered Dashboards -->
+        <div class="section" id="ai-dashboards">
+            <h2>🤖 AI-Powered Dashboard Solutions</h2>
+
+            <div class="card-grid">
+                <!-- TailAdmin AI -->
+                <div class="card">
+                    <h3>1. TailAdmin React with AI</h3>
+                    <div>
+                        <span class="badge badge-star">⭐ READY TO USE</span>
+                        <span class="badge badge-ai">NATIVE AI</span>
+                    </div>
+                    <p><strong>The only template with native AI assistant built-in</strong></p>
+                    <h4>AI Features Included:</h4>
+                    <ul class="features-list">
+                        <li>Smart prompt interface</li>
+                        <li>Searchable conversation history</li>
+                        <li>File attachments and downloads</li>
+                        <li>Export options</li>
+                        <li>Pre-styled AI chat screens</li>
+                    </ul>
+                    <h4>What It Means:</h4>
+                    <p>You get a <strong>working AI dashboard</strong> out of the box, just add your OpenAI API key</p>
+                    <h4>Deployment:</h4>
+                    <p>Works on Replit, Vercel, Netlify instantly</p>
+                    <a href="https://tailadmin.com/react" class="link-button" target="_blank">Get TailAdmin →</a>
+                </div>
+
+                <!-- Retool AI -->
+                <div class="card">
+                    <h3>2. Retool AI Dashboard</h3>
+                    <div>
+                        <span class="badge badge-enterprise">ENTERPRISE</span>
+                        <span class="badge badge-ai">FULL AI</span>
+                    </div>
+                    <p><strong>Enterprise-grade with AI built-in (Low-code alternative)</strong></p>
+                    <h4>AI Capabilities:</h4>
+                    <ul class="features-list">
+                        <li>Natural language queries → interactive dashboards</li>
+                        <li>AI-powered ticket triage and classification</li>
+                        <li>Auto-generate response drafts</li>
+                        <li>Sentiment analysis</li>
+                        <li>Retool Assist: AI that builds dashboards for you</li>
+                    </ul>
+                    <h4>Perfect For:</h4>
+                    <p>Non-technical teams who need AI + dashboards fast</p>
+                    <h4>Deployment:</h4>
+                    <p>Cloud-hosted, no infrastructure needed (10 min)</p>
+                    <h4>Caveat:</h4>
+                    <p>Not open-source, but has free tier</p>
+                    <a href="https://retool.com/ai" class="link-button" target="_blank">Try Retool AI →</a>
+                </div>
+
+                <!-- Refine AI -->
+                <div class="card">
+                    <h3>3. Refine AI</h3>
+                    <div>
+                        <span class="badge badge-free">OPEN SOURCE</span>
+                        <span class="badge badge-ai">AI-ASSISTED</span>
+                    </div>
+                    <p><strong>The open-source Retool alternative</strong></p>
+                    <h4>AI Features:</h4>
+                    <ul class="features-list">
+                        <li>AI instantly transforms APIs into dashboards</li>
+                        <li>Visual IDE with AI assistance</li>
+                        <li>Supports MUI, Ant Design, Mantine, Chakra UI</li>
+                        <li>1-click Netlify deployment</li>
+                    </ul>
+                    <h4>Best For:</h4>
+                    <p>Developers who want control + AI speed</p>
+                    <h4>Pricing:</h4>
+                    <p>Free open-source version, Pro at $20/month with AI credits</p>
+                    <p><strong>Deploy Time:</strong> 15 minutes</p>
+                    <a href="https://refine.dev" class="link-button" target="_blank">Try Refine →</a>
+                </div>
+
+                <!-- DIY React + OpenAI -->
+                <div class="card">
+                    <h3>4. Build Your Own: React + OpenAI</h3>
+                    <div>
+                        <span class="badge badge-free">DIY</span>
+                        <span class="badge badge-ai">FULL CONTROL</span>
+                    </div>
+                    <p><strong>DIY AI dashboard in 30 minutes</strong></p>
+                    <h4>Quick Setup:</h4>
+                    <pre style="background: var(--color-bg); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem;">
+npm create vite@latest my-ai-dashboard --template react
+cd my-ai-dashboard
+npm install axios openai react-icons tailwindcss
+npx tailwindcss init -p</pre>
+                    <h4>Features You Can Build:</h4>
+                    <ul class="features-list">
+                        <li>ChatGPT-style assistant embedded in dashboard</li>
+                        <li>Data exploration via natural language</li>
+                        <li>Auto-generated insights</li>
+                        <li>Voice input support</li>
+                    </ul>
+                    <h4>Deploy To:</h4>
+                    <p>Replit, Vercel, or Netlify in minutes</p>
+                </div>
+
+                <!-- Leniolabs AI Dashboard -->
+                <div class="card">
+                    <h3>5. Leniolabs AI Dashboard Generator</h3>
+                    <div>
+                        <span class="badge badge-free">OPEN SOURCE</span>
+                        <span class="badge badge-ai">GPT-3</span>
+                    </div>
+                    <p><strong>Open-source Next.js dashboard generator using GPT-3</strong></p>
+                    <h4>How It Works:</h4>
+                    <ul class="features-list">
+                        <li>Upload CSV files</li>
+                        <li>AI understands your data automatically</li>
+                        <li>Generates visual representations</li>
+                        <li>Automatic insights</li>
+                    </ul>
+                    <h4>Perfect For:</h4>
+                    <p>Quick prototyping with AI-generated insights</p>
+                    <a href="https://github.com/Leniolabs/ai-data-dashboard" class="link-button" target="_blank">GitHub →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Tables -->
+        <div class="section" id="comparison">
+            <h2>📊 Detailed Comparison Tables</h2>
+
+            <h3>React Dashboard Templates Comparison</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Template</th>
+                        <th>Size</th>
+                        <th>AI Built-in?</th>
+                        <th>Deploy Time</th>
+                        <th>Best For</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>TailAdmin React</strong></td>
+                        <td>Lightweight</td>
+                        <td>✅ Native AI</td>
+                        <td>5 min</td>
+                        <td>AI dashboards ready NOW</td>
+                        <td><a href="https://tailadmin.com/react" target="_blank">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Berry MUI</strong></td>
+                        <td>Light</td>
+                        <td>❌ DIY</td>
+                        <td>5 min</td>
+                        <td>Clean professional look</td>
+                        <td><a href="https://mui.com/store/items/berry-react-material-admin-free/" target="_blank">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Volt React</strong></td>
+                        <td>Light</td>
+                        <td>❌ DIY</td>
+                        <td>5 min</td>
+                        <td>Bootstrap fans</td>
+                        <td><a href="https://themesberg.com/product/dashboard/volt-react" target="_blank">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Retool AI</strong></td>
+                        <td>Cloud</td>
+                        <td>✅ Full AI</td>
+                        <td>10 min</td>
+                        <td>Non-developers</td>
+                        <td><a href="https://retool.com/ai" target="_blank">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Refine AI</strong></td>
+                        <td>Medium</td>
+                        <td>✅ AI-assisted</td>
+                        <td>15 min</td>
+                        <td>Developers + AI speed</td>
+                        <td><a href="https://refine.dev" target="_blank">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>shadcn/ui</strong></td>
+                        <td>Minimal</td>
+                        <td>🟡 Components</td>
+                        <td>30 min</td>
+                        <td>Custom AI builds</td>
+                        <td><a href="https://shadcn.io" target="_blank">Visit →</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 3rem;">Dashboard Libraries Comparison</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Library</th>
+                        <th>Type</th>
+                        <th>Stack</th>
+                        <th>License</th>
+                        <th>Best For</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tremor</strong></td>
+                        <td>React Components</td>
+                        <td>React + Tailwind</td>
+                        <td>Apache 2.0</td>
+                        <td>Quick, beautiful dashboards</td>
+                        <td><a href="https://tremor.so" target="_blank">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recharts</strong></td>
+                        <td>Charting Library</td>
+                        <td>React + D3</td>
+                        <td>MIT</td>
+                        <td>Composable React charts</td>
+                        <td><a href="https://recharts.org" target="_blank">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apache ECharts</strong></td>
+                        <td>Charting Library</td>
+                        <td>JavaScript</td>
+                        <td>Apache 2.0</td>
+                        <td>Enterprise-grade charts</td>
+                        <td><a href="https://echarts.apache.org" target="_blank">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Evidence.dev</strong></td>
+                        <td>Full Platform</td>
+                        <td>SQL + Markdown</td>
+                        <td>Open Source</td>
+                        <td>Developer-friendly reports</td>
+                        <td><a href="https://evidence.dev" target="_blank">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>shadcn/ui</strong></td>
+                        <td>Component Library</td>
+                        <td>React + TypeScript</td>
+                        <td>MIT</td>
+                        <td>AI-native custom builds</td>
+                        <td><a href="https://shadcn.io" target="_blank">Visit →</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 3rem;">Open Source BI Tools Feature Matrix</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Self-Hosted</th>
+                        <th>Cloud</th>
+                        <th>AI/ML</th>
+                        <th>Rating</th>
+                        <th>Best Feature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Preset (Superset)</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Petabyte-scale data</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lightdash</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Native dbt integration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Helical Insights</strong></td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>API-based customization</td>
+                    </tr>
+                    <tr>
+                        <td><strong>KNIME</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Visual programming + ML</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Grafana</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Monitoring & observability</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Evidence.dev</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>SQL + Markdown simplicity</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Jaspersoft</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Developer-friendly APIs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Final Recommendations -->
+        <div class="section" id="recommendation">
+            <h2>🎯 Final Recommendations</h2>
+
+            <div class="recommendation-box">
+                <h3>For Your ITAD Precious Metals Refining Business</h3>
+                
+                <h4>🏆 Primary Recommendation: TailAdmin React + Tremor Stack</h4>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Step 1:</strong> Start with TailAdmin React template (5 min setup)
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Step 2:</strong> Deploy on Replit or Vercel (1-click)
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Step 3:</strong> Connect your ITAD data sources via API
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Step 4:</strong> Add OpenAI API key for AI assistant functionality
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Step 5:</strong> Customize branding for investor presentations
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 2rem;">Why This Stack Works:</h4>
+                <ul class="features-list">
+                    <li><strong>Professional Appearance:</strong> Impresses angel investors with modern UI/UX</li>
+                    <li><strong>AI Assistant Built-in:</strong> Answer investor questions in real-time with intelligent responses</li>
+                    <li><strong>Fast Deployment:</strong> Prototype in hours, not weeks - critical for fundraising timeline</li>
+                    <li><strong>Fully Customizable:</strong> Your 30 years of technical experience means you can extend it easily</li>
+                    <li><strong>Modern Stack:</strong> React + Tailwind CSS = future-proof and maintainable</li>
+                    <li><strong>Cost-Effective:</strong> Open source with no licensing fees</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Alternative Paths Based on Your Needs</h3>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Path A: Maximum Speed</h3>
+                    <span class="badge badge-star">FASTEST</span>
+                    <h4>Stack:</h4>
+                    <ul class="features-list">
+                        <li>TailAdmin React (5 min)</li>
+                        <li>Deploy to Vercel (1-click)</li>
+                        <li>Add OpenAI key</li>
+                        <li>Demo-ready in &lt;1 hour</li>
+                    </ul>
+                    <p><strong>Best for:</strong> Urgent investor meetings</p>
+                </div>
+
+                <div class="card">
+                    <h3>Path B: Maximum Control</h3>
+                    <span class="badge badge-free">OPEN SOURCE</span>
+                    <h4>Stack:</h4>
+                    <ul class="features-list">
+                        <li>Refine AI (open-source framework)</li>
+                        <li>Custom components with shadcn/ui</li>
+                        <li>Own every line of code</li>
+                        <li>Build-time: 2-3 days</li>
+                    </ul>
+                    <p><strong>Best for:</strong> Long-term product development</p>
+                </div>
+
+                <div class="card">
+                    <h3>Path C: No-Code Rapid</h3>
+                    <span class="badge badge-ai">FULL AI</span>
+                    <h4>Stack:</h4>
+                    <ul class="features-list">
+                        <li>Retool AI (low-code platform)</li>
+                        <li>Natural language dashboard building</li>
+                        <li>Minimal coding required</li>
+                        <li>Demo-ready in 2-3 hours</li>
+                    </ul>
+                    <p><strong>Best for:</strong> Testing concepts quickly</p>
+                </div>
+
+                <div class="card">
+                    <h3>Path D: Enterprise BI</h3>
+                    <span class="badge badge-enterprise">SCALABLE</span>
+                    <h4>Stack:</h4>
+                    <ul class="features-list">
+                        <li>Preset (Apache Superset)</li>
+                        <li>Grafana for real-time monitoring</li>
+                        <li>Self-hosted infrastructure</li>
+                        <li>Build-time: 1-2 weeks</li>
+                    </ul>
+                    <p><strong>Best for:</strong> Post-funding production system</p>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+                <h3>🎓 Key Insights for Investor Presentations</h3>
+                <ul class="features-list">
+                    <li><strong>Visual Impact:</strong> Use TailAdmin's Stock Dashboard variation - perfect for precious metals pricing</li>
+                    <li><strong>AI Differentiation:</strong> Built-in AI assistant shows technical sophistication</li>
+                    <li><strong>Real-time Data:</strong> Connect to live precious metals pricing APIs (Kitco, APMEX)</li>
+                    <li><strong>Recovery Metrics:</strong> Visualize gold/silver/platinum recovery rates with Tremor charts</li>
+                    <li><strong>Supply Chain:</strong> Show ITAD pipeline from acquisition to refining to sale</li>
+                    <li><strong>ROI Calculator:</strong> Embed calculator for investors to model returns</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Notion Integration -->
+        <div class="section" id="notion">
+            <h2>📝 Notion Integration Guide</h2>
+
+            <div class="highlight-box">
+                <h3>How to Push This Report to Notion</h3>
+                
+                <h4>Method 1: Copy HTML Content (Recommended)</h4>
+                <ol style="list-style: decimal; margin-left: 2rem; margin-top: 1rem;">
+                    <li style="margin-bottom: 1rem;">
+                        <strong>Save this HTML file:</strong>
+                        <ul style="margin-top: 0.5rem; list-style: disc; margin-left: 1.5rem;">
+                            <li>Right-click this page → "Save As" → Save as .html file</li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong>Upload to Notion:</strong>
+                        <ul style="margin-top: 0.5rem; list-style: disc; margin-left: 1.5rem;">
+                            <li>Open Notion</li>
+                            <li>Create a new page</li>
+                            <li>Type <code>/import</code></li>
+                            <li>Select "HTML" and upload the saved file</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h4 style="margin-top: 2rem;">Method 2: Use Notion Web Clipper</h4>
+                <ol style="list-style: decimal; margin-left: 2rem; margin-top: 1rem;">
+                    <li style="margin-bottom: 1rem;">Install <a href="https://www.notion.so/web-clipper" target="_blank" style="color: var(--color-accent);">Notion Web Clipper</a> browser extension</li>
+                    <li style="margin-bottom: 1rem;">Click the extension while viewing this report</li>
+                    <li style="margin-bottom: 1rem;">Select your workspace and page destination</li>
+                    <li style="margin-bottom: 1rem;">Click "Save page"</li>
+                </ol>
+
+                <h4 style="margin-top: 2rem;">Method 3: Copy Section by Section</h4>
+                <ol style="list-style: decimal; margin-left: 2rem; margin-top: 1rem;">
+                    <li style="margin-bottom: 1rem;">Create a new Notion page titled "BI Dashboard Research Report - Nov 2025"</li>
+                    <li style="margin-bottom: 1rem;">Copy each section from this report</li>
+                    <li style="margin-bottom: 1rem;">Paste into Notion (Notion will convert formatting)</li>
+                    <li style="margin-bottom: 1rem;">Manually add dividers and callouts for visual structure</li>
+                </ol>
+
+                <h4 style="margin-top: 2rem;">Method 4: API Integration (Advanced)</h4>
+                <p style="margin-top: 0.5rem;">For automated syncing, use Notion's official API:</p>
+                <pre style="background: var(--color-bg); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; margin-top: 1rem;">
+// Example: Push to Notion API
+const { Client } = require('@notionhq/client');
+const notion = new Client({ auth: 'YOUR_API_KEY' });
+
+await notion.pages.create({
+  parent: { database_id: 'YOUR_DATABASE_ID' },
+  properties: {
+    title: { title: [{ text: { content: 'BI Dashboard Research Report' } }] }
+  },
+  children: [
+    // Add content blocks here
+  ]
+});</pre>
+            </div>
+
+            <div class="card-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <h3>📌 Notion Page Structure Suggestion</h3>
+                    <ul class="features-list">
+                        <li>Database: "Research Reports"</li>
+                        <li>Properties: Date, Category, Status, Priority</li>
+                        <li>Views: Table, Gallery, Timeline</li>
+                        <li>Relations: Link to "Investment Prospects" database</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🏷️ Suggested Tags for Notion</h3>
+                    <ul class="features-list">
+                        <li>#business-intelligence</li>
+                        <li>#dashboard-tools</li>
+                        <li>#open-source</li>
+                        <li>#ai-powered</li>
+                        <li>#investor-ready</li>
+                        <li>#2025-research</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); border: none;">
+            <h3 style="color: white; margin-bottom: 1rem;">📧 Questions or Need Assistance?</h3>
+            <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem;">This comprehensive report covers 30+ tools and solutions for your BI dashboard needs.</p>
+            <p style="color: rgba(255,255,255,0.9); font-size: 0.9rem;">Report Generated: November 4, 2025 | For: ITAD Precious Metals Refining Business Intelligence</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,537 @@
+{
+  "timestamp": "2025-11-27T17:32:20.500Z",
+  "summary": {
+    "total": 30,
+    "claimable": 20,
+    "incomplete": 10,
+    "orphanedComponents": 16
+  },
+  "claims": [
+    {
+      "claimId": "C001",
+      "title": "Transaction-Based Revenue Model (1% of managed spend)",
+      "category": "Business Model",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "dashboard",
+          "exists": true
+        },
+        {
+          "route": "admin/dashboard",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C002",
+      "title": "$61.6M Year 4 ARR",
+      "category": "Financial Projection",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "admin/dashboard",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C003",
+      "title": "92% Gross Margin",
+      "category": "Financial Metric",
+      "currentStatus": "validated",
+      "uiStatus": [
+        {
+          "route": "admin/dashboard",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C004",
+      "title": "AI-Powered Resume Parsing",
+      "category": "ATS Feature",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "contractors",
+          "exists": true
+        },
+        {
+          "route": "contractors/onboarding",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C005",
+      "title": "70% Faster Hiring",
+      "category": "Performance Metric",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "contractors",
+          "exists": true
+        },
+        {
+          "route": "contractors/performance",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C006",
+      "title": "60% Cost Savings (VMS)",
+      "category": "Performance Metric",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "sow/command-center",
+          "exists": true
+        },
+        {
+          "route": "ai/multi-lens-analyzer",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "ai/multi-lens-analyzer"
+      ]
+    },
+    {
+      "claimId": "C007",
+      "title": "165+ Projects Tracked",
+      "category": "Portfolio Management",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "dashboard",
+          "exists": true
+        },
+        {
+          "route": "sow/portfolio",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C008",
+      "title": "SOC 2 Type II Compliant",
+      "category": "Security Certification",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "admin/security-settings",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "admin/security-settings"
+      ]
+    },
+    {
+      "claimId": "C009",
+      "title": "GDPR Compliant",
+      "category": "Privacy Compliance",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "admin/security-settings",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "admin/security-settings"
+      ]
+    },
+    {
+      "claimId": "C010",
+      "title": "Government Procurement Ready (FAR/DFARS)",
+      "category": "Compliance",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "admin/security-settings",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "admin/security-settings"
+      ]
+    },
+    {
+      "claimId": "C011",
+      "title": "I-9 and E-Verify Compliance",
+      "category": "HR Compliance",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "contractors/compliance",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C012",
+      "title": "Multi-Lens Contract Analysis",
+      "category": "AI Features",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "documents/upload",
+          "exists": true
+        },
+        {
+          "route": "ai/multi-lens-analyzer",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "ai/multi-lens-analyzer"
+      ]
+    },
+    {
+      "claimId": "C013",
+      "title": "VINessa AI Agent",
+      "category": "AI Features",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "ai/chatbots",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C014",
+      "title": "Hyundai Cost Avoidance ($2M-$2.5M annually)",
+      "category": "Client ROI",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "dashboard",
+          "exists": true
+        },
+        {
+          "route": "sow/command-center",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C015",
+      "title": "3-6 Month Payback Period",
+      "category": "Client ROI",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "admin/dashboard",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C016",
+      "title": "Real-Time Spend Visibility",
+      "category": "Intelligence",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "dashboard",
+          "exists": true
+        },
+        {
+          "route": "sow/command-center",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C017",
+      "title": "Automated Approval Workflows",
+      "category": "Automation",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "invoices",
+          "exists": true
+        },
+        {
+          "route": "timecards",
+          "exists": true
+        },
+        {
+          "route": "expenses",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C018",
+      "title": "Contractor Lifecycle Management",
+      "category": "Contractor Management",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "contractors",
+          "exists": true
+        },
+        {
+          "route": "contractors/onboarding",
+          "exists": true
+        },
+        {
+          "route": "contractors/performance",
+          "exists": true
+        },
+        {
+          "route": "contractors/compliance",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C019",
+      "title": "Predictive Risk Alerts",
+      "category": "Proactive Intelligence",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "dashboard",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C020",
+      "title": "Budget Forecasting",
+      "category": "Intelligence",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "dashboard",
+          "exists": true
+        },
+        {
+          "route": "sow/command-center",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C021",
+      "title": "Vendor Performance Scoring",
+      "category": "Vendor Management",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "ai/vendor-extraction",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "ai/vendor-extraction"
+      ]
+    },
+    {
+      "claimId": "C022",
+      "title": "Automated Invoice Processing",
+      "category": "Finance Automation",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "invoices",
+          "exists": true
+        },
+        {
+          "route": "invoices/generate",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C023",
+      "title": "Timecard Reconciliation",
+      "category": "Payroll",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "timecards",
+          "exists": true
+        },
+        {
+          "route": "timecards/bulk-approve",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C024",
+      "title": "Compliance Dashboard",
+      "category": "Compliance",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "sow/compliance",
+          "exists": true
+        },
+        {
+          "route": "contractors/compliance",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C025",
+      "title": "Custom Role-Based Access Control",
+      "category": "Security",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "admin/user-management",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "admin/user-management"
+      ]
+    },
+    {
+      "claimId": "C026",
+      "title": "Audit Trail & Logging",
+      "category": "Compliance",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "admin/audit-logs",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "admin/audit-logs"
+      ]
+    },
+    {
+      "claimId": "C027",
+      "title": "Data Export & Portability",
+      "category": "Data Management",
+      "currentStatus": "planned",
+      "uiStatus": [
+        {
+          "route": "admin/dashboard",
+          "exists": true
+        }
+      ],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C028",
+      "title": "Multi-Tenant Data Isolation",
+      "category": "Architecture",
+      "currentStatus": "active",
+      "uiStatus": [],
+      "claimable": true,
+      "missing": []
+    },
+    {
+      "claimId": "C029",
+      "title": "API Integration Ready",
+      "category": "Integration",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "admin/api-testing",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "admin/api-testing"
+      ]
+    },
+    {
+      "claimId": "C030",
+      "title": "Demo Mode with Sample Data",
+      "category": "Demo",
+      "currentStatus": "active",
+      "uiStatus": [
+        {
+          "route": "admin/demo-data-generator",
+          "exists": false
+        },
+        {
+          "route": "admin/demo-command-center",
+          "exists": false
+        }
+      ],
+      "claimable": false,
+      "missing": [
+        "admin/demo-data-generator",
+        "admin/demo-command-center"
+      ]
+    }
+  ],
+  "orphanedComponents": [
+    "admin/api-testing",
+    "admin/motion-animator",
+    "admin/security-settings",
+    "admin/templates/index",
+    "admin/templates/list-template",
+    "admin/voice-dashboards/admin",
+    "admin/voice-dashboards/finance",
+    "admin/voice-dashboards/manager",
+    "admin/voice-dashboards/operations",
+    "admin/voice-dashboards/recruiter",
+    "ai/elevenlabs-agents-dashboard",
+    "ai/multi-lens-analyzer",
+    "dashboard/customizer",
+    "dashboard/index",
+    "dashboard/template-builder",
+    "sow-command-center/index"
+  ]
+}

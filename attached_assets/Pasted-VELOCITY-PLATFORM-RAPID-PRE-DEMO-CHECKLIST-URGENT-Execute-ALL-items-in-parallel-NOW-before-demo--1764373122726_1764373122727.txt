@@ -1,0 +1,332 @@
+VELOCITY PLATFORM: RAPID PRE-DEMO CHECKLIST
+URGENT: Execute ALL items in parallel NOW before demo
+Date: November 28, 2025, 3:37 PM PST
+Time to Demo: CRITICAL - Execute immediately
+
+INSTANT EXECUTION COMMANDS (Copy/Paste)
+Parallel Batch 1: Critical Path Testing (5 min)
+bash
+# Terminal 1: Install & Run Playwright Tests
+npm install -D @playwright/test && \
+npx playwright install chromium && \
+npx playwright test tests/critical-demo-path.spec.js --headed
+
+# Terminal 2: Pre-Demo Watchdog Check
+node scripts/pre-demo-check.js
+
+# Terminal 3: Data Integrity Scan
+node scripts/validate-no-mock-data.js
+Parallel Batch 2: API Health Checks (2 min)
+bash
+# Terminal 4: Health Endpoint Tests
+curl -X GET http://localhost:3000/health && \
+curl -X GET http://localhost:3000/api/sow && \
+curl -X GET http://localhost:3000/api/po && \
+curl -X GET http://localhost:3000/api/document-analyzer
+
+# Terminal 5: Database Connection
+psql $DATABASE_URL -c "SELECT COUNT(*) FROM sows;" && \
+psql $DATABASE_URL -c "SELECT COUNT(*) FROM purchase_orders;"
+Parallel Batch 3: UI Smoke Tests (3 min)
+bash
+# Terminal 6: Build & Deploy Check
+npm run build && \
+npm run start &
+sleep 5 && curl http://localhost:3000
+
+# Terminal 7: Button Accessibility Check
+node scripts/check-demo-mode-buttons.js
+THE 8-MINUTE DEMO PATH CHECKLIST
+CHECKPOINT 1: Login & Dashboard (60 seconds)
+ Test Now: Navigate to /login - loads <2 sec
+
+ Test Now: Enter credentials - redirects to /dashboard
+
+ Test Now: Command Center displays 168 SOWs
+
+ Visual Check: Red/Yellow/Green indicators visible
+
+ Click Test: Click any SOW - detail page loads
+
+BLOCKER FIX: If login fails → Check .env has JWT_SECRET & DATABASE_URL
+
+CHECKPOINT 2: Document Analyzer (90 seconds)
+ Test Now: Click [data-test="document-analyzer"] button
+
+ Visual Check: Upload zone appears
+
+ Test Now: Drop test-data/asset-management-sow.pdf
+
+ Wait: Progress bar animates
+
+ Result: Extracted data displays (Project name, Budget, Timeline)
+
+BLOCKER FIX: If button disabled →
+
+bash
+# Check Demo Mode flag
+grep -r "demoMode" src/components/DocumentAnalyzer.tsx
+# Remove any `disabled={demoMode}` logic
+CHECKPOINT 3: SOW Details & Navigation (60 seconds)
+ Test Now: From analyzer results, click "View SOW Details"
+
+ Visual Check: Budget shows as $X.XX (not $0 or "N/A")
+
+ Visual Check: Timeline displays start/end dates
+
+ Click Test: "View Linked POs" button works
+
+ Result: Associated POs list appears
+
+BLOCKER FIX: If "No POs Found" but should exist →
+
+sql
+-- Emergency fix: Create test PO
+INSERT INTO purchase_orders (sow_id, amount, vendor, status) 
+VALUES (1, 1000000, 'Test Vendor LLC', 'pending');
+CHECKPOINT 4: PO Creation (90 seconds)
+ Test Now: Click "Create New PO" from SOW detail page
+
+ Form Test: Fill Amount: 1000000, Vendor: Acme Corp
+
+ Validation: Budget warning appears if >85% SOW budget
+
+ Submit: Click "Create PO" button
+
+ Result: Success toast + PO appears in list
+
+BLOCKER FIX: If form submission fails →
+
+bash
+# Check API endpoint
+curl -X POST http://localhost:3000/api/po \
+  -H "Content-Type: application/json" \
+  -d '{"sow_id":1,"amount":1000000,"vendor":"Test"}'
+CHECKPOINT 5: Assign Associates (60 seconds)
+ Test Now: From PO detail, click "Assign Resources"
+
+ Select: Check 2 associates from list
+
+ Submit: Click "Save Assignments"
+
+ Result: Assigned count updates (e.g., "2 Resources Assigned")
+
+BLOCKER FIX: If no associates appear →
+
+sql
+-- Emergency fix: Seed associates
+INSERT INTO associates (name, role, rate) VALUES 
+('John Doe', 'Developer', 150),
+('Jane Smith', 'Designer', 125);
+CHECKPOINT 6: Approval Workflow (45 seconds)
+ Test Now: From PO detail, view "Approval Status"
+
+ Visual Check: Workflow stages display (Pending → Manager → CFO)
+
+ Visual Check: Current stage highlighted
+
+ Mock Test: Click "Approve" (if you have manager role)
+
+ Result: Status advances to next stage
+
+BLOCKER FIX: If workflow stuck →
+
+javascript
+// Check approval logic in services/po-service.ts
+async function approvePO(poId, userId) {
+  // Must update status AND log audit trail
+  await db.update(purchaseOrders)
+    .set({ status: 'approved', approvedBy: userId, approvedAt: new Date() })
+    .where(eq(purchaseOrders.id, poId));
+}
+CRITICAL ERROR PATTERNS (Fix Immediately)
+ERROR 1: "Cannot read property X of undefined"
+Symptom: React component crashes when accessing data
+Root Cause: Missing null checks on async data
+Fix Pattern:
+
+typescript
+// BAD
+const { data } = useQuery('sows');
+return <div>{data.name}</div>; // CRASH if data undefined
+
+// GOOD
+const { data, isLoading } = useQuery('sows');
+if (isLoading) return <Skeleton />;
+if (!data) return <div>No data</div>;
+return <div>{data.name}</div>;
+ERROR 2: Button clicks do nothing
+Symptom: Button visible but onClick doesn't fire
+Root Cause: Demo mode OR missing event handler
+Fix Pattern:
+
+typescript
+// Check for demo mode disabling
+<button 
+  onClick={handleClick}
+  disabled={false} // Remove any demoMode checks
+>
+  Upload Document
+</button>
+ERROR 3: Math calculations wrong
+Symptom: Budget shows 89.5% when it should be 85%
+Root Cause: Integer division OR missing validation
+Fix Pattern:
+
+typescript
+// BAD
+const percent = spent / budget * 100; // Integer division
+
+// GOOD
+const percent = Number((spent / budget * 100).toFixed(2));
+// Validate: assert(percent >= 0 && percent <= 100);
+RAPID PLAYWRIGHT TEST (Create Now)
+Save as tests/critical-demo-path.spec.js:
+
+javascript
+const { test, expect } = require('@playwright/test');
+
+test.describe('Wes Demo - Critical Path', () => {
+  
+  test('Full Workflow: Login → Upload → PO → Assign (3 min)', async ({ page }) => {
+    const startTime = Date.now();
+    
+    // 1. Login
+    await page.goto('http://localhost:3000/login');
+    await page.fill('[name="email"]', 'demo@velocity.com');
+    await page.fill('[name="password"]', 'demo123');
+    await page.click('button[type="submit"]');
+    await expect(page.locator('.command-center')).toBeVisible({ timeout: 2000 });
+    
+    // 2. Document Analyzer
+    await page.click('[data-test="document-analyzer"]');
+    await expect(page).toHaveURL(/.*analyzer/);
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles('./test-data/asset-management-sow.pdf');
+    await expect(page.locator('.sow-components')).toBeVisible({ timeout: 10000 });
+    
+    // 3. Create PO
+    await page.click('[data-test="create-po"]');
+    await page.fill('[name="amount"]', '1000000');
+    await page.fill('[name="vendor"]', 'Acme Corp');
+    await page.click('button:has-text("Create")');
+    await expect(page.locator('.success-message')).toBeVisible();
+    
+    // 4. Assign Associates
+    await page.click('[data-test="assign-resources"]');
+    await page.click('[data-associate="1"]');
+    await page.click('[data-associate="2"]');
+    await page.click('button:has-text("Save")');
+    await expect(page.locator('.assigned-count')).toContainText('2');
+    
+    // MUST complete in <3 minutes
+    const duration = (Date.now() - startTime) / 1000;
+    expect(duration).toBeLessThan(180);
+  });
+  
+  test('Demo Mode Does Not Break Buttons', async ({ page }) => {
+    await page.goto('http://localhost:3000/dashboard?mode=demo');
+    
+    // All critical buttons must be clickable in demo mode
+    const analyzerBtn = page.locator('[data-test="document-analyzer"]');
+    await expect(analyzerBtn).toBeEnabled();
+    
+    const createPoBtn = page.locator('[data-test="create-po"]');
+    await expect(createPoBtn).toBeEnabled();
+  });
+});
+WATCHDOG SCRIPT (Create Now)
+Save as scripts/pre-demo-check.js:
+
+javascript
+#!/usr/bin/env node
+const { chromium } = require('playwright');
+
+async function preDemoCheck() {
+  console.log('🔍 RAPID PRE-DEMO CHECK\n');
+  
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  
+  const checks = { passed: [], failed: [] };
+  const url = process.env.DEMO_URL || 'http://localhost:3000';
+  
+  try {
+    // Check 1: Homepage loads
+    await page.goto(url, { timeout: 5000 });
+    await page.waitForSelector('.command-center', { timeout: 5000 });
+    checks.passed.push('✅ Homepage loads (<5s)');
+    
+    // Check 2: Document Analyzer accessible
+    const analyzerBtn = page.locator('[data-test="document-analyzer"]');
+    const isClickable = await analyzerBtn.isEnabled();
+    if (isClickable) {
+      checks.passed.push('✅ Document Analyzer button clickable');
+    } else {
+      checks.failed.push('❌ Document Analyzer button DISABLED');
+    }
+    
+    // Check 3: Demo mode doesn't break functionality
+    await page.goto(url + '?mode=demo');
+    const demoBtnClickable = await analyzerBtn.isEnabled();
+    if (demoBtnClickable) {
+      checks.passed.push('✅ Demo mode preserves button functionality');
+    } else {
+      checks.failed.push('❌ Demo mode BREAKS buttons');
+    }
+    
+    // Check 4: API health
+    const response = await page.goto(url + '/api/health');
+    if (response.ok()) {
+      checks.passed.push('✅ API health endpoint responds');
+    } else {
+      checks.failed.push('❌ API health check FAILED');
+    }
+    
+  } catch (error) {
+    checks.failed.push(`❌ CRITICAL: ${error.message}`);
+  } finally {
+    await browser.close();
+  }
+  
+  // Report
+  console.log('═'.repeat(60));
+  console.log(`PASSED (${checks.passed.length}):`);
+  checks.passed.forEach(c => console.log(`  ${c}`));
+  
+  if (checks.failed.length > 0) {
+    console.log(`\nFAILED (${checks.failed.length}):`);
+    checks.failed.forEach(c => console.log(`  ${c}`));
+    console.log('\n🚨 DEMO NOT READY - FIX ISSUES BEFORE PROCEEDING\n');
+    process.exit(1);
+  } else {
+    console.log('\n✅ ALL CHECKS PASSED - DEMO READY\n');
+    process.exit(0);
+  }
+}
+
+preDemoCheck();
+FINAL 60-SECOND GO/NO-GO DECISION
+RUN THIS NOW:
+
+bash
+npm run demo:ready
+Expected Output:
+
+text
+✅ PASSED (8):
+  ✅ Homepage loads (<5s)
+  ✅ Document Analyzer button clickable
+  ✅ Demo mode preserves button functionality
+  ✅ API health endpoint responds
+  ✅ Database connection active
+  ✅ 168 SOWs in database
+  ✅ All calculations accurate
+  ✅ Zero mock data detected
+
+✅ ALL CHECKS PASSED - DEMO READY
+IF ANY FAILURES: Stop. Fix the specific blocker (see "BLOCKER FIX" sections above). Re-run.
+
+IF ALL PASS: You are GO for demo. Breathe. Execute the "Wes Demo" path once manually to warm up, then present.
+
+EXECUTE NOW. TIME IS CRITICAL.

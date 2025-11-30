@@ -1,0 +1,449 @@
+```markdown
+# REPLIT AGENT: COMPREHENSIVE PRE-DEMO VALIDATION PROMPT
+
+**Mission**: Execute a complete, contextual validation of all critical demo requirements based on November 27, 2025 failure analysis. Report findings with actionable fixes.
+
+---
+
+## EXECUTION PROTOCOL
+
+You are performing a **zero-trust audit** of the Velocity Platform demo environment. Assume nothing works until proven otherwise. For each validation area below:
+
+1. **Test the actual behavior** - Don't check if code exists; verify it executes correctly
+2. **Use real data** - No mocks, no placeholders, no "it should work"
+3. **Report precise failures** - File paths, line numbers, error messages, screenshots
+4. **Propose specific fixes** - Code snippets, not suggestions
+5. **Re-test after fixes** - Confirm resolution before moving to next item
+
+---
+
+## VALIDATION AREAS
+
+### AREA 1: CRITICAL PATH FUNCTIONALITY
+**Context**: The "Wes Demo" workflow must execute flawlessly end-to-end.
+
+**Actions**:
+1. Start the application in production/demo mode
+2. Execute this exact sequence:
+   - Navigate to `/login`
+   - Enter credentials (use test account: `demo@velocity.com` / `demo123`)
+   - Verify redirect to `/dashboard` occurs in <2 seconds
+   - Confirm dashboard displays "168 SOWs" or actual count from database
+   - Locate and click the element with `data-test="document-analyzer"`
+   - Verify the upload interface appears (not disabled, not hidden, not broken)
+   - Upload the file `test-data/asset-management-sow.pdf` via drag-drop or file picker
+   - Wait for processing (max 10 seconds acceptable)
+   - Verify extracted data displays: Project Name, Budget (as currency), Timeline (as dates), Deliverables (as list)
+   - Click "View Linked POs" or equivalent navigation
+   - Verify PO list or detail page loads
+   - Click "Create New PO"
+   - Fill form: Amount=`1000000`, Vendor=`Test Corp`, SOW selection
+   - Submit and verify success message + PO appears in list
+   - Navigate to PO detail and click "Assign Resources"
+   - Select 2 associates and save
+   - Verify assigned count updates
+
+**Validation Criteria**:
+- Total time for full workflow: <3 minutes
+- Zero JavaScript console errors
+- Zero network failures (5xx, 4xx on critical endpoints)
+- All buttons respond on first click
+- All data displays match expected schema (no "undefined", "null", "NaN")
+
+**Report Format**:
+```
+✅ Step 1: Login - PASS (1.2s load time)
+❌ Step 4: Document Analyzer button - FAIL
+   - File: src/components/DocumentAnalyzer.tsx:45
+   - Issue: Button has disabled={demoMode} attribute
+   - Fix: Remove disabled prop, set to disabled={false}
+✅ Step 5: Upload - PASS (uploaded in 0.8s)
+```
+
+---
+
+### AREA 2: DEMO MODE CONFIGURATION
+**Context**: Demo mode must enhance presentation, not disable features.
+
+**Actions**:
+1. Identify how demo mode is enabled (environment variable, query param, config file)
+2. Search entire codebase for these patterns:
+   ```
+   grep -r "demoMode" src/
+   grep -r "isDemoMode" src/
+   grep -r "DEMO_MODE" src/
+   grep -r "mode === 'demo'" src/
+   ```
+3. For each occurrence, verify:
+   - Does it disable a button? (`disabled={demoMode}`)
+   - Does it hide a component? (`{!demoMode && <Component />}`)
+   - Does it block an API call? (`if (demoMode) return;`)
+4. Catalog all demo-mode-affected features
+
+**Validation Criteria**:
+- Demo mode ONLY affects: logging verbosity, error message display, non-critical analytics
+- Demo mode NEVER affects: core workflow buttons, data display, navigation, form submission
+- Document analyzer, PO creation, SOW upload, dashboard navigation ALL function identically in demo vs. production mode
+
+**Report Format**:
+```
+Demo Mode Impact Audit:
+- src/components/DocumentAnalyzer.tsx:45 - ❌ BLOCKS button
+- src/components/Dashboard.tsx:23 - ✅ Only affects logging
+- src/services/api.ts:67 - ❌ SKIPS real API call
+```
+
+---
+
+### AREA 3: DATA INTEGRITY & MOCK DATA DETECTION
+**Context**: Zero tolerance for placeholder/fake data in demo environment.
+
+**Actions**:
+1. Query the database for these patterns:
+   ```
+   SELECT * FROM sows WHERE name LIKE '%test%' OR name LIKE '%sample%' OR name LIKE '%demo%';
+   SELECT * FROM purchase_orders WHERE vendor LIKE '%lorem%' OR vendor = 'John Doe';
+   SELECT * FROM associates WHERE email LIKE '%example.com';
+   ```
+2. Search frontend code for hardcoded placeholders:
+   ```
+   grep -ri "lorem ipsum" src/
+   grep -ri "john doe" src/
+   grep -ri "test@example.com" src/
+   grep -ri "123-456-7890" src/
+   grep -ri "\$0.00" src/
+   ```
+3. Verify all calculations execute correctly:
+   - PO Budget Math: `line_items.sum(quantity * unit_price) === po.total`
+   - SOW Budget Utilization: `(spent / budget) * 100 === displayed_percentage`
+   - Burn Rate: Manually verify formula against sample data
+
+**Validation Criteria**:
+- Database contains realistic company names, vendor names, project titles
+- All dollar amounts are non-zero unless intentionally representing "no cost"
+- All dates are valid future/past dates (not 1970-01-01 or 2099-12-31)
+- All percentages are mathematically correct to 2 decimal places
+
+**Report Format**:
+```
+Mock Data Scan Results:
+✅ Database - No "lorem" or "test" entries found
+❌ Frontend - Found 3 instances of "John Doe" in src/components/UserList.tsx
+✅ Calculations - PO total matches line items (tested 5 records)
+```
+
+---
+
+### AREA 4: PERFORMANCE & RESPONSE TIME
+**Context**: User frustration begins at delays >2 seconds.
+
+**Actions**:
+1. Measure page load times using browser DevTools:
+   - `/login` → `/dashboard` transition
+   - Dashboard initial render with 168 SOWs
+   - Document analyzer page load
+   - PO creation form load
+2. Measure API response times:
+   ```
+   curl -w "%{time_total}\n" -o /dev/null http://localhost:3000/api/sow
+   curl -w "%{time_total}\n" -o /dev/null http://localhost:3000/api/po
+   ```
+3. Check for performance anti-patterns:
+   - Unoptimized database queries (missing indexes)
+   - N+1 query problems in ORM
+   - Blocking synchronous operations
+   - Missing pagination on large lists
+   - Uncompressed assets
+
+**Validation Criteria**:
+- All page transitions: <2 seconds
+- All API endpoints: <500ms (p95)
+- Dashboard with 168 SOWs: <3 seconds
+- Document upload processing: <10 seconds
+- Zero long-running synchronous operations in UI thread
+
+**Report Format**:
+```
+Performance Audit:
+✅ Login→Dashboard: 1.2s
+❌ Dashboard Load: 4.8s (EXCEEDS 3s threshold)
+   - Cause: Unindexed query on sows table
+   - Fix: CREATE INDEX idx_sows_status ON sows(status);
+✅ API /api/sow: 180ms average
+```
+
+---
+
+### AREA 5: ERROR HANDLING & GRACEFUL DEGRADATION
+**Context**: Errors must not crash the demo or display stack traces.
+
+**Actions**:
+1. Test failure scenarios:
+   - Submit PO form with missing required fields
+   - Upload invalid file format (e.g., .txt instead of .pdf)
+   - Upload corrupted PDF
+   - Trigger network timeout (disconnect internet mid-request)
+   - Submit duplicate SOW name
+   - Exceed budget limit
+2. Verify error handling:
+   - User sees friendly message (not "Error: undefined")
+   - Stack traces never visible to user
+   - Application remains functional after error
+   - Error logged to console/backend for debugging
+
+**Validation Criteria**:
+- All error messages are actionable ("Budget exceeds limit. Max: $5M, Entered: $6M")
+- No technical jargon exposed ("500 Internal Server Error" → "Something went wrong. Please try again.")
+- Form validation prevents invalid submissions before API call
+- Network failures show retry option
+
+**Report Format**:
+```
+Error Handling Test Results:
+✅ Missing PO amount - Shows "Amount is required"
+❌ Invalid PDF upload - Shows raw error: "TypeError: Cannot read property 'pages' of null"
+   - File: src/services/documentParser.ts:23
+   - Fix: Wrap in try/catch, return user-friendly message
+```
+
+---
+
+### AREA 6: UI/UX POLISH & VISUAL CONSISTENCY
+**Context**: Professional appearance builds stakeholder confidence.
+
+**Actions**:
+1. Visual inspection checklist:
+   - All text readable (sufficient contrast, no white-on-white)
+   - Buttons have hover states
+   - Loading states display during async operations (spinners, skeletons)
+   - Empty states provide guidance ("No SOWs yet. Click 'Create' to start.")
+   - Success/error toasts appear and auto-dismiss
+   - Forms have proper labels and placeholders
+2. Check for layout breaks:
+   - Responsive design (test at 1920px, 1366px, 768px widths)
+   - Overflow handling (long vendor names, large numbers)
+   - Modal/dialog centering
+3. Verify consistent styling:
+   - Color palette matches (no random blues/greens)
+   - Font sizes follow hierarchy
+   - Icon set is consistent (all outline or all filled, not mixed)
+
+**Validation Criteria**:
+- Dashboard looks professional (no Comic Sans, no misaligned elements)
+- Every button responds to hover (visual feedback)
+- No "undefined" text visible anywhere
+- Loading states prevent user confusion during waits
+
+**Report Format**:
+```
+UI/UX Inspection:
+✅ Dashboard - Professional, consistent styling
+❌ PO Form - No loading spinner during submission
+   - User clicks "Create" and nothing happens for 2 seconds
+   - Fix: Add <Spinner /> component and disable button during API call
+✅ Document Analyzer - Clear empty state with instructions
+```
+
+---
+
+### AREA 7: INTEGRATION POINTS & DEPENDENCIES
+**Context**: External service failures must not block demo.
+
+**Actions**:
+1. Identify all external dependencies:
+   - Database (PostgreSQL, connection string)
+   - AI services (Claude API, OpenAI)
+   - Storage (AWS S3, Storj)
+   - Email (SendGrid)
+   - Authentication (JWT, OAuth)
+2. Test fallback behavior:
+   - What happens if Claude API is down? (Does document upload fail completely?)
+   - What happens if database is slow? (Does UI freeze?)
+   - What happens if email service fails? (Does user signup break?)
+3. Verify configuration:
+   - All API keys present in environment variables
+   - Connection strings valid
+   - Secrets not hardcoded in source
+   - Timeouts configured (don't wait forever for external service)
+
+**Validation Criteria**:
+- Core demo works without AI analysis (can upload and view SOW even if auto-extract fails)
+- Database connection pooling prevents exhaustion
+- API keys are valid and not expired
+- Environment variables documented (know what's required for demo)
+
+**Report Format**:
+```
+Integration Health Check:
+✅ Database - Connected, 50ms latency
+❌ Claude API - Key missing in .env
+   - Fix: Add CLAUDE_API_KEY=sk-ant-... to .env file
+✅ Document Upload - Gracefully degrades if AI fails (manual entry available)
+```
+
+---
+
+### AREA 8: BACKUP & RECOVERY PLAN
+**Context**: Live demos fail. Backups save deals.
+
+**Actions**:
+1. Create pre-recorded demo video:
+   - Record screen executing the full "Wes Path"
+   - Narrate each step ("Here I'm uploading an SOW...")
+   - Save as `VELOCITY_DEMO_BACKUP.mp4`
+   - Upload to YouTube (unlisted) or Google Drive (public link)
+2. Prepare static artifacts:
+   - Screenshot gallery showing each step (8-10 images)
+   - PDF walkthrough with annotations
+   - Hosted demo URL (not localhost) for client self-service
+3. Document rollback procedures:
+   - How to restart the application quickly
+   - How to switch from demo mode to dev mode
+   - How to reset database to clean state
+
+**Validation Criteria**:
+- Video is <3 minutes, high quality (1080p), clear audio
+- Video URL is bookmarked and tested (plays in browser)
+- Screenshots are high-resolution and clearly show success states
+- Rollback script exists and has been tested
+
+**Report Format**:
+```
+Backup Readiness:
+❌ Demo video - Not created
+   - Action: Record using OBS Studio or Loom
+   - Upload to: YouTube unlisted
+✅ Screenshots - 10 images saved in /demo-assets/
+✅ Hosted demo - Available at https://demo.velocity.ai
+```
+
+---
+
+### AREA 9: SECURITY & ACCESS CONTROL
+**Context**: Don't leak credentials or expose admin functions in demo.
+
+**Actions**:
+1. Verify authentication:
+   - Demo account has limited permissions (can't delete production data)
+   - Login tokens expire appropriately
+   - Password is not "password" or "123456"
+2. Check for exposed secrets:
+   ```
+   grep -r "sk-" src/  # API keys
+   grep -r "password" src/  # Hardcoded passwords
+   grep -r "secret" src/  # JWT secrets
+   ```
+3. Test authorization:
+   - Demo user cannot access admin routes (`/admin`)
+   - Demo user cannot view other companies' data
+   - Demo user cannot modify system settings
+
+**Validation Criteria**:
+- No secrets in source code (all in .env or environment variables)
+- Demo account isolated to test data
+- No admin functions exposed to demo user
+
+**Report Format**:
+```
+Security Audit:
+✅ No hardcoded secrets found
+✅ Demo account has role="demo" with limited permissions
+❌ Admin route accessible at /admin without auth check
+   - Fix: Add middleware to verify role before rendering admin panel
+```
+
+---
+
+### AREA 10: DOCUMENTATION & HANDOFF READINESS
+**Context**: Client needs to understand next steps post-demo.
+
+**Actions**:
+1. Verify these documents exist and are up-to-date:
+   - README.md (how to run the application)
+   - DEMO_SCRIPT.md (step-by-step demo instructions)
+   - FAQ.md (answers to "What if X happens?")
+   - DEPLOYMENT_CHECKLIST.md (T-30min, T-15min, T-0 steps)
+2. Check that demo environment is documented:
+   - URL for hosted demo
+   - Credentials for test accounts
+   - How to reset demo data
+3. Prepare stakeholder-facing materials:
+   - One-page feature overview (PDF)
+   - ROI calculator spreadsheet
+   - Implementation timeline (Gantt chart)
+
+**Validation Criteria**:
+- Documentation is clear enough for a new developer to run the demo
+- Stakeholder materials are professional (no typos, consistent branding)
+- All links in documents are valid (no 404s)
+
+**Report Format**:
+```
+Documentation Audit:
+✅ README.md - Clear setup instructions
+❌ DEMO_SCRIPT.md - Missing, needs creation
+✅ FAQ.md - 15 Q&As documented
+❌ Stakeholder PDF - Has typo on page 2, inconsistent logo
+```
+
+---
+
+## FINAL VALIDATION REPORT
+
+After completing all 10 areas, generate a **Go/No-Go Decision Report**:
+
+```
+=== VELOCITY PLATFORM DEMO READINESS REPORT ===
+Generated: [Timestamp]
+Environment: [Demo URL or localhost]
+
+SUMMARY:
+- Total Checks: XX
+- Passed: XX (✅)
+- Failed: XX (❌)
+- Blockers: XX (Critical failures that prevent demo)
+
+BLOCKER ISSUES (Must fix before demo):
+1. [Issue description]
+   - File: [path]
+   - Fix: [specific code change]
+   - ETA: [minutes to fix]
+
+HIGH-PRIORITY ISSUES (Should fix before demo):
+1. [Issue description]
+   - Impact: [what breaks if not fixed]
+   - Workaround: [manual steps to avoid issue]
+
+MINOR ISSUES (Can defer post-demo):
+1. [Issue description]
+
+GO/NO-GO RECOMMENDATION:
+[ ] GO - All blockers resolved, demo is safe to proceed
+[ ] NO-GO - X blockers remain, estimated Y hours to resolve
+
+NEXT STEPS:
+1. [Immediate action]
+2. [Follow-up action]
+3. [Schedule re-validation]
+```
+
+---
+
+## EXECUTION INSTRUCTIONS FOR REPLIT AGENT
+
+1. **Read this entire prompt** before starting
+2. **Execute Area 1 first** (Critical Path) - if this fails, stop and fix immediately
+3. **Work through Areas 2-10 sequentially**
+4. **For each failure, propose code fix** with file path and line number
+5. **Re-test after fixes** to confirm resolution
+6. **Generate final report** with Go/No-Go recommendation
+7. **Save report** as `DEMO_VALIDATION_REPORT_[DATE].md`
+
+**Time Budget**: Allocate 2-3 hours for complete validation. If blockers are found, add fix time accordingly.
+
+**Success Metric**: Final report shows ZERO blockers and <5 high-priority issues.
+
+---
+
+**BEGIN VALIDATION NOW.**
+```

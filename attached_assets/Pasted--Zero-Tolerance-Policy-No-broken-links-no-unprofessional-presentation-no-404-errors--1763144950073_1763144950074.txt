@@ -1,0 +1,781 @@
+**Zero Tolerance Policy:** No broken links, no unprofessional presentation, no 404 errors.
+
+---
+
+## PART 1: THIS WEEK MVP - Hyundai Demo Requirements
+
+### Critical Client Pain Points (From Debrief Meeting)
+
+#### 1. **Contractor Visibility & Compliance** ⚠️ CRITICAL
+**Problem:** Cannot track who's working where, compliance/audit exposure  
+**Required Data Points:**
+- Employee name, pay rate, PO funds remaining
+- Location, job description, hiring manager
+- Associated PO, spend tracking, department/division
+- Hours left on PO, equipment tracking (lower priority)
+
+**What We Need:**
+- ✅ **HAVE:** Basic contractor tracking page
+- ❌ **NEED:** Enhanced contractor profile with all required fields
+- ❌ **NEED:** PO funds remaining calculator (real-time)
+- ❌ **NEED:** Equipment inventory integration (Phase 2)
+
+#### 2. **Time Card & Invoicing Automation** ⚠️ CRITICAL
+**Problem:** Contractors log time in TWO systems (Hyundai + Balance Staffing)  
+**Ideal Workflow:**
+```
+Contractor enters time in Hyundai system 
+→ Manager approves 
+→ Auto-import to Balance Staffing system 
+→ Auto-generate invoice 
+→ Upload to portal
+```
+
+**What We Need:**
+- ❌ **NEED:** Single time entry UI (Hyundai-branded)
+- ❌ **NEED:** Manager approval workflow
+- ❌ **NEED:** API integration endpoint (simulated for demo)
+- ❌ **NEED:** Automated invoice generation
+- ✅ **HAVE:** PDF generation capability (jsPDF)
+
+#### 3. **PO Process & Spend Tracking** ⚠️ CRITICAL
+**Problem:** POs not issued before work starts, inconsistent GR (Goods Receipt) process  
+**Current Process:**
+```
+Manager creates PR → Procurement creates PO → Balance signs TPSC → PO issued → Invoices → Manager creates GR
+```
+
+**What We Need:**
+- ✅ **HAVE:** Purchase Orders page with status tracking
+- ❌ **NEED:** Spend threshold alerts (25%, 50%, 100%)
+- ❌ **NEED:** PO exhaustion warnings
+- ❌ **NEED:** Real-time PO utilization tracking
+- ❌ **NEED:** Hyundai portal sync simulation
+
+#### 4. **SOW Tracking & Change Orders** ⚠️ CRITICAL
+**Problem:** No visibility into SOW terms, change orders cause unexpected costs  
+**Two SOW Types:**
+- Deliverables-based
+- Fixed-fee ("maintenance") - e.g., Asset management for 6,500 employees
+
+**What We Need:**
+- ❌ **NEED:** Digitized SOW terms repository
+- ❌ **NEED:** Payment tracking against total SOW value
+- ❌ **NEED:** Change order request/approval workflow
+- ❌ **NEED:** Justification documentation system
+- ❌ **NEED:** Cost impact visibility
+
+---
+
+### THIS WEEK MVP - Required Features
+
+#### **Feature 1: Hyundai PO Reconciliation Dashboard** 🎯 HIGH PRIORITY
+**File:** `client/src/pages/hyundai-po-reconciliation.tsx` (NEW)
+
+**Requirements:**
+- Real-time PO status display with Hyundai portal sync (simulated)
+- Balance Staffing placement matching
+- Spend threshold alerts (25%, 50%, 100% triggers)
+- SOW milestone tracking with visual progress
+- Automated reconciliation engine with discrepancy flagging
+
+**Data Model (shared/schema.ts):**
+```typescript
+export const hyundaiPurchaseOrders = pgTable('hyundai_purchase_orders', {
+  id: serial('id').primaryKey(),
+  poNumber: varchar('po_number', { length: 50 }).notNull(),
+  vendorName: varchar('vendor_name', { length: 255 }).notNull(),
+  totalAmount: decimal('total_amount', { precision: 12, scale: 2 }).notNull(),
+  spentAmount: decimal('spent_amount', { precision: 12, scale: 2 }).default('0'),
+  remainingAmount: decimal('remaining_amount', { precision: 12, scale: 2 }),
+  utilizationPercent: decimal('utilization_percent', { precision: 5, scale: 2 }),
+  thresholdStatus: varchar('threshold_status', { length: 20 }), // 'safe', 'warning_25', 'alert_50', 'critical_100'
+  tpscSigned: boolean('tpsc_signed').default(false),
+  issuedDate: date('issued_date'),
+  expirationDate: date('expiration_date'),
+  status: varchar('status', { length: 50 }), // 'pending', 'active', 'exhausted', 'expired'
+  department: varchar('department', { length: 100 }),
+  manager: varchar('manager', { length: 255 }),
+  notes: text('notes')
+});
+```
+
+#### **Feature 2: Time Card Entry & Approval Workflow** 🎯 HIGH PRIORITY
+**File:** `client/src/pages/timecard-entry.tsx` (NEW)
+
+**Requirements:**
+- Single time entry interface (Hyundai-branded styling)
+- Weekly timesheet with daily hours breakdown
+- Manager approval queue with bulk actions
+- Auto-calculation of totals and overtime
+- Integration status indicators (simulated API)
+
+**Data Model (shared/schema.ts):**
+```typescript
+export const timecards = pgTable('timecards', {
+  id: serial('id').primaryKey(),
+  contractorId: integer('contractor_id').references(() => contractors.id),
+  weekEnding: date('week_ending').notNull(),
+  mondayHours: decimal('monday_hours', { precision: 4, scale: 2 }).default('0'),
+  tuesdayHours: decimal('tuesday_hours', { precision: 4, scale: 2 }).default('0'),
+  wednesdayHours: decimal('wednesday_hours', { precision: 4, scale: 2 }).default('0'),
+  thursdayHours: decimal('thursday_hours', { precision: 4, scale: 2 }).default('0'),
+  fridayHours: decimal('friday_hours', { precision: 4, scale: 2 }).default('0'),
+  saturdayHours: decimal('saturday_hours', { precision: 4, scale: 2 }).default('0'),
+  sundayHours: decimal('sunday_hours', { precision: 4, scale: 2 }).default('0'),
+  totalHours: decimal('total_hours', { precision: 5, scale: 2 }),
+  overtimeHours: decimal('overtime_hours', { precision: 5, scale: 2 }).default('0'),
+  status: varchar('status', { length: 20 }), // 'draft', 'submitted', 'approved', 'rejected', 'invoiced'
+  submittedAt: timestamp('submitted_at'),
+  approvedAt: timestamp('approved_at'),
+  approvedBy: varchar('approved_by', { length: 255 }),
+  poNumber: varchar('po_number', { length: 50 }),
+  notes: text('notes')
+});
+```
+
+#### **Feature 3: SOW Tracker with Change Order Management** 🎯 HIGH PRIORITY
+**File:** `client/src/pages/sow-tracker.tsx` (NEW)
+
+**Requirements:**
+- Centralized SOW repository with search/filter
+- Visual milestone progress tracking
+- Payment allocation against total SOW value
+- Change order request workflow with approvals
+- Impact analysis calculator (cost, timeline, resources)
+
+**Data Model (shared/schema.ts):**
+```typescript
+export const sows = pgTable('sows', {
+  id: serial('id').primaryKey(),
+  sowNumber: varchar('sow_number', { length: 50 }).notNull().unique(),
+  title: varchar('title', { length: 255 }).notNull(),
+  sowType: varchar('sow_type', { length: 50 }), // 'deliverables', 'fixed_fee'
+  totalValue: decimal('total_value', { precision: 12, scale: 2 }).notNull(),
+  paidToDate: decimal('paid_to_date', { precision: 12, scale: 2 }).default('0'),
+  remainingValue: decimal('remaining_value', { precision: 12, scale: 2 }),
+  startDate: date('start_date').notNull(),
+  endDate: date('end_date').notNull(),
+  vendor: varchar('vendor', { length: 255 }),
+  status: varchar('status', { length: 50 }), // 'active', 'completed', 'terminated'
+  terms: text('terms'),
+  milestones: jsonb('milestones'), // Array of milestone objects
+  changeOrderCount: integer('change_order_count').default(0)
+});
+
+export const changeOrders = pgTable('change_orders', {
+  id: serial('id').primaryKey(),
+  sowId: integer('sow_id').references(() => sows.id),
+  changeOrderNumber: varchar('change_order_number', { length: 50 }).notNull(),
+  requestedBy: varchar('requested_by', { length: 255 }),
+  requestedDate: date('requested_date').notNull(),
+  description: text('description').notNull(),
+  justification: text('justification').notNull(),
+  costImpact: decimal('cost_impact', { precision: 12, scale: 2 }),
+  timelineImpact: varchar('timeline_impact', { length: 100 }),
+  status: varchar('status', { length: 50 }), // 'pending', 'approved', 'rejected'
+  approvedBy: varchar('approved_by', { length: 255 }),
+  approvedDate: date('approved_date')
+});
+```
+
+#### **Feature 4: Contractor Profile Enhancement** 🎯 MEDIUM PRIORITY
+**File:** `client/src/pages/contractors.tsx` (ENHANCE EXISTING)
+
+**Add These Fields:**
+- Work location (physical address)
+- Assigned manager (with contact info)
+- Equipment inventory (laptop, monitor, phone, etc.)
+- Associated PO number with funds remaining
+- Department/division assignment
+- Compliance status indicators
+
+**Update Schema (shared/schema.ts):**
+```typescript
+// Add to existing contractors table
+workLocation: varchar('work_location', { length: 255 }),
+assignedManager: varchar('assigned_manager', { length: 255 }),
+managerEmail: varchar('manager_email', { length: 255 }),
+equipmentList: jsonb('equipment_list'), // Array of equipment items
+associatedPO: varchar('associated_po', { length: 50 }),
+poFundsRemaining: decimal('po_funds_remaining', { precision: 12, scale: 2 }),
+department: varchar('department', { length: 100 }),
+division: varchar('division', { length: 100 }),
+complianceStatus: varchar('compliance_status', { length: 50 })
+```
+
+---
+
+### THIS WEEK MVP - AI/Analytics Requirements
+
+#### **Feature 5: Spend Threshold Alert System** 🎯 HIGH PRIORITY
+**Integration:** OpenAI API (ALREADY CONFIGURED ✅)
+
+**Endpoint:** `POST /api/analyze/spend-forecast`
+
+**Functionality:**
+- Analyze current spending trends per PO
+- Predict exhaustion date based on burn rate
+- Generate threshold alerts at 25%, 50%, 75%, 90%, 100%
+- Recommend budget adjustments or contract renewals
+- Auto-notify stakeholders via email/SMS
+
+**Example OpenAI Prompt:**
+```typescript
+Given PO ${poNumber} with:
+- Total: $${totalAmount}
+- Spent: $${spentAmount}
+- Current burn rate: $${weeklyBurnRate}/week
+- Weeks remaining: ${weeksLeft}
+
+Analyze and provide:
+1. Predicted exhaustion date
+2. Risk level (low/medium/high/critical)
+3. Recommended actions
+4. Budget forecast for next 30/60/90 days
+```
+
+#### **Feature 6: Automated Invoice Generation** 🎯 HIGH PRIORITY
+**Integration:** jsPDF (ALREADY INSTALLED ✅)
+
+**Endpoint:** `POST /api/invoices/generate`
+
+**Functionality:**
+- Auto-generate invoices from approved timecards
+- Balance Staffing branded PDF template
+- Line-item breakdown (contractor, hours, rate, total)
+- PO number reference and funds tracking
+- Auto-upload to Hyundai portal (simulated)
+
+---
+
+### THIS WEEK MVP - Testing Checklist
+
+**Before Demo:**
+- [ ] All PO threshold alerts fire correctly (25%, 50%, 100%)
+- [ ] Timecard approval workflow complete end-to-end
+- [ ] SOW change orders save and display properly
+- [ ] Invoice PDFs generate with correct calculations
+- [ ] AR Aging page displays real HAEA data (ALREADY DONE ✅)
+- [ ] Critical Alerts page shows actionable resolution plans (ALREADY DONE ✅)
+- [ ] No 404 errors on any navigation link
+- [ ] All AI query buttons functional (even if stubbed)
+- [ ] Mobile responsiveness tested on iPhone/Android
+- [ ] Export reports work (PDF generation)
+
+---
+
+## PART 2: NEXT WEEK MVP - Full Platform Release (Wes Demo)
+
+### Core Platform Features
+
+#### **Feature 1: Multi-AI Agent Integration** 🤖 HIGH PRIORITY
+**Status:** UI Complete, needs ElevenLabs integration
+
+**What We Have:**
+- ✅ AI Agent Selector page with 19 specialized agents
+- ✅ Chat interface UI
+- ✅ Document upload UI
+- ✅ Agent categories and descriptions
+
+**What We Need:**
+- ❌ ElevenLabs agent IDs for each of 19 agents
+- ❌ Unique system prompts per agent (use AI_prompts/*.md files)
+- ❌ "Start Chat" buttons open new window with ElevenLabs widget
+- ❌ Document upload integration (send to AI context)
+- ❌ Voice recording integration
+- ❌ Conversation history persistence
+
+**19 AI Agents to Configure:**
+1. Platform Navigator - General help and navigation
+2. Data Intelligence Analyst - Advanced analytics queries
+3. Compliance & Audit Expert - Regulatory compliance
+4. Talent Management Advisor - Hiring and retention
+5. Strategic Sourcing Specialist - Vendor selection
+6. Contract Analysis Expert - Multi-lens contract review
+7. Vendor Rating Analyst - Performance evaluation
+8. Asset Lifecycle Manager - IT asset management
+9. Automotive Industry Expert - Domain knowledge
+10. Financial Controller - Budget and cost analysis
+11. Workforce Optimization - Productivity insights
+12. Risk Management - Risk assessment
+13. Legal Counsel - Legal review
+14. Project Portfolio Manager - Project tracking
+15. Contingent Workforce Manager - Contractor management
+16. Hyperautomation Engineer - Process automation
+17. Conversation Intelligence - Meeting insights
+18. Executive Strategist - C-level advisory
+19. Administrative Assistant - General support
+
+#### **Feature 2: BI Dashboard & Reporting Widgets** 📊 HIGH PRIORITY
+**Technology:** Tremor (React + Tailwind + Recharts)  
+**Status:** Partially implemented, needs Tremor migration
+
+**What We Have:**
+- ✅ Dashboard with KPI cards and spending trends (Recharts)
+- ✅ Geographic distribution visualization
+- ✅ PDF export capability (jsPDF)
+
+**What We Need:**
+- ❌ Migrate to Tremor components for professional BI look
+- ❌ Interactive drill-down charts (click to filter)
+- ❌ Customizable dashboard layouts (drag-and-drop)
+- ❌ Saved dashboard configurations
+- ❌ Scheduled report generation
+- ❌ Email delivery of reports
+- ❌ Excel export in addition to PDF
+
+**Required Tremor Widgets:**
+1. **KPI Cards** - Metric, trend, comparison
+2. **Time Series Charts** - Line, area, bar charts
+3. **Distribution Charts** - Pie, donut, treemap
+4. **Comparison Tables** - Sortable, filterable data grids
+5. **Heatmaps** - Geographic and time-based
+6. **Funnel Charts** - Conversion tracking
+7. **Gauge Charts** - Progress indicators
+8. **Sparklines** - Inline mini-charts
+
+#### **Feature 3: MCP Integration for Data Import** 🔌 HIGH PRIORITY
+**Status:** MCP endpoints exist but not tested
+
+**What We Have:**
+- ✅ MCP server routes in `server/routes.ts`
+- ✅ MCP server storage interface
+
+**What We Need:**
+- ❌ Test MCP endpoints thoroughly
+- ❌ Create MCP connector UI for:
+  - CSV upload with field mapping
+  - Excel import with sheet selection
+  - API integration configuration
+  - Scheduled data sync
+- ❌ Validate data integrity checks
+- ❌ Error handling and rollback
+- ❌ Import history and audit trail
+
+**MCP Sources to Support:**
+1. Workday (HRIS)
+2. SAP SuccessFactors
+3. ADP Workforce Now
+4. Bullhorn (ATS)
+5. Custom CSV/Excel uploads
+6. REST API webhooks
+7. Hyundai Vendor Portal (simulated)
+
+#### **Feature 4: Application Configuration Builder** ⚙️ CRITICAL MVP FEATURE
+**Status:** NOT STARTED - HIGHEST PRIORITY
+
+**What We Need:**
+- ❌ Position-based template selector (Executive, Director, Manager, Analyst, HR, Procurement)
+- ❌ AI-recommended module selection based on role
+- ❌ Checkbox selection for modules/features
+- ❌ Save configuration to user profile
+- ❌ Load templated position setup
+- ❌ Custom menu builder (curated menus for demo)
+
+**Workflow:**
+```
+User login → Create profile → Select position → 
+AI suggests modules → User customizes → 
+Save configuration → Load templated dashboard
+```
+
+**Example Configurations:**
+- **Procurement Director:** PO Management, Vendor Tracking, Spend Analytics, Contract Analysis, SOW Tracking
+- **HR Manager:** Talent Management, Contractor Profiles, Compliance, Timecards, Payroll Reports
+- **Executive:** Strategic Dashboard, KPIs, Critical Alerts, Financial Forecasts, Risk Management
+
+#### **Feature 5: Project Management Module** 📋 MEDIUM PRIORITY
+**Status:** Frontend complete, needs backend
+
+**What We Have:**
+- ✅ PM Overview dashboard with KPIs
+- ✅ Project table with priority sorting
+- ✅ Technology color-coding
+- ✅ AI query interface (stubbed)
+
+**What We Need:**
+- ❌ Backend API for project CRUD operations
+- ❌ Data model in shared/schema.ts
+- ❌ Real-time project status updates
+- ❌ Resource allocation tracking
+- ❌ Budget vs. actual comparisons
+- ❌ Gantt chart visualization
+- ❌ Dependency tracking
+- ❌ Risk assessment integration
+
+---
+
+### NEXT WEEK MVP - AI Capabilities
+
+#### **AI Feature 1: Contract Analysis (Multi-Lens)** 🤖 COMPLETE ✅
+**Status:** FULLY IMPLEMENTED via OpenAI
+
+**What We Have:**
+- ✅ `analyzeContractForMissingInfo()` function in `server/openai.ts`
+- ✅ Compliance scoring (0-100)
+- ✅ Risk scoring (0-100)
+- ✅ Missing information detection
+- ✅ Recommendations generation
+- ✅ API endpoint: `POST /api/contracts/:id/analyze`
+
+**System Prompts Available:**
+- ✅ `AI_prompts/multi-lens-contract-analyzer.md` - Legal, Procurement, IT, Finance, HR perspectives
+- ✅ Identifies: Signatures, Dates, Financial Terms, Deliverables, Compliance, Legal, SLAs, Termination, IP, Confidentiality
+
+**Demo Readiness:** 100% - Just needs UI integration to showcase
+
+#### **AI Feature 2: Budget Forecasting** 🤖 NEEDS IMPLEMENTATION
+**Integration:** OpenAI API (gpt-4o)
+
+**Endpoint:** `POST /api/analytics/budget-forecast`
+
+**Requirements:**
+- Historical spend analysis (last 6-12 months)
+- Seasonal trend detection
+- Predictive modeling for next quarter
+- Risk scenarios (best case, worst case, likely)
+- Recommended budget allocations
+- Cost optimization opportunities
+
+**Example Implementation:**
+```typescript
+export async function generateBudgetForecast(
+  historicalData: SpendRecord[],
+  timeframe: '30d' | '60d' | '90d'
+): Promise<ForecastResult> {
+  const prompt = `Analyze spending data and generate budget forecast...`;
+  // OpenAI GPT-4o call with structured output
+}
+```
+
+#### **AI Feature 3: Automated Insights & Anomaly Detection** 🤖 NEEDS IMPLEMENTATION
+**Integration:** OpenAI API + Rule Engine
+
+**Capabilities:**
+- Spending pattern anomalies (unusual spikes/dips)
+- Vendor performance degradation
+- Contractor utilization inefficiencies
+- Budget overrun early warnings
+- Compliance gap identification
+- Process bottleneck detection
+
+---
+
+### NEXT WEEK MVP - Testing & Validation
+
+**Pre-Release Checklist:**
+- [ ] All 19 AI agents functional with ElevenLabs
+- [ ] BI dashboards use Tremor components
+- [ ] MCP data import tested end-to-end
+- [ ] Application configuration builder working
+- [ ] Project Management backend complete
+- [ ] Budget forecasting AI tested
+- [ ] No console errors in browser
+- [ ] All API endpoints return proper status codes
+- [ ] LSP diagnostics clean (no TypeScript errors)
+- [ ] Mobile responsiveness verified
+- [ ] Cross-browser testing (Chrome, Safari, Firefox)
+- [ ] Load testing (100+ concurrent users)
+- [ ] Security audit (no exposed secrets)
+- [ ] Accessibility compliance (WCAG 2.1 AA)
+
+---
+
+## PART 3: External Dependencies & Integration Status
+
+### ✅ CONFIGURED & WORKING
+1. **OpenAI API** - GPT-4o model ready for contract analysis, forecasting
+2. **PostgreSQL Database** - Neon serverless with Drizzle ORM
+3. **jsPDF** - PDF generation for reports and invoices
+4. **Recharts** - Chart visualization library
+5. **TanStack Query** - Server state management
+6. **Tailwind CSS + shadcn/ui** - UI component library
+
+### ❌ NEEDS CONFIGURATION
+1. **ElevenLabs API** - Voice AI integration for 19 agents
+   - Need: Agent IDs for each personality
+   - Need: System prompts customization
+   - Need: Widget embedding code
+   
+2. **Tremor** - Professional BI components
+   - Status: Not installed
+   - Action: `npm install @tremor/react`
+   - Migration: Replace Recharts with Tremor
+
+3. **MCP Servers** - Multi-format data import
+   - Status: Routes exist but untested
+   - Action: End-to-end testing required
+   - Validation: Import 100+ records successfully
+
+4. **Hyundai Portal API** - Vendor portal integration
+   - Status: Simulated (demo only)
+   - Action: Create realistic mock data
+   - Future: Real API integration
+
+5. **Balance Staffing Bullhorn/BTE** - ATS integration
+   - Status: Not started
+   - Action: API discovery
+   - Future: Live candidate data sync
+
+### ⚠️ PARTIALLY WORKING
+1. **AI Query Buttons** - Some pages have stubbed AI features
+   - PM Overview: AI insights stubbed
+   - Insights Page: AI-powered forecasts stubbed
+   - Action: Connect to OpenAI endpoints
+
+2. **Navigation Links** - Some menu items → 404
+   - Project Management dropdown: Several broken links
+   - Action: Create stub pages or remove from menu
+
+---
+
+## PART 4: Curated Demo Configuration
+
+### Demo Persona 1: Procurement Director (Wes)
+**Curated Menu:**
+- Dashboard (Strategic Workforce Console)
+- Procurement Command
+  - PO Tracking
+  - Vendor Management
+  - Spend Analytics
+  - Contract Analysis
+- Critical Alerts
+- AR Aging Analysis
+- Insights & Forecasts
+- AI Support (Multi-Agent)
+
+**Configured AI Bots:**
+- Strategic Sourcing Specialist
+- Contract Analysis Expert
+- Vendor Rating Analyst
+- Financial Controller
+- Risk Management
+
+### Demo Persona 2: Project Manager
+**Curated Menu:**
+- PM Overview
+- Active Projects
+- Resource Allocation
+- Budget Tracking
+- Timeline & Milestones
+- AI Support (Multi-Agent)
+
+**Configured AI Bots:**
+- Project Portfolio Manager
+- Workforce Optimization
+- Budget Forecasting
+- Risk Management
+- Executive Strategist
+
+### Demo Persona 3: HR/Talent Manager
+**Curated Menu:**
+- Contractor Profiles
+- Timecard Management
+- Talent Pipeline
+- Compliance Tracking
+- Payroll Reports
+- AI Support (Multi-Agent)
+
+**Configured AI Bots:**
+- Talent Management Advisor
+- Contingent Workforce Manager
+- Compliance & Audit Expert
+- Administrative Assistant
+
+---
+
+## PART 5: Priority Matrix & Task Breakdown
+
+### 🔴 CRITICAL (This Week - Hyundai Demo)
+**Task 1:** Hyundai PO Reconciliation Dashboard
+- Estimated Time: 6-8 hours
+- Dependencies: Database schema, API routes
+- Deliverable: Working page with spend threshold alerts
+
+**Task 2:** Time Card Entry & Approval Workflow
+- Estimated Time: 8-10 hours
+- Dependencies: Database schema, manager permissions
+- Deliverable: Complete timecard submission and approval flow
+
+**Task 3:** SOW Tracker with Change Orders
+- Estimated Time: 6-8 hours
+- Dependencies: Database schema, change order workflow
+- Deliverable: SOW repository with change request system
+
+**Task 4:** Spend Threshold Alert Engine
+- Estimated Time: 4-5 hours
+- Dependencies: OpenAI API integration
+- Deliverable: Auto-generated alerts at 25%, 50%, 100%
+
+**Task 5:** Enhanced Contractor Profiles
+- Estimated Time: 3-4 hours
+- Dependencies: Schema updates, UI enhancements
+- Deliverable: Complete contractor info with PO tracking
+
+**Task 6:** Automated Invoice Generation
+- Estimated Time: 4-5 hours
+- Dependencies: jsPDF, approved timecards
+- Deliverable: Balance Staffing branded PDF invoices
+
+### 🟡 HIGH PRIORITY (Next Week - Full Release)
+**Task 7:** ElevenLabs AI Agent Integration
+- Estimated Time: 10-12 hours
+- Dependencies: ElevenLabs agent IDs, system prompts
+- Deliverable: 19 functional AI assistants with voice/chat
+
+**Task 8:** Tremor BI Dashboard Migration
+- Estimated Time: 8-10 hours
+- Dependencies: @tremor/react installation
+- Deliverable: Professional BI widgets and charts
+
+**Task 9:** MCP Data Import Testing
+- Estimated Time: 6-8 hours
+- Dependencies: Test data sets, validation rules
+- Deliverable: Validated CSV/Excel/API import
+
+**Task 10:** Application Configuration Builder
+- Estimated Time: 10-12 hours
+- Dependencies: User profiles, module registry
+- Deliverable: AI-recommended position templates
+
+**Task 11:** Project Management Backend
+- Estimated Time: 8-10 hours
+- Dependencies: PM data model, API routes
+- Deliverable: Full CRUD operations for projects
+
+**Task 12:** Budget Forecasting AI
+- Estimated Time: 5-6 hours
+- Dependencies: OpenAI integration, historical data
+- Deliverable: Predictive budget analysis
+
+### 🟢 MEDIUM PRIORITY (Post-Release)
+**Task 13:** Gantt Chart Visualization
+**Task 14:** Excel Export Capability
+**Task 15:** Email Report Delivery
+**Task 16:** Scheduled Data Sync
+**Task 17:** Mobile App Optimization
+**Task 18:** Advanced Security Audit
+
+---
+
+## PART 6: Success Criteria
+
+### This Week MVP Success = ✅ When ALL Are True
+1. Hyundai demo walkthrough completes without errors
+2. All PO threshold alerts fire correctly
+3. Timecard workflow functional end-to-end
+4. SOW change orders save and display
+5. Invoice PDFs generate accurately
+6. Zero 404 errors across entire platform
+7. AR Aging displays real HAEA data
+8. Critical Alerts show actionable plans
+9. Mobile responsiveness verified
+10. Client says "WOW!"
+
+### Next Week MVP Success = ✅ When ALL Are True
+1. All 19 AI agents functional with voice/chat
+2. Application configuration system working
+3. BI dashboards use Tremor components
+4. MCP data import tested and validated
+5. Budget forecasting AI operational
+6. Project Management backend complete
+7. No console errors, no LSP errors
+8. Load tested for 100+ users
+9. Security audit passed
+10. Ready for limited functional release
+
+---
+
+## PART 7: Risk Assessment & Mitigation
+
+### High Risk Items ⚠️
+**Risk 1:** ElevenLabs agent IDs not provided in time
+- **Mitigation:** Use mock agent interface, replace IDs later
+- **Fallback:** OpenAI chat-only mode (no voice)
+
+**Risk 2:** MCP integration failures
+- **Mitigation:** Manual CSV upload as backup
+- **Fallback:** Pre-loaded demo data
+
+**Risk 3:** OpenAI API rate limits during demo
+- **Mitigation:** Cache common queries, use fallback responses
+- **Fallback:** Simulated AI responses with realistic delays
+
+**Risk 4:** Time constraints for all features
+- **Mitigation:** Prioritize critical path (Hyundai requirements first)
+- **Fallback:** Phase 2 release for non-critical features
+
+### Medium Risk Items ⚠️
+**Risk 5:** Tremor component learning curve
+- **Mitigation:** Keep Recharts as fallback, migrate incrementally
+- **Fallback:** Professional styling on existing Recharts
+
+**Risk 6:** Database migration issues
+- **Mitigation:** Use Drizzle Kit push with --force if needed
+- **Fallback:** Manual SQL schema updates
+
+---
+
+## PART 8: Next Steps & Action Items
+
+### Immediate Actions (Today)
+1. ✅ Create comprehensive MVP requirements document
+2. ❌ Review and approve MVP scope with stakeholders
+3. ❌ Begin database schema design for Hyundai features
+4. ❌ Set up development task board with priorities
+5. ❌ Request ElevenLabs agent IDs from user
+
+### This Week (Priority Order)
+1. Database schema for POs, Timecards, SOWs
+2. API routes for new features
+3. Hyundai PO Reconciliation Dashboard UI
+4. Timecard Entry & Approval Workflow UI
+5. SOW Tracker with Change Orders UI
+6. Spend Threshold Alert Engine (OpenAI)
+7. Invoice Generation System (jsPDF)
+8. Enhanced Contractor Profiles
+9. End-to-end testing
+10. Demo walkthrough rehearsal
+
+### Next Week (Priority Order)
+1. ElevenLabs integration for 19 AI agents
+2. Application Configuration Builder
+3. Tremor BI dashboard migration
+4. MCP data import testing
+5. Project Management backend
+6. Budget Forecasting AI
+7. Security & performance audit
+8. Final QA and user acceptance testing
+9. Limited functional release
+10. Washington D.C. demo preparation
+
+---
+
+## Appendix A: File Locations
+
+### Key Business Documents
+- `attached_assets/Pasted-Hyundai-Workforce-Management-Requirements...txt` - Client requirements
+- `attached_assets/BC_Hyundai_AR_Aging_2025.07.01 3_1754945722678.xlsx` - AR Aging data
+- `attached_assets/Critical_Alerts_Deep_Dive_*.pdf` - Critical alerts analysis
+- `HYUNDAI_PO_DEMO_ANALYSIS.md` - Gap analysis document
+
+### AI System Prompts
+- `AI_prompts/multi-lens-contract-analyzer.md` - Contract analysis
+- `AI_prompts/contingent-workforce-manager.md` - Workforce management
+- All other `AI_prompts/*.md` files for 19 specialized agents
+
+### Current Implementation
+- `client/src/pages/ar-aging-analysis.tsx` - Real HAEA data (COMPLETE ✅)
+- `client/src/pages/critical-alerts.tsx` - Alert system (COMPLETE ✅)
+- `client/src/pages/pm-overview.tsx` - PM dashboard (Frontend only)
+- `client/src/pages/ai-agent-selector.tsx` - Multi-agent UI (Needs ElevenLabs)
+- `server/openai.ts` - OpenAI integration (WORKING ✅)
+- `shared/schema.ts` - Data models (Needs Hyundai tables)
+
+---
+
+**Document Status:** COMPLETE ✅  
+**Next Action:** Review with stakeholders, begin Task 1 (Database Schema)  
+**Contact:** Engineering Team Lead  
+**Last Updated:** November 3, 2025

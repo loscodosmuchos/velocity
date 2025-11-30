@@ -1,0 +1,44 @@
+# VELOCITY PLATFORM: CLIENT PAIN POINTS
+## Validated Against HAEA/Wes Stakeholder Analysis
+
+### Project Manager (Ben/Mark - HAEA)
+• Managing 165+ projects on whiteboard with zero visibility
+• Can't answer "top 5 at-risk projects" without 2-hour PowerPoint
+• Resource conflicts discovered too late (e.g., Emily on 3 simultaneous projects)
+• Dependency blindness: AD upgrade blocks 6 downstream projects worth $2.3M+
+• 15+ hours/week administrative burden on manual status reporting
+
+### Chief Procurement Officer (Wesley - HAEA)
+• Vendor crises escalate unexpectedly (E-Plus $500K for 3-week project)
+• Reactive procurement eliminates negotiation power - no competitive bidding
+• SOW automation takes 30+ days → loses competitive agility
+• Contract renewals sneak up → forced into unfavorable terms
+• No visibility into vendor performance across 165+ projects
+
+### VMS Director
+• Bad contractor hire = 3+ months wasted + project delays + reputation damage
+• Can't track contractor performance across projects
+• End-of-engagement discovered at last minute (forces 60-90 day scramble)
+• Overpaying contractors 15-30% with no rate benchmarking
+• Last-minute "need someone now" requests drive premium pricing
+
+### Finance Controller
+• Budget surprises at month-end instead of real-time alerts
+• Invoice errors caught AFTER payment (no recovery process)
+• Vendor cost creep undetected until annual review
+• Manual reconciliation: 15+ hours/week per PM across org
+• No forecasting capability - always reactive
+
+### IT Director
+• Integration hell: 15-20 fragmented tools with no single source of truth
+• EOL surprises during crises (HQ switches purchased on eBay during power outage)
+• Change impact blindness: Single switch upgrade affects 19 sites without warning
+• No network documentation - every outage is a "learning experience"
+• Custom integrations consume 60%+ of dev capacity (estimated)
+
+### Executive Leadership (CEO Paul - HAEA)
+• Can't answer board questions about portfolio health
+• "What's our next critical project?" → No answer available
+• Strategic decisions made on gut feel, not data
+• Recurring embarrassment at leadership meetings
+• No visibility into $3.1M+ annual waste from reactive operations
